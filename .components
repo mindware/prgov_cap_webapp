@@ -1,0 +1,9 @@
+---
+:orm: none
+:test: rspec
+:mock: rr
+:script: none
+:renderer: erb
+:stylesheet: none
+:namespace: CAPWebApp
+:migration_format: number
