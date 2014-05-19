@@ -15,6 +15,8 @@ gem 'rake'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
+gem 'moneta', '0.7.20', :require => 'rack/session/moneta'
+gem 'redis', '3.0.7'
 
 # Test requirements
 gem 'rr', :require => false, :group => 'test'

@@ -6,4 +6,7 @@
 
 require File.expand_path("../config/boot.rb", __FILE__)
 
+# Enable session handling using Redis via Moneta library.
+use Rack::Session::Moneta, store: :Redis
+
 run Padrino.application

@@ -3,8 +3,6 @@ module CAPWebApp
     register Padrino::Mailer
     register Padrino::Helpers
 
-    enable :sessions
-
     ##
     # Caching support.
     #

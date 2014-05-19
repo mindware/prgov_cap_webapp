@@ -26,6 +26,8 @@
 # override these settings in the subapps as needed.
 #
 Padrino.configure_apps do
+  # Padrino's built-in session functionality must be disabled in order to
+  # eliminate cookie based sessions and use proper backend.
   # enable :sessions
   set :session_secret, '3e59f44c10d97b1fe0ca92ea234fdbfaebd89ed64e077ef14e7c810487e5a626'
   set :protection, :except => :path_traversal
