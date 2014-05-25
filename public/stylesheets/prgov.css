@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+/* PUERTO RICO TOP BANNER */
+
+#prTopBanner {
+  z-index:400;
+  position:absolute;
+}
+
+#header {
+  width:100%;
+  height:157px;
+  background-position:center top;
+  background-repeat:no-repeat;
+  background-image:url(../images/top_banner_01_03.png);
+}
+
+#content {
+  min-height: 100%;
+  height: auto;
+	/* Negative indent footer by its height */
+  margin: 0 auto -150px;
+  /* Pad bottom by footer height */
+  padding: 0 0 150px;
+}
+
+#footer {
+	margin-top:25px;
+	height:150px;
+	background-color:#333333;
+}
+
+.container {
+  width: auto;
+  max-width: 980px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+@media(min-width: 421px) {
+  .navbar-outer {
+    width:980px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #prTopBanner_alt {
+    visibility: hidden;
+    height:0px;
+  }
+}
+
+@media(max-width: 420px) {
+  .navbar-outer {
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #prTopBanner_alt {
+    background-color:#000000;
+    color:#000000;
+    margin-top:-45px;
+    width: 100%;
+    z-index:400;
+    position:absolute;
+    height:47px;
+  }
+  #prTopBanner {
+    visibility:hidden;
+  }
+  #header {
+    background-image:url(../images/header_alt.png);
+    background-size:cover;
+  }
+}

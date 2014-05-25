@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>PR.gov - Solicitud de Certificado de Antecedentes Penales</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8">
+
+  <!-- Stylesheets -->
+  <%= stylesheet_link_tag 'bootstrap' %>
+  <%= stylesheet_link_tag 'bootstrap-validator' %>
+  <%= stylesheet_link_tag 'bootstrap-datepicker3' %>
+  <%= stylesheet_link_tag 'prgov' %>
+
+  <!-- Javascript -->
+  <%= javascript_include_tag 'jquery.min' %>
+  <%= javascript_include_tag 'bootstrap.min' %>
+  <%= javascript_include_tag 'bootstrap-validator.min' %>
+  <%= javascript_include_tag 'bootstrap-datepicker' %>
+  <%= javascript_include_tag 'prgov-form-validation' %>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <!-- PR.gov Top Navbar -->
+  <%= javascript_include_tag 'prgov-top-navbar', :id => :tbs %>
+  <!-- End of PR.gov Top Navbar -->
+
+  <div id="prTopBanner_alt">
+    <table width="980" border="0" cellspacing="0" cellpadding="4" align="center">
+      <tr>
+        <td align="center" valign="middle"><img src="http://www2.pr.gov/PublishingImages/flags_logo_prgov.png" width="162" height="40" border="0" alt="PR.gov" /></td>
+      </tr>
+    </table>
+  </div>
+  <div id="header"></div>
+  <%= partial 'layouts/prgov_navbar' %>
+  <div id="content">
+    <%= yield %>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer">
+    <%= partial 'layouts/prgov_footer' %>
+  </div>
+</body>
+</html>
