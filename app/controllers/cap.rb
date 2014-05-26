@@ -19,8 +19,11 @@ CAPWebApp::App.controllers :cap do
   #   'Hello world!'
   # end
 
-  get '/' do
-    render 'cap/form', :layout => :prgov
+  get '/disclaimer' do
+    render 'cap/disclaimer', :layout => :prgov
   end
 
+  get '/form' do
+    render 'cap/form', :layout => :prgov
+  end
 end

@@ -2,12 +2,12 @@
 
 module CAPWebApp
   class App
-    module CapHelper
+    module CAPHelper
       # def simple_helper_method
       # ...
       # end
     end
 
-    helpers CapHelper
+    helpers CAPHelper
   end
 end
