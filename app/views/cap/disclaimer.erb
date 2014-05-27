@@ -1,48 +1,82 @@
 
     <div class="container">
-      <h3><center>Bienvenido</center></h3>
+      <div class="row">
+        <div class="col-md-12">
+          <h3><center>Bienvenido</center></h3>
+          <br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              <h3 class="panel-title"><center>ADVERTENCIA</center></h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                El origen de esta transacción será registrado en nuestros sistemas y es regido por el código penal de Puerto Rico.
+              </p>
+              <p>
+                El código penal de Puerto Rico, bajo la Ley Núm. 146 de 30 de julio de 2012 establece:
+              </p>
+              <hr>
+              <p>
+                <p>
+                  <h4>CAPÍTULO II- DELITOS CONTRA LA SEGURIDAD DE LAS TRANSACCIONES</h4>
+                </p>
+                <p>
+                  <h5>SECCIÓN PRIMERA- De las falsificaciones</h5>
+                </p>
+                <p>
+                  <h5>Artículo 211.- Falsificación de documentos.</h5>
+                  Toda persona que con intención de defraudar haga, en todo o en parte, un documento, instrumento o escrito falso, mediante el cual se cree, transfiera, termine o de otra forma afecte cualquier derecho, obligación o interés, o que falsamente altere, limite, suprima o destruya, total o parcialmente, uno verdadero será sancionada con pena de reclusión por un término fijo de tres (3) años.
+                </p>
+                <p>
+                  <h5>Artículo 215.- Falsificación de licencia, certificado y otra documentación.</h5>
+                  Toda persona que con la intención de defraudar haga, altere, falsifique, imite, circule, pase, publique o posea como genuino cualquier licencia, certificado, diploma, expediente, récord u otro documento de naturaleza análoga que debe ser expedido por un funcionario o empleado del Estado Libre Asociado de Puerto Rico, o por cualquier institución privada autorizada para expedirlo a sabiendas de que el mismo es falso, alterado, falsificado o imitado, será sancionada con pena de reclusión por un término fijo de tres (3) años.
+                </p>
+              </p>
+              <hr>
+              <p>
+                <p>
+                  <h4>CAPÍTULO II- DELITOS CONTRA LA FUNCIÓN JUDICIAL</h4>
+                </p>
+                <p>
+                  <h5>Artículo 286.- Preparación de escritos falsos.</h5>
+                  Toda persona que prepare algún libro, papel, documento, registro, instrumento escrito, u otro objeto falsificado o antedatado con el propósito de presentarlo o permitir que se presente como genuino y verdadero, en cualquier investigación, procedimiento, vista o asunto judicial, legislativo o administrativo, o cualesquiera otros trámites autorizados por la ley, será sancionada con pena de reclusión por un término fijo de tres (3) años.
+                </p>
+                <p>
+                  Este asistente le guiará por los diferentes pasos que usted debe completar antes de enviar su solicitud en línea.
+                </p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <center>
+            <%== recaptcha_tag :challenge, :display => {:theme => 'white'} %>
+          </center>
+        </div>
+      </div>
+
       <br>
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <h3 class="panel-title"><center>ADVERTENCIA</center></h3>
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="panel panel-warning">
+            <div class="panel-heading" style="text-align:center">
+              Al presionar el bot&oacute;n de Continuar, confirmo que he le&iacute;do las advertencias y acepto las Condiciones de uso.
+            </div>
+            <div class="panel-body" style="text-align:center">
+              <div class="col-xs-6"><button type="button" class="btn btn-primary btn-block">Continuar</button></div>
+              <div class="col-xs-6"><button type="button" class="btn btn-danger btn-block">Cancelar</button></div>
+            </div>
+          </div>
         </div>
-        <div class="panel-body">
-          <p>
-            El origen de esta transacción será registrado en nuestros sistemas y es regido por el código penal de Puerto Rico.
-          </p>
-          <p>
-            El código penal de Puerto Rico, bajo la Ley Núm. 146 de 30 de julio de 2012 establece:
-          </p>
-          <hr>
-          <p>
-            <p>
-              <h4>CAPÍTULO II- DELITOS CONTRA LA SEGURIDAD DE LAS TRANSACCIONES</h4>
-            </p>
-            <p>
-              <h5>SECCIÓN PRIMERA- De las falsificaciones</h5>
-            </p>
-            <p>
-              <h5>Artículo 211.- Falsificación de documentos.</h5>
-              Toda persona que con intención de defraudar haga, en todo o en parte, un documento, instrumento o escrito falso, mediante el cual se cree, transfiera, termine o de otra forma afecte cualquier derecho, obligación o interés, o que falsamente altere, limite, suprima o destruya, total o parcialmente, uno verdadero será sancionada con pena de reclusión por un término fijo de tres (3) años.
-            </p>
-            <p>
-              <h5>Artículo 215.- Falsificación de licencia, certificado y otra documentación.</h5>
-              Toda persona que con la intención de defraudar haga, altere, falsifique, imite, circule, pase, publique o posea como genuino cualquier licencia, certificado, diploma, expediente, récord u otro documento de naturaleza análoga que debe ser expedido por un funcionario o empleado del Estado Libre Asociado de Puerto Rico, o por cualquier institución privada autorizada para expedirlo a sabiendas de que el mismo es falso, alterado, falsificado o imitado, será sancionada con pena de reclusión por un término fijo de tres (3) años.
-            </p>
-          </p>
-          <hr>
-          <p>
-            <p>
-              <h4>CAPÍTULO II- DELITOS CONTRA LA FUNCIÓN JUDICIAL</h4>
-            </p>
-            <p>
-              <h5>Artículo 286.- Preparación de escritos falsos.</h5>
-              Toda persona que prepare algún libro, papel, documento, registro, instrumento escrito, u otro objeto falsificado o antedatado con el propósito de presentarlo o permitir que se presente como genuino y verdadero, en cualquier investigación, procedimiento, vista o asunto judicial, legislativo o administrativo, o cualesquiera otros trámites autorizados por la ley, será sancionada con pena de reclusión por un término fijo de tres (3) años.
-            </p>
-            <p>
-              Este asistente le guiará por los diferentes pasos que usted debe completar antes de enviar su solicitud en línea.
-            </p>
-          </p>
-        </div>
+        <div class="col-md-3"></div>
       </div>
     </div>

@@ -8,6 +8,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     diff-lcs (1.2.5)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
     erubis (2.7.0)
     http_router (0.11.1)
       rack (>= 1.0.0)
@@ -58,6 +61,8 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rack-recaptcha (0.6.6)
+      json
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.3.2)
@@ -81,7 +86,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (1.1.0)
+    tzinfo (1.2.0)
       thread_safe (~> 0.1)
     url_mount (0.2.1)
       rack
@@ -90,9 +95,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   erubis (~> 2.7.0)
   moneta (= 0.7.20)
   padrino (= 0.12.2)
+  rack-recaptcha (~> 0.6.6)
   rack-test
   rake
   redis (= 3.0.7)

@@ -12,9 +12,11 @@ source 'https://rubygems.org'
 
 # Project requirements
 gem 'rake'
+gem 'dotenv', :require => 'dotenv'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
+gem 'rack-recaptcha', '~> 0.6.6', :require => 'rack/recaptcha'
 gem 'moneta', '0.7.20', :require => 'rack/session/moneta'
 gem 'redis', '3.0.7'
 

@@ -2,6 +2,7 @@ module CAPWebApp
   class App < Padrino::Application
     register Padrino::Mailer
     register Padrino::Helpers
+    helpers Rack::Recaptcha::Helpers
 
     ##
     # Caching support.
