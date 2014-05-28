@@ -6,6 +6,9 @@ module CAPWebApp
       # def simple_helper_method
       # ...
       # end
+      def i18n_t(resource)
+        I18n.t resource
+      end
     end
 
     helpers CAPHelper

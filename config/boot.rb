@@ -12,18 +12,18 @@ Bundler.require(:default, RACK_ENV)
 #
 # Padrino::Logger::Config[:development][:log_level]  = :devel
 # Padrino::Logger::Config[:development][:log_static] = true
-#
+
 # ## Configure your I18n
-#
-# I18n.default_locale = :en
-# I18n.enforce_available_locales = false
-#
+# Set default locale to 'ES'
+I18n.default_locale = :en
+I18n.enforce_available_locales = false
+
 # ## Configure your HTML5 data helpers
 #
 # Padrino::Helpers::TagHelpers::DATA_ATTRIBUTES.push(:dialog)
 # text_field :foo, :dialog => true
 # Generates: <input type="text" data-dialog="true" name="foo" />
-#
+
 # ## Add helpers to mailer
 #
 # Mail::Message.class_eval do
@@ -35,6 +35,8 @@ Bundler.require(:default, RACK_ENV)
 # Add your before (RE)load hooks here
 #
 Padrino.before_load do
+  # Set locale to 'ES'
+  I18n.locale = :es
 end
 
 ##

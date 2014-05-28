@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h3><center>Bienvenido</center></h3>
+          <h3><center><%= i18n_t("disclaimer.welcome") %></center></h3>
           <br>
         </div>
       </div>
@@ -10,7 +10,7 @@
         <div class="col-md-12">
           <div class="panel panel-danger">
             <div class="panel-heading">
-              <h3 class="panel-title"><center>ADVERTENCIA</center></h3>
+              <h3 class="panel-title"><center><%= i18n_t("disclaimer.warning.title") %></center></h3>
             </div>
             <div class="panel-body">
               <%= partial 'cap/disclaimer_warning', :engine => :asciidoc %>
@@ -34,11 +34,11 @@
         <div class="col-md-6">
           <div class="panel panel-warning">
             <div class="panel-heading" style="text-align:center">
-              Al presionar el bot&oacute;n de Continuar, confirmo que he le&iacute;do las advertencias y acepto las <a href="#" data-toggle="modal" data-target="#userTermsModal"><strong>Condiciones de Uso</strong></a>.
+              <%= i18n_t("disclaimer.terms.message") %> <a href="#" data-toggle="modal" data-target="#userTermsModal"><strong><%= i18n_t("disclaimer.terms.link") %></strong></a>.
             </div>
             <div class="panel-body" style="text-align:center">
-              <div class="col-xs-6"><button type="button" class="btn btn-primary btn-lg btn-block">Continuar</button></div>
-              <div class="col-xs-6"><button type="button" class="btn btn-danger btn-lg btn-block">Cancelar</button></div>
+              <div class="col-xs-6"><button type="button" class="btn btn-primary btn-lg btn-block"><%= i18n_t("disclaimer.terms.buttons.continue") %></button></div>
+              <div class="col-xs-6"><button type="button" class="btn btn-danger btn-lg btn-block"><%= i18n_t("disclaimer.terms.buttons.cancel") %></button></div>
             </div>
           </div>
         </div>

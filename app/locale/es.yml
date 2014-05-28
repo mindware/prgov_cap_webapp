@@ -1,0 +1,13 @@
+---
+es:
+  disclaimer:
+    welcome: "Bienvenido"
+    warning:
+      title: "ADVERTENCIA"
+      message: "placeholder"
+    terms:
+      message: "Al presionar el bot&oacute;n de Continuar, confirmo que he le&iacute;do las advertencias y acepto las"
+      link: "Condiciones de Uso"
+      buttons:
+        continue: "Continuar"
+        cancel: "Cancelar"
