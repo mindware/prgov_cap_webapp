@@ -13,7 +13,7 @@
               <h3 class="panel-title"><center><%= i18n_t("disclaimer.warning.title") %></center></h3>
             </div>
             <div class="panel-body">
-              <%= partial 'cap/disclaimer_warning', :engine => :asciidoc %>
+              <%= i18n_asciidoc("disclaimer.warning.text") %>
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-md-12">
           <center>
-            <%== recaptcha_tag :challenge, :display => {:theme => 'white'} %>
+            <%= recaptcha_tag(:challenge, :display => {:theme => 'white'}).html_safe %>
           </center>
         </div>
       </div>
@@ -55,7 +55,7 @@
             <h4 class="modal-title" id="userTermsModalLabel">Condiciones de Uso</h4>
           </div>
           <div class="modal-body">
-            <%= partial 'cap/disclaimer_user_terms', :engine => :asciidoc %>
+            <%= i18n_asciidoc("disclaimer.terms.text") %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,0 +1,26 @@
+---
+es:
+  i18n:
+    transliterate:
+      rule:
+        '&': "&amp;"
+        '"': "&quot;"
+        '<': "&lt;"
+        '>': "&gt;"
+        '¡': "&iexcl;"
+        '¿': "&iquest;"
+        'Á': "&Aacute;"
+        'É': "&Eacute;"
+        'Í': "&Iacute;"
+        'Ó': "&Oacute;"
+        'Ú': "&Uacute;"
+        'Ü': "&Uuml;"
+        'á': "&aacute;"
+        'é': "&eacute;"
+        'í': "&iacute;"
+        'ó': "&oacute;"
+        'ú': "&uacute;"
+        'ü': "&uuml;"
+        'Ñ': "&Ntilde;"
+        'ñ': "&ntilde;"
+...
