@@ -10,11 +10,11 @@ module CAPWebApp
       def i18n_t(resource)
         # Rules for special characters conversion to HTML must be handled
         # by I18n transliteration rules.
-        I18n.transliterate(I18n.t(resource)).html_safe
+        I18n.transliterate(I18n.translate(resource)).html_safe
       end
 
       def i18n_asciidoc(resource)
-        asciidoc(I18n.transliterate(I18n.t(resource))).html_safe
+        asciidoc(I18n.transliterate(I18n.translate(resource))).html_safe
       end
     end
 

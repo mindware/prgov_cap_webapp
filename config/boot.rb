@@ -15,7 +15,7 @@ Bundler.require(:default, RACK_ENV)
 
 # ## Configure your I18n
 # Set default locale to 'ES'
-I18n.default_locale = :en
+I18n.default_locale = :es
 I18n.enforce_available_locales = false
 
 # ## Configure your HTML5 data helpers
