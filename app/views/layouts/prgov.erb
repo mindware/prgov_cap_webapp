@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<%= I18n.locale %>">
 <head>
   <title>PR.gov - Solicitud de Certificado de Antecedentes Penales</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
   <%= javascript_include_tag 'bootstrap.min' %>
   <%= javascript_include_tag 'bootstrap-validator.min' %>
   <%= javascript_include_tag 'bootstrap-datepicker' %>
-  <%= javascript_include_tag 'prgov-form-validation' %>
+  <%= javascript_include_tag 'prgov-cap-form-validation' %>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,25 +26,19 @@
   <![endif]-->
 </head>
 <body>
-  <!-- PR.gov Top Navbar -->
-  <%= javascript_include_tag 'prgov-top-navbar', :id => :tbs %>
-  <!-- End of PR.gov Top Navbar -->
+  <%= partial 'layouts/prgov_top_navbar' %>
 
-  <div id="prTopBanner_alt">
-    <table width="980" border="0" cellspacing="0" cellpadding="4" align="center">
-      <tr>
-        <td align="center" valign="middle"><img src="http://www2.pr.gov/PublishingImages/flags_logo_prgov.png" width="162" height="40" border="0" alt="PR.gov" /></td>
-      </tr>
-    </table>
+  <div class="header"></div>
+
+  <div class="container navbar-container">
+    <%= partial 'layouts/prgov_navbar' %>
   </div>
-  <div id="header"></div>
-  <%= partial 'layouts/prgov_navbar' %>
-  <div id="content">
+
+  <div class="content">
     <%= yield %>
   </div>
 
-  <!-- Footer -->
-  <div id="footer">
+  <div class="footer">
     <%= partial 'layouts/prgov_footer' %>
   </div>
 </body>

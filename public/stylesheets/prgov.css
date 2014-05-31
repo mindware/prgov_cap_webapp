@@ -1,24 +1,24 @@
 @charset "UTF-8";
 
-/* CSS Document */
-
 body {
   height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
-  margin-top: 0px;
+  margin-top: 50px;
   margin-bottom: 0px;
   margin-left: 0px;
   margin-right: 0px;
 }
 
-/* PUERTO RICO TOP BANNER */
-
-#prTopBanner {
-  z-index:400;
-  position:absolute;
+/*
+.header,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
 }
+*/
 
-#header {
+.header {
+  padding-right: 15px;
+  padding-left: 15px;
   width:100%;
   height:157px;
   background-position:center top;
@@ -26,61 +26,61 @@ body {
   background-image:url(../images/top_banner_01_03.png);
 }
 
-#content {
+.footer {
+  margin-top:25px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-botton: 15px;
+  padding-bottom: 15px;
+  height:auto;
+  background-color:#333333;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.navbar-fixed-top .navbar-nav > li > a {
+  color: white;
+}
+
+.prgov-flags-navbar-brand {
+  margin-top: -10px;
+}
+
+.prgov-navbar-brand {
+  margin-top: -3px;
+}
+
+.content {
   min-height: 100%;
   height: auto;
-	/* Negative indent footer by its height */
-  margin: 0 auto -150px;
-  /* Pad bottom by footer height */
-  padding: 0 0 150px;
+  margin: 0 auto -150px; /* Negative indent footer by its height */
+  padding: 0 0 150px; /* Pad bottom by footer height */
 }
 
-#footer {
-	margin-top:25px;
-	height:150px;
-	background-color:#333333;
-}
-
-.container {
+.container, .navbar-container {
   width: auto;
-  max-width: 980px;
+  max-width: 992px;
   padding: 0 15px;
 }
 .container .text-muted {
   margin: 20px 0;
 }
 
-@media(min-width: 421px) {
-  .navbar-outer {
-    width:980px;
-    margin-left: auto;
-    margin-right: auto;
+@media (max-width: 992px) {
+  .navbar {
+    border-radius: 0px;
   }
-  #prTopBanner_alt {
-    visibility: hidden;
-    height:0px;
+
+  .navbar-container {
+    padding: 0 0px;
   }
 }
 
-@media(max-width: 420px) {
-  .navbar-outer {
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  #prTopBanner_alt {
-    background-color:#000000;
-    color:#000000;
-    margin-top:-45px;
-    width: 100%;
-    z-index:400;
-    position:absolute;
-    height:47px;
-  }
-  #prTopBanner {
-    visibility:hidden;
-  }
-  #header {
+@media (max-width: 420px) {
+  .header {
     background-image:url(../images/header_alt.png);
     background-size:cover;
   }
