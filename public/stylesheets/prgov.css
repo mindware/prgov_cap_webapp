@@ -65,8 +65,14 @@ body {
   max-width: 992px;
   padding: 0 15px;
 }
+
 .container .text-muted {
   margin: 20px 0;
+}
+
+.form {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 @media (max-width: 992px) {

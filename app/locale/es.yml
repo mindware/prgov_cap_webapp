@@ -1,13 +1,70 @@
 ---
 es:
   disclaimer:
-    welcome: "Bienvenido"
-    warning:
-      title: "ADVERTENCIA"
+    header: "Bienvenido"
     terms:
-      message: "Al presionar el botón de Continuar, confirmo que he leído las advertencias y acepto las"
+      message: >
+        Al presionar el botón de Continuar, confirmo que he leído las
+        advertencias y acepto las
       link: "Condiciones de Uso"
-      buttons:
+      button:
         continue: "Continuar"
         cancel: "Cancelar"
+      modal:
+        title: "Condiciones de Uso"
+  form:
+      header: "Certificado de Antecedentes Penales » Formulario"
+      message: >
+        Para solicitar el Certificado de Antecedentes Penales, debe tener una
+        identificación emitida por el Departamento de Transportación y Obras
+        Públicas (DTOP) de Puerto Rico. Para información sobre los requisitos
+        para esta identificación, puede comunicarse al 3-1-1.
+      panel:
+        citizen:
+          title: "Información del Ciudadano"
+          name:
+            label: "Nombre:"
+            placeholder: "Nombre"
+          name_initial:
+            label: "Inicial:"
+            placeholder: "Inicial"
+          lastname_first:
+            label: "Apellido Paterno:"
+            placeholder: "Apellido Paterno"
+          lastname_second:
+            label: "Apellido Materno:"
+            placeholder: "Apellido Materno"
+          birthdate:
+            label: "Fecha de Nacimiento:"
+            placeholder: "MM/DD/YYYY"
+          gender:
+            label: "Género:"
+            placeholder: "Género"
+            male: "Masculino"
+            female: "Femenino"
+          residence:
+            label: "País de Residencia Actual:"
+        id:
+          title: "Identificación"
+          dtop:
+            label: "ID de DTOP:"
+            placeholder: "Licencia de Conducir o ID Digital"
+          ssn:
+            label: "Seguro Social:"
+            placeholder: "xxx-xx-xxxx"
+        purpose:
+          title: "Propósito del Certificado"
+          purpose:
+            label: "Propósito del Certificado:"
+            placeholder: "Propósito"
+        delivery:
+          title: "Método de Entrega"
+          email:
+            label: "E-mail:"
+            placeholder: "Correo Electrónico"
+          email_confirmation:
+            label: "Confirmar E-mail:"
+            placeholder: "Confirmar Correo Electrónico"
+      button:
+        submit: "Solicitar"
 ...

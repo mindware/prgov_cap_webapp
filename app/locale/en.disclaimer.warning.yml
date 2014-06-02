@@ -1,8 +1,8 @@
 ---
-es:
+en:
   disclaimer:
     warning:
-      title: "ADVERTENCIA"
+      title: "WARNING"
       text: |
         El origen de esta transacción será registrado en nuestros sistemas y es regido
         por el código penal de Puerto Rico.

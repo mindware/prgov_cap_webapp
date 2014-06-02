@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h3><center><%= i18n_t("disclaimer.welcome") %></center></h3>
+          <h3><center><%= i18n_t("disclaimer.header") %></center></h3>
           <br>
         </div>
       </div>
@@ -37,8 +37,8 @@
               <%= i18n_t("disclaimer.terms.message") %> <a href="#" data-toggle="modal" data-target="#userTermsModal"><strong><%= i18n_t("disclaimer.terms.link") %></strong></a>.
             </div>
             <div class="panel-body" style="text-align:center">
-              <div class="col-xs-6"><button type="button" class="btn btn-primary btn-lg btn-block"><%= i18n_t("disclaimer.terms.buttons.continue") %></button></div>
-              <div class="col-xs-6"><button type="button" class="btn btn-danger btn-lg btn-block"><%= i18n_t("disclaimer.terms.buttons.cancel") %></button></div>
+              <div class="col-xs-6"><button type="button" class="btn btn-primary btn-lg btn-block"><%= i18n_t("disclaimer.terms.button.continue") %></button></div>
+              <div class="col-xs-6"><button type="button" class="btn btn-danger btn-lg btn-block"><%= i18n_t("disclaimer.terms.button.cancel") %></button></div>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="userTermsModalLabel">Condiciones de Uso</h4>
+            <h4 class="modal-title" id="userTermsModalLabel"><%= i18n_t("disclaimer.terms.modal.title") %></h4>
           </div>
           <div class="modal-body">
             <%= i18n_asciidoc("disclaimer.terms.text") %>

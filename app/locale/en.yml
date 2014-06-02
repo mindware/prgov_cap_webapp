@@ -1,0 +1,21 @@
+---
+en:
+  disclaimer:
+    header: "Welcome"
+    terms:
+      message: >
+        Al presionar el botón de Continuar, confirmo que he leído las
+        advertencias y acepto las
+      link: "Condiciones de Uso"
+      button:
+        continue: "Continue"
+        cancel: "Cancel"
+      modal:
+        title: "Condiciones de Uso"
+  form:
+      header: "Penal Record Certificate"
+      message: >
+        To complete the form you must have an id provided by the Department of
+        Transportation and Public Works of Puerto Rico. For information on the
+        requirements for the id, you can call 3-1-1.
+...

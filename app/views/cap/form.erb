@@ -14,594 +14,175 @@
   <% end %>
 
     <div class="container">
-      <h3>Solicitud de Certificado de Antecedentes Penales <small>Penal Record Certificate</small></h3>
+      <h3><%= i18n_t("form.header") %></h3>
       <p>
-        Para solicitar el Certificado de Antecedentes Penales, debe tener una identificación emitida por el Departamento de
-        Transportación y Obras Públicas (DTOP) de Puerto Rico. Para información sobre los requisitos para esta identificación,
-        puede comunicarse al 3-1-1.
-        <br>
-        <small>
-          To complete the form you must have an id provided by the Department of Transportation and Public Works of
-          Puerto Rico. For information on the requirements for the id, you can call 3-1-1.
-        </small>
+        <%= i18n_t("form.message") %>
       </p>
+      <hr>
       <div class="row">
-        <!-- Se eliminó class="form-horizontal" del tag form para que se alinearan mejor los campos -->
-        <form id="certificado" name="certificado" method="post">
-          <div class="col-md-6">
-            <div class="panel panel-default">
-              <!-- PANEL Información del Ciudadano -->
-              <div class="panel-heading">
-                <h3 class="panel-title">Información del Ciudadano</h3>
-              </div>
-              <div class="panel-body">
-                <!-- FIELD FOR USER TITLE
-                <div class="form-group">
-                  <label for="nombre_titulo" class="col-sm-2 control-label">Título</label>
-                  <div class="col-sm-4">
-                    <select class="form-control" id="nombre_titulo">
-                      <option></option>
-                      <option>Sr.</option>
-                      <option>Sra.</option>
-                      <option>Srta.</option>
-                    </select>
-                  </div>
-                </div>
-                END OF FIELD FOR USER TITLE  -->
-              <!-- Nombre -->
-              <div class="form-group row">
-                <label for="nombre_nombre" class="col-sm-2 control-label">Nombre</label>
-                <div class="col-sm-10">
-                  <input type="text" maxlength="20" class="form-control" id="nombre_nombre" name="nombre_nombre" placeholder="Nombre" required />
-                  <span class="help-block">First name</span>
-                </div>
-              </div>
-              <!-- Inicial -->
-              <div class="form-group row">
-                <label for="nombre_inicial" class="col-sm-2 control-label">Inicial</label>
-                <div class="col-sm-3">
-                  <input type="text" class="form-control" id="nombre_inicial" maxlength="1" name="nombre_inicial" placeholder="" />
-                  <span class="help-block">Middle initial</span>
-                </div>
-              </div>
-              <!-- Apellido Paterno -->
-              <div class="form-group row">
-                <label for="nombre_paterno" class="col-sm-2 control-label">Apellido Paterno</label>
-                <div class="col-sm-10">
-                  <input type="text" maxlength="20" class="form-control" id="nombre_paterno" name="nombre_paterno" placeholder="Apellido Paterno" required />
-                  <span class="help-block">Last name</span>
-                </div>
-              </div>
-              <!-- Apellido Materno -->
-              <div class="form-group row">
-                <label for="nombre_materno" class="col-sm-2 control-label">Apellido Materno</label>
-                <div class="col-sm-10">
-                  <input type="text" maxlength="20" class="form-control" id="nombre_materno" name="nombre_materno" placeholder="Apellido Materno" />
-                  <span class="help-block">Maternal last name</span>
-                </div>
-              </div>
-              <!-- Fecha Nacimiento -->
-              <div class="form-group row">
-                <label for="birth_date" class="col-sm-5 control-label">Fecha de Nacimiento</label>
-                <div class="input-group date col-sm-6" id="birth_date">
-                  <input type="text" maxlength="10" required id="datetimePicker" class="form-control" name="birth_date" placeholder="MM/DD/YYYY" />
-                  <span class="help-block">Birth date</span>
-                </div>
-              </div>
-              <!-- Género -->
-              <div class="form-group row">
-                <label for="sex" class="col-sm-3 control-label required">Género</label>
-                <div class="col-sm-9">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="sex" value="M" /> Masculino
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="sex" value="F" /> Femenino
-                    </label>
-                  </div>
-                  <span class="help-block">Gender</span>
-                </div>
-              </div>
-              <!-- País de Nacimiento -->
-              <div class="form-group row">
-                <label for="birth_country" class="col-sm-5 control-label">País de Nacimiento</label>
-                <div class="col-sm-3">
-                  <select class="form-control" id="estado">
-                    <option value="" selected="">País</option>
-                    <option value="00000">UNKNOWN</option>
-                    <option value="00179">PUERTO RICO</option>
-                    <option value="00003">AFGHANISTAN</option>
-                    <option value="00016">ÅLAND ISLANDS</option>
-                    <option value="00006">ALBANIA</option>
-                    <option value="00060">ALGERIA</option>
-                    <option value="00012">AMERICAN SAMOA</option>
-                    <option value="00001">ANDORRA</option>
-                    <option value="00009">ANGOLA</option>
-                    <option value="00005">ANGUILLA</option>
-                    <option value="00010">ANTARCTICA</option>
-                    <option value="00004">ANTIGUA AND BARBUDA</option>
-                    <option value="00011">ARGENTINA</option>
-                    <option value="00007">ARMENIA</option>
-                    <option value="00015">ARUBA</option>
-                    <option value="00014">AUSTRALIA</option>
-                    <option value="00013">AUSTRIA</option>
-                    <option value="00017">AZERBAIJAN</option>
-                    <option value="00031">BAHAMAS</option>
-                    <option value="00024">BAHRAIN</option>
-                    <option value="00020">BANGLADESH</option>
-                    <option value="00019">BARBADOS</option>
-                    <option value="00035">BELARUS</option>
-                    <option value="00021">BELGIUM</option>
-                    <option value="00036">BELIZE</option>
-                    <option value="00026">BENIN</option>
-                    <option value="00027">BERMUDA</option>
-                    <option value="00032">BHUTAN</option>
-                    <option value="00029">BOLIVIA</option>
-                    <option value="00018">BOSNIA AND HERZEGOVINA</option>
-                    <option value="00034">BOTSWANA</option>
-                    <option value="00033">BOUVET ISLAND</option>
-                    <option value="00030">BRAZIL</option>
-                    <option value="00104">BRITISH INDIAN OCEAN TERRITORY</option>
-                    <option value="00028">BRUNEI DARUSSALAM</option>
-                    <option value="00023">BULGARIA</option>
-                    <option value="00022">BURKINA FASO</option>
-                    <option value="00025">BURUNDI</option>
-                    <option value="00115">CAMBODIA</option>
-                    <option value="00046">CAMEROON</option>
-                    <option value="00037">CANADA</option>
-                    <option value="00051">CAPE VERDE</option>
-                    <option value="00122">CAYMAN ISLANDS</option>
-                    <option value="00040">CENTRAL AFRICAN REPUBLIC</option>
-                    <option value="00633">CHAD</option>
-                    <option value="00045">CHILE</option>
-                    <option value="00047">CHINA</option>
-                    <option value="00052">CHRISTMAS ISLAND</option>
-                    <option value="00038">COCOS (KEELING) ISLANDS</option>
-                    <option value="00048">COLOMBIA</option>
-                    <option value="00117">COMOROS</option>
-                    <option value="00041">CONGO</option>
-                    <option value="00039">CONGO, THE DEMOCRATIC REPUBLIC OF THE</option>
-                    <option value="00044">COOK ISLANDS</option>
-                    <option value="00049">COSTA RICA</option>
-                    <option value="00043">COTE DIVOIRE</option>
-                    <option value="00096">CROATIA</option>
-                    <option value="00050">CUBA</option>
-                    <option value="00053">CYPRUS</option>
-                    <option value="00054">CZECH REPUBLIC</option>
-                    <option value="00057">DENMARK</option>
-                    <option value="00056">DJIBOUTI</option>
-                    <option value="00058">DOMINICA</option>
-                    <option value="00059">DOMINICAN REPUBLIC</option>
-                    <option value="00061">ECUADOR</option>
-                    <option value="00063">EGYPT</option>
-                    <option value="00629">EL SALVADOR</option>
-                    <option value="00086">EQUATORIAL GUINEA</option>
-                    <option value="00065">ERITREA</option>
-                    <option value="00062">ESTONIA</option>
-                    <option value="00067">ETHIOPIA</option>
-                    <option value="00070">FALKLAND ISLANDS (MALVINAS)</option>
-                    <option value="00072">FAROE ISLANDS</option>
-                    <option value="00069">FIJI</option>
-                    <option value="00068">FINLAND</option>
-                    <option value="00073">FRANCE</option>
-                    <option value="00078">FRENCH GUIANA</option>
-                    <option value="00172">FRENCH POLYNESIA</option>
-                    <option value="00634">FRENCH SOUTHERN TERRITORIES</option>
-                    <option value="00074">GABON</option>
-                    <option value="00083">GAMBIA</option>
-                    <option value="00077">GEORGIA</option>
-                    <option value="00055">GERMANY</option>
-                    <option value="00080">GHANA</option>
-                    <option value="00081">GIBRALTAR</option>
-                    <option value="00087">GREECE</option>
-                    <option value="00082">GREENLAND</option>
-                    <option value="00076">GRENADA</option>
-                    <option value="00085">GUADELOUPE</option>
-                    <option value="00090">GUAM</option>
-                    <option value="00089">GUATEMALA</option>
-                    <option value="00079">GUERNSEY</option>
-                    <option value="00084">GUINEA</option>
-                    <option value="00091">GUINEA-BISSAU</option>
-                    <option value="00092">GUYANA</option>
-                    <option value="00097">HAITI</option>
-                    <option value="00094">HEARD ISLAND AND MCDONALD ISLANDS</option>
-                    <option value="00095">HONDURAS</option>
-                    <option value="00093">HONG KONG</option>
-                    <option value="00098">HUNGARY</option>
-                    <option value="00107">ICELAND</option>
-                    <option value="00103">INDIA</option>
-                    <option value="00099">INDONESIA</option>
-                    <option value="00106">IRAN, ISLAMIC REPUBLIC OF</option>
-                    <option value="00105">IRAQ</option>
-                    <option value="00100">IRELAND</option>
-                    <option value="00102">ISLE OF MAN</option>
-                    <option value="00101">ISRAEL</option>
-                    <option value="00108">ITALY</option>
-                    <option value="00110">JAMAICA</option>
-                    <option value="00112">JAPAN</option>
-                    <option value="00109">JERSEY</option>
-                    <option value="00111">JORDAN</option>
-                    <option value="00123">KAZAKHSTAN</option>
-                    <option value="00113">KENYA</option>
-                    <option value="00116">KIRIBATI</option>
-                    <option value="00119">KOREA, DEMOCRATIC PEOPLES REPUBLIC OF</option>
-                    <option value="00120">KOREA, REPUBLIC OF</option>
-                    <option value="00121">KUWAIT</option>
-                    <option value="00114">KYRGYZSTAN</option>
-                    <option value="00124">LAO PEOPLES DEMOCRATIC REPUBLIC</option>
-                    <option value="00133">LATVIA</option>
-                    <option value="00125">LEBANON</option>
-                    <option value="00130">LESOTHO</option>
-                    <option value="00129">LIBERIA</option>
-                    <option value="00134">LIBYAN ARAB JAMAHIRIYA</option>
-                    <option value="00127">LIECHTENSTEIN</option>
-                    <option value="00131">LITHUANIA</option>
-                    <option value="00132">LUXEMBOURG</option>
-                    <option value="00145">MACAO</option>
-                    <option value="00141">MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF</option>
-                    <option value="00139">MADAGASCAR</option>
-                    <option value="00153">MALAWI</option>
-                    <option value="00155">MALAYSIA</option>
-                    <option value="00152">MALDIVES</option>
-                    <option value="00142">MALI</option>
-                    <option value="00150">MALTA</option>
-                    <option value="00140">MARSHALL ISLANDS</option>
-                    <option value="00147">MARTINIQUE</option>
-                    <option value="00148">MAURITANIA</option>
-                    <option value="00151">MAURITIUS</option>
-                    <option value="00154">MEXICO</option>
-                    <option value="00071">MICRONESIA, FEDERATED STATES OF</option>
-                    <option value="00137">MOLDOVA, REPUBLIC OF</option>
-                    <option value="00136">MONACO</option>
-                    <option value="00144">MONGOLIA</option>
-                    <option value="00138">MONTENEGRO</option>
-                    <option value="00149">MONTSERRAT</option>
-                    <option value="00135">MOROCCO</option>
-                    <option value="00156">MOZAMBIQUE</option>
-                    <option value="00143">MYANMAR</option>
-                    <option value="00157">NAMIBIA</option>
-                    <option value="00166">NAURU</option>
-                    <option value="00165">NEPAL</option>
-                    <option value="00163">NETHERLANDS</option>
-                    <option value="00008">NETHERLANDS ANTILLES</option>
-                    <option value="00158">NEW CALEDONIA</option>
-                    <option value="00168">NEW ZEALAND</option>
-                    <option value="00162">NICARAGUA</option>
-                    <option value="00159">NIGER</option>
-                    <option value="00161">NIGERIA</option>
-                    <option value="00167">NIUE</option>
-                    <option value="00160">NORFOLK ISLAND</option>
-                    <option value="00146">NORTHERN MARIANA ISLANDS</option>
-                    <option value="00164">NORWAY</option>
-                    <option value="00169">OMAN</option>
-                    <option value="00175">PAKISTAN</option>
-                    <option value="00605">PALAU</option>
-                    <option value="00603">PALESTINIAN TERRITORY, OCCUPIED</option>
-                    <option value="00170">PANAMA</option>
-                    <option value="00173">PAPUA NEW GUINEA</option>
-                    <option value="00606">PARAGUAY</option>
-                    <option value="00171">PERU</option>
-                    <option value="00174">PHILIPPINES</option>
-                    <option value="00178">PITCAIRN</option>
-                    <option value="00176">POLAND</option>
-                    <option value="00604">PORTUGAL</option>
-                    <option value="00607">QATAR</option>
-                    <option value="00608">REUNION</option>
-                    <option value="00609">ROMANIA</option>
-                    <option value="00611">RUSSIAN FEDERATION</option>
-                    <option value="00612">RWANDA</option>
-                    <option value="00619">SAINT HELENA</option>
-                    <option value="00118">SAINT KITTS AND NEVIS</option>
-                    <option value="00126">SAINT LUCIA</option>
-                    <option value="00177">SAINT PIERRE AND MIQUELON</option>
-                    <option value="00624">SAN MARINO</option>
-                    <option value="00628">SAO TOME AND PRINCIPE</option>
-                    <option value="00613">SAUDI ARABIA</option>
-                    <option value="00625">SENEGAL</option>
-                    <option value="00610">SERBIA</option>
-                    <option value="00615">SEYCHELLES</option>
-                    <option value="00623">SIERRA LEONE</option>
-                    <option value="00618">SINGAPORE</option>
-                    <option value="00622">SLOVAKIA</option>
-                    <option value="00620">SLOVENIA</option>
-                    <option value="00614">SOLOMON ISLANDS</option>
-                    <option value="00626">SOMALIA</option>
-                    <option value="00088">SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS</option>
-                    <option value="00066">SPAIN</option>
-                    <option value="00128">SRI LANKA</option>
-                    <option value="00616">SUDAN</option>
-                    <option value="00627">SURINAME</option>
-                    <option value="00621">SVALBARD AND JAN MAYEN</option>
-                    <option value="00631">SWAZILAND</option>
-                    <option value="00617">SWEDEN</option>
-                    <option value="00042">SWITZERLAND</option>
-                    <option value="00630">SYRIAN ARAB REPUBLIC</option>
-                    <option value="00646">TAIWAN, PROVINCE OF CHINA</option>
-                    <option value="00637">TAJIKISTAN</option>
-                    <option value="00647">TANZANIA, UNITED REPUBLIC OF</option>
-                    <option value="00636">THAILAND</option>
-                    <option value="00639">TIMOR-LESTE</option>
-                    <option value="00635">TOGO</option>
-                    <option value="00638">TOKELAU</option>
-                    <option value="00642">TONGA</option>
-                    <option value="00644">TRINIDAD AND TOBAGO</option>
-                    <option value="00641">TUNISIA</option>
-                    <option value="00643">TURKEY</option>
-                    <option value="00640">TURKMENISTAN</option>
-                    <option value="00632">TURKS AND CAICOS ISLANDS</option>
-                    <option value="00645">TUVALU</option>
-                    <option value="00649">UGANDA</option>
-                    <option value="00648">UKRAINE</option>
-                    <option value="00002">UNITED ARAB EMIRATES</option>
-                    <option value="00075">UNITED KINGDOM</option>
-                    <option value="00652">UNITED STATES</option>
-                    <option value="00650">UNITED STATES MINOR OUTLYING ISLANDS</option>
-                    <option value="00651">US MINOR OUTLYING ISLANDS</option>
-                    <option value="00064">WESTERN SAHARA</option>
-                    <option value="00653">URUGUAY</option>
-                    <option value="00654">VENEZUELA</option>
-                  </select>
-                  <span class="help-block">Birth Country</span>
-                </div>
-                <div class="col-sm-4">
-                  <select class="form-control" id="municipio">
-                    <option>Municipio</option>
-                    <option>Adjuntas</option>
-                    <option>Aguada</option>
-                    <option>Aguadilla</option>
-                    <option>Aguas Buenas</option>
-                    <option>Aibonito</option>
-                    <option>A&ntilde;asco</option>
-                    <option>Arecibo</option>
-                    <option>Arroyo</option>
-                    <option>Barceloneta</option>
-                    <option>Barranquitas</option>
-                    <option>Bayam&oacute;n</option>
-                    <option>Cabo Rojo</option>
-                    <option>Caguas</option>
-                    <option>Camuy</option>
-                    <option>Can&oacute;vanas</option>
-                    <option>Carolina</option>
-                    <option>Cata&ntilde;o</option>
-                    <option>Cayey</option>
-                    <option>Ceiba</option>
-                    <option>C&iacute;ales</option>
-                    <option>Cidra</option>
-                    <option>Coamo</option>
-                    <option>Comer&iacute;o</option>
-                    <option>Corozal</option>
-                    <option>Culebra</option>
-                    <option>Dorado</option>
-                    <option>Fajardo</option>
-                    <option>Florida</option>
-                    <option>Gu&aacute;nica</option>
-                    <option>Guayama</option>
-                    <option>Guayanilla</option>
-                    <option>Guaynabo</option>
-                    <option>Gurabo</option>
-                    <option>Hatillo</option>
-                    <option>Hormigueros</option>
-                    <option>Humacao</option>
-                    <option>Isabela</option>
-                    <option>Jayuya</option>
-                    <option>Juana D&iacute;az</option>
-                    <option>Juncos</option>
-                    <option>Lajas</option>
-                    <option>Lares</option>
-                    <option>Las Mar&iacute;as</option>
-                    <option>Las Piedras</option>
-                    <option>Lo&iacute;za</option>
-                    <option>Luquillo</option>
-                    <option>Manat&iacute;</option>
-                    <option>Maricao</option>
-                    <option>Maunabo</option>
-                    <option>Mayag&uuml;ez</option>
-                    <option>Moca</option>
-                    <option>Morovis</option>
-                    <option>Naguabo</option>
-                    <option>Naranjito</option>
-                    <option>Orocovis</option>
-                    <option>Patillas</option>
-                    <option>Pe&ntilde;uelas</option>
-                    <option>Ponce</option>
-                    <option>Quebradillas</option>
-                    <option>Rinc&oacute;n</option>
-                    <option>R&iacute;o Grande</option>
-                    <option>Sabana Grande</option>
-                    <option>Salinas</option>
-                    <option>San Germ&aacute;n</option>
-                    <option>San Juan</option>
-                    <option>San Lorenzo</option>
-                    <option>San Sebasti&aacute;n</option>
-                    <option>Santa Isabel</option>
-                    <option>Toa Alta</option>
-                    <option>Toa Baja</option>
-                    <option>Trujillo Alto</option>
-                    <option>Utuado</option>
-                    <option>Vega Alta</option>
-                    <option>Vega Baja</option>
-                    <option>Vieques</option>
-                    <option>Villalba</option>
-                    <option>Yabucoa</option>
-                    <option>Yauco</option>
-                  </select>
-                  <span class="help-block">Birth Town</span>
-                </div>
-              </div>
-              <!-- Pueblo de Residencia Actual -->
-              <div class="form-group row">
-                <label for="birth_country" class="col-sm-8 control-label">Pueblo de Residencia Actual</label>
-                <div class="col-sm-4">
-                  <select class="form-control" id="municipio">
-                    <option>Municipio</option>
-                    <option>Adjuntas</option>
-                    <option>Aguada</option>
-                    <option>Aguadilla</option>
-                    <option>Aguas Buenas</option>
-                    <option>Aibonito</option>
-                    <option>A&ntilde;asco</option>
-                    <option>Arecibo</option>
-                    <option>Arroyo</option>
-                    <option>Barceloneta</option>
-                    <option>Barranquitas</option>
-                    <option>Bayam&oacute;n</option>
-                    <option>Cabo Rojo</option>
-                    <option>Caguas</option>
-                    <option>Camuy</option>
-                    <option>Can&oacute;vanas</option>
-                    <option>Carolina</option>
-                    <option>Cata&ntilde;o</option>
-                    <option>Cayey</option>
-                    <option>Ceiba</option>
-                    <option>C&iacute;ales</option>
-                    <option>Cidra</option>
-                    <option>Coamo</option>
-                    <option>Comer&iacute;o</option>
-                    <option>Corozal</option>
-                    <option>Culebra</option>
-                    <option>Dorado</option>
-                    <option>Fajardo</option>
-                    <option>Florida</option>
-                    <option>Gu&aacute;nica</option>
-                    <option>Guayama</option>
-                    <option>Guayanilla</option>
-                    <option>Guaynabo</option>
-                    <option>Gurabo</option>
-                    <option>Hatillo</option>
-                    <option>Hormigueros</option>
-                    <option>Humacao</option>
-                    <option>Isabela</option>
-                    <option>Jayuya</option>
-                    <option>Juana D&iacute;az</option>
-                    <option>Juncos</option>
-                    <option>Lajas</option>
-                    <option>Lares</option>
-                    <option>Las Mar&iacute;as</option>
-                    <option>Las Piedras</option>
-                    <option>Lo&iacute;za</option>
-                    <option>Luquillo</option>
-                    <option>Manat&iacute;</option>
-                    <option>Maricao</option>
-                    <option>Maunabo</option>
-                    <option>Mayag&uuml;ez</option>
-                    <option>Moca</option>
-                    <option>Morovis</option>
-                    <option>Naguabo</option>
-                    <option>Naranjito</option>
-                    <option>Orocovis</option>
-                    <option>Patillas</option>
-                    <option>Pe&ntilde;uelas</option>
-                    <option>Ponce</option>
-                    <option>Quebradillas</option>
-                    <option>Rinc&oacute;n</option>
-                    <option>R&iacute;o Grande</option>
-                    <option>Sabana Grande</option>
-                    <option>Salinas</option>
-                    <option>San Germ&aacute;n</option>
-                    <option>San Juan</option>
-                    <option>San Lorenzo</option>
-                    <option>San Sebasti&aacute;n</option>
-                    <option>Santa Isabel</option>
-                    <option>Toa Alta</option>
-                    <option>Toa Baja</option>
-                    <option>Trujillo Alto</option>
-                    <option>Utuado</option>
-                    <option>Vega Alta</option>
-                    <option>Vega Baja</option>
-                    <option>Vieques</option>
-                    <option>Villalba</option>
-                    <option>Yabucoa</option>
-                    <option>Yauco</option>
-                  </select>
-                  <span class="help-block">PR town of residence</span>
-                </div>
-              </div>
+        <form class="form" role="form" id="cap" name="cap" method="post">
+
+          <!-- CITIZEN INFORMATION-->
+          <div class="row">
+            <div class="col-sm-12">
+              <!-- CITIZEN INFORMATION PANEL -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><%= i18n_t("form.panel.citizen.title") %></h3>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group col-sm-3">
+                      <label for="name" class="control-label"><%= i18n_t("form.panel.citizen.name.label") %></label>
+                      <input type="text" class="form-control" id="name" placeholder="<%= i18n_t("form.panel.citizen.name.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-1">
+                      <label for="name_initial" class="control-label"><%= i18n_t("form.panel.citizen.name_initial.label") %></label>
+                      <input type="text" class="form-control" id="name_initial" placeholder="<%= i18n_t("form.panel.citizen.name_initial.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-4">
+                      <label for="name_lastname_first" class="control-label"><%= i18n_t("form.panel.citizen.lastname_first.label") %></label>
+                      <input type="text" class="form-control" id="name_lastname_first" placeholder="<%= i18n_t("form.panel.citizen.lastname_first.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-4">
+                      <label for="name_lastname_second" class="control-label"><%= i18n_t("form.panel.citizen.lastname_second.label") %></label>
+                      <input type="text" class="form-control" id="name_lastname_second" placeholder="<%= i18n_t("form.panel.citizen.lastname_second.placeholder") %>">
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                  <div class="row">
+                    <div class="form-group col-sm-4">
+                      <label for="birthdate" class="control-label"><%= i18n_t("form.panel.citizen.birthdate.label") %></label>
+                      <input type="text" maxlength="10" required id="datetimePicker" class="form-control" name="birthdate" placeholder="<%= i18n_t("form.panel.citizen.birthdate.placeholder") %>"/>
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-4">
+                      <label for="gender" class="control-label"><%= i18n_t("form.panel.citizen.gender.label") %></label>
+                      <select class="form-control" id="gender">
+                        <option value="" disabled selected><%= i18n_t("form.panel.citizen.gender.placeholder") %></option>
+                        <option value="M"><%= i18n_t("form.panel.citizen.gender.male") %></option>
+                        <option value="F"><%= i18n_t("form.panel.citizen.gender.female") %></option>
+                      </select>
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                  <div class="row">
+                    <div class="form-group col-sm-12">
+                      <label for="residence_country" class="control-label"><%= i18n_t("form.panel.residence.label") %></label>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <select class="form-control" id="residence_country">
+                            <option value="" disabled selected>País</option>
+                            <option value="00000">UNKNOWN</option>
+                            <option value="00179">PUERTO RICO</option>
+                            <option value="00003">AFGHANISTAN</option>
+                          </select>
+                        </div><!-- /.col-sm -->
+                        <div class="col-sm-6">
+                          <select class="form-control" id="residence_city_state">
+                            <option value="" disabled selected>Pueblo/Estado</option>
+                            <option value="00000">UNKNOWN</option>
+                            <option value="00179">PUERTO RICO</option>
+                            <option value="00003">AFGHANISTAN</option>
+                          </select>
+                        </div><!-- /.col-sm -->
+                      </div><!-- /.row -->
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                </div><!-- /.panel-body -->
+              </div><!-- /.panel -->
+              <!-- /CITIZEN INFORMATION PANEL -->
+            </div><!-- /.col-sm -->
+          </div><!-- /.row -->
+          <!-- /CITIZEN INFORMATION -->
+
+          <!-- IDENTIFICATION AND PURPOSE -->
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- IDENTIFICATION PANEL -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><%= i18n_t("form.panel.id.title") %></h3>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="id_dtop" class="control-label"><%= i18n_t("form.panel.id.dtop.label") %></label>
+                      <input type="text" class="form-control" id="id_dtop" placeholder="<%= i18n_t("form.panel.id.dtop.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-6">
+                      <label for="ssn" class="control-label"><%= i18n_t("form.panel.id.ssn.label") %></label>
+                      <input type="text" class="form-control" id="ssn" placeholder="<%= i18n_t("form.panel.id.ssn.placeholder") %>">
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                </div><!-- /.panel-body -->
+              </div><!-- /.panel -->
+              <!-- /IDENTIFICATION PANEL -->
+            </div><!-- /.col-sm -->
+            <div class="col-sm-6">
+              <!-- PURPOSE PANEL -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><%= i18n_t("form.panel.purpose.title") %></h3>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group col-sm-12">
+                      <label for="purpose" class="control-label"><%= i18n_t("form.panel.purpose.purpose.label") %></label>
+                      <select class="form-control" id="purpose">
+                        <option value="" disabled selected><%= i18n_t("form.panel.purpose.purpose.placeholder") %></option>
+                        <option value="7">Clemencia Ejecutiva</option>
+                        <option value="5">Empleo</option>
+                        <option value="6">Estudios</option>
+                        <option value="3">Licencia de Armas, etc.</option>
+                        <option value="1">Pasaporte o Visa</option>
+                        <option value="9">Patentes o Franquicias</option>
+                        <option value="2">Residencia</option>
+                        <option value="4">Vivienda</option>
+                        <option value="10">Otros...</option>
+                      </select>
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                </div><!-- /.panel-body -->
+              </div><!-- /.panel -->
+              <!-- /PURPOSE PANEL -->
+            </div><!-- /.col-sm -->
+          </div><!-- /.row -->
+          <!-- /IDENTIFICATION AND PURPOSE -->
+
+          <!-- DELIVERY METHOD -->
+          <div class="row">
+            <div class="col-sm-12">
+              <!-- DELIVERY METHOD PANEL -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><%= i18n_t("form.panel.delivery.title") %></h3>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="delivery_email" class="control-label"><%= i18n_t("form.panel.delivery.email.label") %></label>
+                      <input type="text" class="form-control" id="delivery_email" placeholder="<%= i18n_t("form.panel.delivery.email.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-6">
+                      <label for="delivery_email_confirmation" class="control-label"><%= i18n_t("form.panel.delivery.email_confirmation.label") %></label>
+                      <input type="text" class="form-control" id="delivery_email_confirmation" placeholder="<%= i18n_t("form.panel.delivery.email_confirmation.placeholder") %>">
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                </div><!-- /.panel-body -->
+              </div><!-- /.panel -->
+              <!-- /DELIVERY METHOD PANEL -->
+            </div><!-- /.col-sm -->
+          </div><!-- /.row -->
+          <!-- /DELIVERY METHOD -->
+
+          <!-- SUBMIT BUTTON -->
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-danger btn-lg btn-block"><%= i18n_t("form.button.submit") %></button>
             </div>
+            <div class="col-sm-3"></div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <!-- Panel Identificación -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Identificación</h3>
-            </div>
-            <div class="panel-body">
-              <!-- ID DTOP -->
-              <div class="form-group row">
-                <label for="licencia" class="col-sm-3 control-label"># de ID de DTOP</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" maxlength="7" id="licencia" name="licencia" required placeholder="Licencia de Conducir o ID Digital">
-                  <span class="help-block">DTOP identification number</span>
-                </div>
-              </div>
-              <!-- SS -->
-              <div class="form-group row">
-                <label for="ss_01" class="col-sm-3 control-label">Seguro Social</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" maxlength="11" id="ss_01" name="ss_01" required placeholder="xxx-xx-xxxx">
-                  <span class="help-block">Social Security Number</span>
-                </div>
-              </div>
-              <!-- ALIEN ID -->
-              <div class="form-group row">
-                <label for="origId" class="col-sm-3 control-label">Alien ID</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" maxlength="25" id="origId" name="origId" placeholder="">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Propósito del Certificado</h3>
-            </div>
-            <div class="panel-body">
-              <!-- Propósito del Certificado -->
-              <div class="form-group row">
-                <!-- Se mantiene el valor de las opciones del formulario anterior para propósitos de continuidad. El valor 8 no se encontraba en el formulario anterior -->
-                <div class="col-sm-12">
-                  <select class="form-control" id="purpose" name="purpose" required>
-                    <option checked value="">Seleccione:</option>
-                    <option value="7">Clemencia Ejecutiva</option>
-                    <option value="5">Empleo</option>
-                    <option value="6">Estudios</option>
-                    <option value="3">Licencia de Armas, etc.</option>
-                    <option value="1">Pasaporte o Visa</option>
-                    <option value="9">Patentes o Franquicias</option>
-                    <option value="2">Residencia</option>
-                    <option value="4">Vivienda</option>
-                    <option value="10">Otros...</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">M&eacute;todo de Entrega</h3>
-            </div>
-            <div class="panel-body">
-              <!-- Email -->
-              <div class="form-group row">
-                <label for="entrega_email" class="col-sm-2 control-label">E-mail</label>
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="entrega_email" name="entrega_email" placeholder="E-mail" required />
-                </div>
-              </div>
-              <!-- Confirmación de Email -->
-              <div class="form-group row">
-                <label for="confirm_email" class="col-sm-2 control-label">Confirmar Email</label>
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="confirm_email" name="confirm_email" placeholder="Confirmar E-mail" required />
-                  <span class="help-block">Confirm email</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-danger btn-lg btn-block">Solicitar</button>
-        </div>
-      </form>
-    </div>
+          <!-- /SUBMIT BUTTON -->
+
+        </form><!-- /.form -->
+      </div><!-- /.row -->
+    </div><!-- /.container -->
