@@ -19,7 +19,7 @@ gem 'dotenv', :require => 'dotenv'
 gem 'erubis', '~> 2.7.0'
 gem 'asciidoctor', '~> 1.5.0'
 gem 'rack-recaptcha', '~> 0.6.6', :require => 'rack/recaptcha'
-gem 'moneta', '0.7.0', :require => 'rack/session/moneta'
+gem 'moneta', '0.7.20', :require => 'rack/session/moneta'
 gem 'redis', '3.1.0'
 
 # Test requirements

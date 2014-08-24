@@ -23,7 +23,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     minitest (5.4.0)
-    moneta (0.7.0)
+    moneta (0.7.20)
     padrino (0.12.3)
       padrino-admin (= 0.12.3)
       padrino-cache (= 0.12.3)
@@ -105,7 +105,7 @@ DEPENDENCIES
   asciidoctor (~> 1.5.0)
   dotenv
   erubis (~> 2.7.0)
-  moneta (= 0.7.0)
+  moneta (= 0.7.20)
   padrino (= 0.12.3)
   puma
   rack-recaptcha (~> 0.6.6)
