@@ -59,6 +59,8 @@ GEM
     padrino-support (0.12.3)
       activesupport (>= 3.1)
     polyglot (0.3.5)
+    puma (2.9.0)
+      rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -105,6 +107,7 @@ DEPENDENCIES
   erubis (~> 2.7.0)
   moneta (= 0.7.0)
   padrino (= 0.12.3)
+  puma
   rack-recaptcha (~> 0.6.6)
   rack-test
   rake
