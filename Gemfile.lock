@@ -13,6 +13,9 @@ GEM
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
     erubis (2.7.0)
+    foreman (0.74.0)
+      dotenv (~> 0.11.1)
+      thor (~> 0.19.1)
     http_router (0.11.1)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
@@ -105,6 +108,7 @@ DEPENDENCIES
   asciidoctor (~> 1.5.0)
   dotenv
   erubis (~> 2.7.0)
+  foreman
   moneta (= 0.7.20)
   padrino (= 0.12.3)
   puma

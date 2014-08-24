@@ -7,6 +7,7 @@ source 'https://rubygems.org'
 # gem 'thin' # or mongrel
 # gem 'trinidad', :platform => 'jruby'
 gem 'puma'
+gem 'foreman'
 
 # Optional JSON codec (faster performance)
 # gem 'oj'
