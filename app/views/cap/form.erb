@@ -1,12 +1,12 @@
 
   <% content_for :bootstrap_css_extras do %>
     <%= stylesheet_link_tag 'bootstrap-validator' %>
-    <%= stylesheet_link_tag 'bootstrap-datepicker3' %>
+    <%= stylesheet_link_tag 'bootstrap-datetimepicker.min' %>
   <% end %>
 
   <% content_for :bootstrap_js_extras do %>
     <%= javascript_include_tag 'bootstrap-validator.min' %>
-    <%= javascript_include_tag 'bootstrap-datepicker' %>
+    <%= javascript_include_tag 'bootstrap-datetimepicker.min' %>
   <% end %>
 
   <% content_for :cap_js do %>
@@ -65,7 +65,7 @@
                   </div><!-- /.row -->
                   <div class="row">
                     <div class="form-group col-sm-12">
-                      <label for="residence_country" class="control-label"><%= i18n_t("form.panel.residence.label") %></label>
+                      <label for="residence_country" class="control-label"><%= i18n_t("form.panel.citizen.residence.label") %></label>
                       <div class="row">
                         <div class="col-sm-6">
                           <select class="form-control" id="residence_country">
