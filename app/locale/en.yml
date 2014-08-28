@@ -38,6 +38,8 @@ en:
             placeholder: "MM/DD/YYYY"
           gender:
             label: "Gender:"
+          residence:
+            label: "Country of Residence:"
         id:
           title: "Identification"
           dtop:
