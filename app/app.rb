@@ -2,6 +2,7 @@ module PRgovCAPWebApp
   class App < Padrino::Application
     register Padrino::Mailer
     register Padrino::Helpers
+    register Pendragon::Padrino
     helpers Rack::Recaptcha::Helpers
 
     ##
@@ -60,5 +61,9 @@ module PRgovCAPWebApp
     #     render 'errors/505'
     #   end
     #
+
+    # Enable Pendragon compiler mode and lock.
+    set :pendragon, enable_compiler: true
+    set :pendragon, lock: true
   end
 end
