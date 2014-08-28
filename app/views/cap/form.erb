@@ -5,12 +5,13 @@
   <% end %>
 
   <% content_for :bootstrap_js_extras do %>
-    <%= javascript_include_tag 'bootstrapValidator.min' %>
+    <%= javascript_include_tag 'moment.min' %>
     <%= javascript_include_tag 'bootstrap-datetimepicker.min' %>
+    <%= javascript_include_tag 'bootstrapValidator.min' %>
   <% end %>
 
-  <% content_for :cap_js do %>
-    <%= javascript_include_tag 'prgov-cap-form-validation' %>
+  <% content_for :prgov_cap_js do %>
+    <%= javascript_include_tag 'prgov-cap-form' %>
   <% end %>
 
     <div class="container">
@@ -20,7 +21,7 @@
       </p>
       <hr>
       <div class="row">
-        <form class="form" role="form" id="cap" name="cap" action="/validation" method="post">
+        <form class="form" role="form" id="certificado" name="certificado" action="/validation"  method="post">
 
           <!-- CITIZEN INFORMATION-->
           <div class="row">
@@ -34,25 +35,30 @@
                   <div class="row">
                     <div class="form-group col-sm-3">
                       <label for="name" class="control-label"><%= i18n_t("form.panel.citizen.name.label") %></label>
-                      <input type="text" class="form-control" id="name" placeholder="<%= i18n_t("form.panel.citizen.name.placeholder") %>">
+                      <input type="text" class="form-control" id="name" name="name" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.name.placeholder") %>">
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-1">
                       <label for="name_initial" class="control-label"><%= i18n_t("form.panel.citizen.name_initial.label") %></label>
-                      <input type="text" class="form-control" id="name_initial" placeholder="<%= i18n_t("form.panel.citizen.name_initial.placeholder") %>">
+                      <input type="text" class="form-control" id="name_initial" name="name_initial" maxlength="1" placeholder="<%= i18n_t("form.panel.citizen.name_initial.placeholder") %>">
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-4">
                       <label for="name_lastname_first" class="control-label"><%= i18n_t("form.panel.citizen.lastname_first.label") %></label>
-                      <input type="text" class="form-control" id="name_lastname_first" placeholder="<%= i18n_t("form.panel.citizen.lastname_first.placeholder") %>">
+                      <input type="text" class="form-control" id="name_lastname_first" name="name_lastname_first" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_first.placeholder") %>">
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-4">
                       <label for="name_lastname_second" class="control-label"><%= i18n_t("form.panel.citizen.lastname_second.label") %></label>
-                      <input type="text" class="form-control" id="name_lastname_second" placeholder="<%= i18n_t("form.panel.citizen.lastname_second.placeholder") %>">
+                      <input type="text" class="form-control" id="name_lastname_second" name="name_lastname_second" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_second.placeholder") %>">
                     </div><!-- /.form-group -->
                   </div><!-- /.row -->
                   <div class="row">
                     <div class="form-group col-sm-4">
                       <label for="birthdate" class="control-label"><%= i18n_t("form.panel.citizen.birthdate.label") %></label>
-                      <input type="text" maxlength="10" required id="datetimePicker" class="form-control" name="birthdate" placeholder="<%= i18n_t("form.panel.citizen.birthdate.placeholder") %>"/>
+                      <div class="input-group date" id="birthdate-datetimepicker">
+                        <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10" data-date-format="MM/DD/YYYY" placeholder="<%= i18n_t("form.panel.citizen.birthdate.placeholder") %>"/>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-4">
                       <label for="gender" class="control-label"><%= i18n_t("form.panel.citizen.gender.label") %></label>
@@ -105,7 +111,7 @@
                   <div class="row">
                     <div class="form-group col-sm-6">
                       <label for="id_dtop" class="control-label"><%= i18n_t("form.panel.id.dtop.label") %></label>
-                      <input type="text" class="form-control" id="id_dtop" placeholder="<%= i18n_t("form.panel.id.dtop.placeholder") %>">
+                      <input type="text" class="form-control" id="id_dtop" name="id_dtop" maxlength="7" placeholder="<%= i18n_t("form.panel.id.dtop.placeholder") %>">
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-6">
                       <label for="ssn" class="control-label"><%= i18n_t("form.panel.id.ssn.label") %></label>
@@ -159,11 +165,11 @@
                   <div class="row">
                     <div class="form-group col-sm-6">
                       <label for="delivery_email" class="control-label"><%= i18n_t("form.panel.delivery.email.label") %></label>
-                      <input type="text" class="form-control" id="delivery_email" placeholder="<%= i18n_t("form.panel.delivery.email.placeholder") %>">
+                      <input type="text" class="form-control" id="delivery_email" name="delivery_email" placeholder="<%= i18n_t("form.panel.delivery.email.placeholder") %>">
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-6">
                       <label for="delivery_email_confirmation" class="control-label"><%= i18n_t("form.panel.delivery.email_confirmation.label") %></label>
-                      <input type="text" class="form-control" id="delivery_email_confirmation" placeholder="<%= i18n_t("form.panel.delivery.email_confirmation.placeholder") %>">
+                      <input type="text" class="form-control" id="delivery_email_confirmation" name="delivery_email_confirmation" placeholder="<%= i18n_t("form.panel.delivery.email_confirmation.placeholder") %>">
                     </div><!-- /.form-group -->
                   </div><!-- /.row -->
                 </div><!-- /.panel-body -->

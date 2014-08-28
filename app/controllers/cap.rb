@@ -19,11 +19,17 @@ PRgovCAPWebApp::App.controllers :cap do
   #   'Hello world!'
   # end
 
-  get '/disclaimer' do
-    render 'cap/disclaimer', :layout => :prgov
+  get :index, :map => '/' do
+    render 'disclaimer', :layout => :prgov
   end
 
-  get '/form' do
-    render 'cap/form', :layout => :prgov
+  post :certificate, :map => '/certificate' do
+    # TODO: Recaptcha & session validation
+    render 'form', :layout => :prgov
+  end
+
+  post :validate, :map => '/validation' do
+    # TODO: Recaptcha & session validation
+    
   end
 end
