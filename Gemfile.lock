@@ -27,7 +27,6 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.0)
     moneta (0.7.20)
-    mustermann (0.2.0)
     padrino (0.12.3)
       padrino-admin (= 0.12.3)
       padrino-cache (= 0.12.3)
@@ -62,9 +61,6 @@ GEM
       padrino-core (= 0.12.3)
     padrino-support (0.12.3)
       activesupport (>= 3.1)
-    pendragon (0.6.1)
-      mustermann (= 0.2.0)
-      rack (>= 1.3.0)
     polyglot (0.3.5)
     puma (2.9.0)
       rack (>= 1.1, < 2.0)
@@ -115,7 +111,6 @@ DEPENDENCIES
   foreman
   moneta (= 0.7.20)
   padrino (= 0.12.3)
-  pendragon (~> 0.6.1)
   puma
   rack-recaptcha (~> 0.6.6)
   rack-test
