@@ -1,0 +1,13 @@
+---
+certificate_purpose:
+  localized: true
+  "7": "lists.certificate_purpose.options.clemency"
+  "5": "lists.certificate_purpose.options.employment"
+  "6": "lists.certificate_purpose.options.study"
+  "3": "lists.certificate_purpose.options.weapon"
+  "1": "lists.certificate_purpose.options.passport_visa"
+  "9": "lists.certificate_purpose.options.patent_franchise"
+  "2": "lists.certificate_purpose.options.residence"
+  "4": "lists.certificate_purpose.options.housing"
+  "10": "lists.certificate_purpose.options.other"
+...
