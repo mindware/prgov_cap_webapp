@@ -1,0 +1,21 @@
+---
+en:
+  lists:
+    gender:
+      placeholder: "Gender"
+      options:
+        male: "Male"
+        female: "Female"
+    certificate_purpose:
+      placeholder: "Purpose"
+      options:
+        clemency: "Executive Clemency"
+        employment: "Employment"
+        study: "Study"
+        weapon: "Weapons License"
+        passport_visa: "Passport or Visa"
+        patent_franchise: "Patent or Franchise"
+        residence: "Residence"
+        housing: "Dwelling"
+        other: "Others"
+...

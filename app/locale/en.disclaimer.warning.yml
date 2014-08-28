@@ -4,50 +4,50 @@ en:
     warning:
       title: "WARNING"
       text: |
-        El origen de esta transacción será registrado en nuestros sistemas y es regido
-        por el código penal de Puerto Rico.
+        The source of this transaction will be registered in our systems and it
+        is governed by the penal code of Puerto Rico.
 
-        El código penal de Puerto Rico, bajo la Ley Núm. 146 de 30 de julio de 2012
-        establece:
-
-        '''
-
-        ==== CAPÍTULO II - DELITOS CONTRA LA SEGURIDAD DE LAS TRANSACCIONES
-
-        ===== SECCIÓN PRIMERA - De las falsificaciones
-
-        ===== Artículo 211 - Falsificación de documentos
-
-        Toda persona que con intención de defraudar haga, en todo o en parte, un
-        documento, instrumento o escrito falso, mediante el cual se cree, transfiera,
-        termine o de otra forma afecte cualquier derecho, obligación o interés, o que
-        falsamente altere, limite, suprima o destruya, total o parcialmente, uno
-        verdadero será sancionada con pena de reclusión por un término fijo de tres (3)
-        años.
-
-        ===== Artículo 215 - Falsificación de licencia, certificado y otra documentación
-
-        Toda persona que con la intención de defraudar haga, altere, falsifique, imite,
-        circule, pase, publique o posea como genuino cualquier licencia, certificado,
-        diploma, expediente, récord u otro documento de naturaleza análoga que debe ser
-        expedido por un funcionario o empleado del Estado Libre Asociado de Puerto Rico,
-        o por cualquier institución privada autorizada para expedirlo a sabiendas de que
-        el mismo es falso, alterado, falsificado o imitado, será sancionada con pena de
-        reclusión por un término fijo de tres (3) años.
+        The penal code of Puerto Rico, under the law No. 146 of July 30, 2012
+        sets forth:
 
         '''
 
-        ==== CAPÍTULO II - DELITOS CONTRA LA FUNCIÓN JUDICIAL
+        ==== CHAPTER II - OFFENSES AGAINST THE SECURITY OF TRANSACTIONS
 
-        ===== Artículo 286 - Preparación de escritos falsos
+        ===== SECTION ONE - Fakes and Forgeries
 
-        Toda persona que prepare algún libro, papel, documento, registro, instrumento
-        escrito, u otro objeto falsificado o antedatado con el propósito de presentarlo
-        o permitir que se presente como genuino y verdadero, en cualquier investigación,
-        procedimiento, vista o asunto judicial, legislativo o administrativo, o
-        cualesquiera otros trámites autorizados por la ley, será sancionada con pena de
-        reclusión por un término fijo de tres (3) años.
+        ===== Article 211 - Falsification of Documents
 
-        Este asistente le guiará por los diferentes pasos que usted debe completar antes
-        de enviar su solicitud en línea.
+        Any person who, with intent to defraud, subscribes in written, in whole
+        or in part, a false document or instrument, by which means create,
+        transfer, complete or otherwise affect any right, obligation or interest,
+        or which falsely alter, limit, delete or destroy, wholly or partly, one
+        that is authentic, shall be punished with imprisonment for a fixed term
+        of three (3) years.
+
+        ===== Article 215 - Falsification of license, certificate and other documentation
+
+        Any person who, with the intent to defraud, make, alter, falsify,
+        imitate, circulate, pass, publish or possess as genuine any license,
+        certificate, diploma, file, record or other document of a similar nature
+        that must be issued by an official or employee of the Commonwealth of
+        Puerto Rico, or by any private institution authorized to issue it,
+        knowing that it is false, altered, counterfeited or imitated, it shall
+        be punished with imprisonment for a fixed term of three (3) years.
+
+        '''
+
+        ==== CHAPTER II - OFFENSES AGAINST THE JUDICIAL FUNCTION
+
+        ===== Article 286 - Preparation of false documents
+
+        Anyone who prepare any book, paper, document, record, written
+        instrument, or other object falsified or predated in order to present it
+        or allow that it is presented as genuine and true, in any investigation,
+        procedure, hearing or judicial, legislative or administrative matter, or
+        any other procedures authorized by law, shall be punished with
+        imprisonment for a fixed term of three (3) years.
+
+        This wizard will guide you through the different steps you must complete
+        before you send your request online.
 ...

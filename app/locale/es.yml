@@ -39,11 +39,6 @@ es:
             placeholder: "MM/DD/YYYY"
           gender:
             label: "Género:"
-            placeholder: "Género"
-            male: "Masculino"
-            female: "Femenino"
-          residence:
-            label: "País de Residencia Actual:"
         id:
           title: "Identificación"
           dtop:
@@ -54,9 +49,8 @@ es:
             placeholder: "xxx-xx-xxxx"
         purpose:
           title: "Propósito del Certificado"
-          purpose:
+          certificate_purpose:
             label: "Propósito del Certificado:"
-            placeholder: "Propósito"
         delivery:
           title: "Método de Entrega"
           email:

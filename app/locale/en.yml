@@ -4,18 +4,60 @@ en:
     header: "Welcome"
     terms:
       message: >
-        Al presionar el botón de Continuar, confirmo que he leído las
-        advertencias y acepto las
-      link: "Condiciones de Uso"
+        By clicking the Continue button, you confirm to have read the
+        warning and agree to the
+      link: "Terms of Use"
       button:
         continue: "Continue"
         cancel: "Cancel"
       modal:
-        title: "Condiciones de Uso"
+        title: "Terms of Use"
   form:
       header: "Penal Record Certificate"
       message: >
         To complete the form you must have an id provided by the Department of
         Transportation and Public Works of Puerto Rico. For information on the
         requirements for the id, you can call 3-1-1.
+      panel:
+        citizen:
+          title: "Citizen Information"
+          name:
+            label: "Name:"
+            placeholder: "Name"
+          name_initial:
+            label: "Initial:"
+            placeholder: "Initial"
+          lastname_first:
+            label: "Father's Surname:"
+            placeholder: "Father's Surname"
+          lastname_second:
+            label: "Mother's Surname:"
+            placeholder: "Mother's Surname"
+          birthdate:
+            label: "Birth date:"
+            placeholder: "MM/DD/YYYY"
+          gender:
+            label: "Gender:"
+        id:
+          title: "Identification"
+          dtop:
+            label: "ID from DTPW (DTOP):"
+            placeholder: "Drivers License or Digital ID"
+          ssn:
+            label: "Social Security:"
+            placeholder: "xxx-xx-xxxx"
+        purpose:
+          title: "Certificate Purpose"
+          certificate_purpose:
+            label: "Certificate Purpose:"
+        delivery:
+          title: "Delivery Method"
+          email:
+            label: "E-mail:"
+            placeholder: "E-mail"
+          email_confirmation:
+            label: "Confirm E-mail:"
+            placeholder: "Confirm E-mail"
+      button:
+        submit: "Submit"
 ...
