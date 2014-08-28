@@ -1,4 +1,4 @@
-module CAPWebApp
+module PRgovCAPWebApp
   class App < Padrino::Application
     register Padrino::Mailer
     register Padrino::Helpers

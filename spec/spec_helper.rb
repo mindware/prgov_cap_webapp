@@ -9,9 +9,9 @@ end
 # You can use this method to custom specify a Rack app
 # you want rack-test to invoke:
 #
-#   app CAPWebApp::App
-#   app CAPWebApp::App.tap { |a| }
-#   app(CAPWebApp::App) do
+#   app PRgovCAPWebApp::App
+#   app PRgovCAPWebApp::App.tap { |a| }
+#   app(PRgovCAPWebApp::App) do
 #     set :foo, :bar
 #   end
 #

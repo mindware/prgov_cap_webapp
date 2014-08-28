@@ -1,4 +1,4 @@
-CAPWebApp::App.controllers :cap do
+PRgovCAPWebApp::App.controllers :cap do
 
   # get :index, :map => '/foo/bar' do
   #   session[:foo] = 'bar'

@@ -37,4 +37,4 @@ Padrino.configure_apps do
 end
 
 # Mounts the core application for this project
-Padrino.mount('CAPWebApp::App', :app_file => Padrino.root('app/app.rb')).to('/')
+Padrino.mount('PRgovCAPWebApp::App', :app_file => Padrino.root('app/app.rb')).to('/')

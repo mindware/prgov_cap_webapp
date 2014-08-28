@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "CAPWebApp::App::CAPHelper" do
+describe "PRgovCAPWebApp::App::CAPHelper" do
   let(:helpers){ Class.new }
-  before { helpers.extend CAPWebApp::App::CAPHelper }
+  before { helpers.extend PRgovCAPWebApp::App::CAPHelper }
   subject { helpers }
 
   it "should return nil" do
