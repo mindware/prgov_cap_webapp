@@ -1,0 +1,7 @@
+---
+gender:
+  localized: true
+  "": "lists.gender.placeholder"
+  "M": "lists.gender.options.male"
+  "F": "lists.gender.options.female"
+...
