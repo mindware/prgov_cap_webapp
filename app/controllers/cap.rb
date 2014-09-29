@@ -30,6 +30,12 @@ PRgovCAPWebApp::App.controllers :cap do
 
   post :validate, :map => '/validation' do
     # TODO: Recaptcha & session validation
-    
+
   end
+
+  post :delivery, :map => '/delivery' do
+    # TODO: email validation
+    render 'delivery', :layout => :prgov 
+  end
+
 end
