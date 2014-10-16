@@ -1,0 +1,11 @@
+
+Project: WebApp
+===============
+
++Tasks
+------
+Pending:
+1. Add PR.Gov default 400s and 500s error pages. Do not show the sinatra error page for unknown resources.
+
+---
+Auto-generated using: github.com/mindware/todo
