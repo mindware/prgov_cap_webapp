@@ -50,17 +50,31 @@ module PRgovCAPWebApp
     #   end
     #
 
-    ##
+    #
     # You can manage errors like:
+    # set :environment, :production
+
+    # error(::Exception) do
+    #   boom = env['sinatra.error']
+    #   logger.error ["#{boom.class} - #{boom.message}:", *boom.backtrace].join("\n ")
+    #   response.status = 500
+    #   # content_type 'text/html'
+    #   render 'errors/error',  :locals => { :error => "#{boom.class}" }, :layout => :prgov
+    #   # partial 'errors/error_partial', :locals => { :error => :bar }
+    #   # "Error is #{boom.class} - #{boom.message}: #{boom.backtrace.join("</br>")}"
+    # end
     #
-    #   error 404 do
-    #     render 'errors/404'
-    #   end
+    error 404 do
+      render 'errors/400'
+    end
+
+    # error 500 do
+    #   render 'errors/505.html'
+    # end
     #
-    #   error 505 do
-    #     render 'errors/505'
-    #   end
-    #
+    # error 505 do
+    #   render 'errors/505.html'
+    # end
 
     # Enable Pendragon compiler mode and lock.
     # set :pendragon, enable_compiler: true
