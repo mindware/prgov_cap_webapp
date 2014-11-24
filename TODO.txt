@@ -22,6 +22,8 @@ Pending:
 15. Email Validation - save email and mail / validate if already confirmed / provide mechanism for validating
 16. At deployment if webserver needs a proxy it must be configured in rack-recaptcha
 17. Update ENV Redis variables to point to HAProxy on production.
+18. update email_sent to check if a long time has transcurred since last email to resend
+19. Performs postman tests against backend validation especially email
 
 ---
 Auto-generated using: github.com/mindware/todo
