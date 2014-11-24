@@ -1,7 +1,8 @@
 ---
 en:
+  header: "Request for Goodstanding Certificate"
   disclaimer:
-    header: "Welcome"
+    header: "Bienvenido"
     terms:
       message: >
         By clicking the Continue button, you confirm to have read the
@@ -12,6 +13,47 @@ en:
         cancel: "Cancel"
       modal:
         title: "Terms of Use"
+  email:
+    header: "Let's get started"
+    title: "Email Validation"
+    form:
+        email: "Email:"
+        confirm: "Confirm Email:"
+        captcha: "Captcha:"
+    message: >
+      Please enter the email where you'd like us to send the certificate.
+    captcha:
+      message: "Let's confirm your're human"
+      modal:
+        title: "Why do we need a Captcha?"
+        text: >
+          The captcha let us confirm you're a human and deters software
+          from automating attacks against our system.
+        close: "Close"
+    button:
+      continue: "Submit"
+      cancel: "Cancel"
+  email_sent:
+    title: "Email Sent"
+    message: >
+      We've sent an email to %{email}, with a link to the form so that we may
+      validate the address. The email should arrive in less than %{time} minutes.
+    resend_message: >
+      If you don't receive it in this timeframe, you may request we resend the email by
+      simply reloading this page.
+    help:
+      text: "Need some help? For additional information and options click here."
+    modal:
+      text: >
+        Please make sure to check your inbox, as well as the 'Spam' or
+        'Junk-Email' folders.
+      title: "More information"
+    already: >
+      We've already sent you the email to %{email} and it should arrive in the next few minutes.
+      If you haven't received it, you may try again by reloading this page after
+      %{time}. Thank you for your patience.
+    minute: "minute"
+    reload_button: "Resend"
   form:
       header: "Penal Record Certificate"
       message: >

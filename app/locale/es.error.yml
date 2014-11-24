@@ -1,0 +1,10 @@
+---
+es:
+  error:
+    disclaimer:
+      terms: "Error: Debe leer las advertencias y aceptar los terminos y condiciones para proceder."
+    email:
+      captcha: "Debe escribir la información contenida en el captcha en el recuadro provisto para proceder."
+      email: "Debe escbribir un correo electrónico válido."
+      confirm: "Debe escribir la dirección electrónica dos veces para confirmar la misma."
+...
