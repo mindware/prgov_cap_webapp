@@ -25,6 +25,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.2)
     moneta (0.7.20)
+    netrc (0.7.7)
     padrino (0.12.3)
       padrino-admin (= 0.12.3)
       padrino-cache (= 0.12.3)
@@ -76,6 +77,8 @@ GEM
       redis-store (~> 1.1.0)
     redis-store (1.1.4)
       redis (>= 2.2)
+    rest_client (1.7.3)
+      netrc (~> 0.7.7)
     rr (1.1.2)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
@@ -119,5 +122,6 @@ DEPENDENCIES
   rake
   redis (= 3.1.0)
   redis-rack
+  rest_client
   rr
   rspec
