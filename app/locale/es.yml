@@ -1,7 +1,8 @@
 ---
 es:
+  header: "Servicio para el Certificado de Antecedentes Penales"
   disclaimer:
-    header: "Bienvenido"
+    header: "Certificado de Antecedentes Penales"
     terms:
       message: >
         Al presionar el botón de Continuar, confirmo que he leído las
@@ -12,6 +13,63 @@ es:
         cancel: "Cancelar"
       modal:
         title: "Condiciones de Uso"
+  email:
+    header: "Comenzemos"
+    title: "Email Validation"
+    form:
+        email: "Email:"
+        confirm: "Confirmar Email:"
+        captcha: "Captcha:"
+    message: >
+      Compártanos el email al que interesa le enviemos el certificado.
+    captcha:
+      message: "(¿Porqué un captcha?)"
+      modal:
+        title: "¿Qué es el Captcha?"
+        text: >
+          El captcha nos permite confirmar con un grado de certeza
+          que el usuario que lo resuelve tiene inteligencia humana. Debido
+          a la dificultad que actualmente representa para la inteligencia
+          artificial resolver el mismo, esta tecnología nos permite
+          detener ataques automatizados y ofrece grados de seguridad
+          para nuestros sistemas. Nuestro captcha está disponible en dos
+          formatos: visual y de forma auditiva.
+        close: "Close"
+    button:
+      continue: "Continuar"
+      cancel: "Cancelar"
+  email_sent:
+    title: "Verifique su Email"
+    message: >
+      Le hemos enviado un correo a %{email} con el fin de validar su dirección
+      de correo electrónico. Dicho correo contiene el enlace al formulario
+      para la solicitud del Certificado de Antecendes Penales. Para continuar
+      simplemente acceda a su cuenta de correo, identifique nuestro email
+      y pulse sobre el enlace provisto.
+
+      El correo no debe tardar más de %{time} minutos en recibirse.
+    help:
+      text: "Necesita ayuda? Para más información pulse aquí."
+    modal:
+      text: >
+        Le hemos enviado un correo electrónico con el enlace al formulario.
+        Para identificar el email de 'pr.gov', recuerde acceder y verificar bien su cuenta de correo electrónico,
+        incluyendo los folders del 'Inbox' o 'Mail' y 'Spam' o 'Junk-Email'.
+
+        El correo no debe tardar más de %{time} minutos en recibirse. Una vez
+        recibido, proceda a hacer 'click' en el enlace que le hemos enviado en el email.
+      title: "Más Información"
+    resend_message: >
+      De no recibir su correo en el tiempo antes mencionado, podrá solicitar un
+      reenvio del mismo facilmente, solo necesita pulsar el
+      botón titulado 'Re-enviar correo'.
+    already: >
+      Recientemente enviamos el correo electrónico a %{email}, debe llegarle en
+      los proximos minutos. De no recibirlo, usted podrá solicitar un reenvio
+      del mismo en %{time}, simplemente recargando esta página o pulsando sobre
+      el botón de 'Re-enviar'. Agradecemos su patrocinio.
+    minute: "minuto"
+    reload_button: "Re-enviar correo"
   form:
       header: "Certificado de Antecedentes Penales » Formulario"
       message: >
