@@ -54,6 +54,12 @@ en:
       %{time}. Thank you for your patience.
     minute: "minute"
     reload_button: "Resend"
+  confirmation:
+      header: "Successful Email Confirmation"
+      body: >
+        Good news. Now that your email has been validated, you won't
+        have to validate it again next time you want a copy of your
+        certificate, for several months.
   form:
       header: "Penal Record Certificate"
       message: >
@@ -80,12 +86,17 @@ en:
             placeholder: "MM/DD/YYYY"
           gender:
             label: "Gender:"
+            placeholder: "--"
+            male: "Male"
+            female: "Female"
           residence:
             label: "Country of Residence:"
         id:
           title: "Identification"
+          passport:
+            label: "Pasaporte"
           dtop:
-            label: "ID from DTPW (DTOP):"
+            label: "ID from DTOP:"
             placeholder: "Drivers License or Digital ID"
           ssn:
             label: "Social Security:"
@@ -104,4 +115,5 @@ en:
             placeholder: "Confirm E-mail"
       button:
         submit: "Submit"
+        continue: "Continue"
 ...

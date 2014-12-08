@@ -1,0 +1,16 @@
+---
+es:
+  email:
+    confirmation:
+      subject: "Enlace para la solicitud del Certificado de Antecedentes Penales"
+      body: >
+        This is an automated message. We received a request to fill out the
+        form for  Good Standing Certificate validation. In order to
+        validate your email we'll send you a link. If you did not request
+        this email, you may delete it.
+
+        This the link we'd have to click: %{link}
+
+        Este es un email enviado por un sistema automatizado, favor de no
+        responder. De tener dudas, favor de referirlas a webmaster@pr.gov.
+...
