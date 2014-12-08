@@ -1,6 +1,6 @@
 # Helper methods defined here can be accessed in any controller or view in the
 # application. Optimized all i18n methods and allowed support for values passed
-# as parameters. Added warnings for new i18n_raw method. 2014 - Andrés Colón 
+# as parameters. Added warnings for new i18n_raw method. 2014 - Andrés Colón
 require 'asciidoctor'
 
 module PRgovCAPWebApp
@@ -21,6 +21,9 @@ module PRgovCAPWebApp
       # Do not use this method unless you manually are doing html_safe
       # to its output. Do not ever use this method without html_safe
       # if there is user input involved in the text that will be output.
+      #
+      # This method properly processes accents and special characters
+      # found in our locale file into proper HTML entities.
       def i18n_raw(resource, *arr)
         # Rules for special characters conversion to HTML must be handled
         # by I18n transliteration rules.
@@ -29,11 +32,10 @@ module PRgovCAPWebApp
 
       # Our safe to use, html safe version of our i18n_raw.
       def i18n_t(resource, *arr)
-        i18n_raw(resource, arr).html_safe
+        i18n_raw(resource, *arr).html_safe
       end
 
-      # Our internationalized asciidoctor that properly processes
-      # accents and special characters into HTML characters.
+      # Our internationalized asciidoctor
       def i18n_asciidoc(resource, *arr)
         # puts "Using ansiidoc on file #{resource}"
         asciidoc(i18n_raw(resource, *arr)).html_safe
@@ -51,6 +53,11 @@ module PRgovCAPWebApp
         select_tag(name, :options => list, :selected => selected)
       end
     end
+
+
+    # def base_url
+    #   @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
+    # end
 
     helpers CAPHelper
   end
