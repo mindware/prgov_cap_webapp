@@ -1,0 +1,154 @@
+
+  <% content_for :bootstrap_css_extras do %>
+    <%= stylesheet_link_tag 'bootstrapValidator.min' %>
+    <%= stylesheet_link_tag 'bootstrap-datetimepicker.min' %>
+  <% end %>
+
+  <% content_for :bootstrap_js_extras do %>
+    <%= javascript_include_tag 'moment.min' %>
+    <%= javascript_include_tag 'bootstrap-datetimepicker.min' %>
+    <%= javascript_include_tag 'bootstrapValidator.min' %>
+  <% end %>
+
+  <% content_for :prgov_cap_js do %>
+    <%= javascript_include_tag 'prgov-cap-form' %>
+  <% end %>
+
+    <div class="container">
+      <h3><%= i18n_t("form.header") %></h3>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <di2v class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+              90%
+            </div>
+          </div>
+      </div>
+      <div class="row">
+        <form class="form" role="form" id="certificado" name="certificado" action="/form_validation"  method="post">
+
+          <!-- CITIZEN INFORMATION-->
+          <div class="row">
+            <div class="col-sm-12">
+              <!-- CITIZEN INFORMATION PANEL -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><%= i18n_t("form.panel.citizen.title") %></h3>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group col-sm-3">
+                      <label for="name" class="control-label"><%= i18n_t("form.panel.citizen.name.label") %></label>
+                      <input type="text" class="form-control" id="name" name="name" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.name.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-1">
+                      <label for="name_initial" class="control-label"><%= i18n_t("form.panel.citizen.name_initial.label") %></label>
+                      <input type="text" class="form-control" id="name_initial" name="name_initial" maxlength="1" placeholder="<%= i18n_t("form.panel.citizen.name_initial.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-4">
+                      <label for="name_lastname_first" class="control-label"><%= i18n_t("form.panel.citizen.lastname_first.label") %></label>
+                      <input type="text" class="form-control" id="name_lastname_first" name="name_lastname_first" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_first.placeholder") %>">
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-4">
+                      <label for="name_lastname_second" class="control-label"><%= i18n_t("form.panel.citizen.lastname_second.label") %></label>
+                      <input type="text" class="form-control" id="name_lastname_second" name="name_lastname_second" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_second.placeholder") %>">
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                  <div class="row">
+                    <div class="form-group col-sm-4">
+                      <label for="birthdate" class="control-label"><%= i18n_t("form.panel.citizen.birthdate.label") %></label>
+                      <div class="input-group date" id="birthdate-datetimepicker">
+                        <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10" data-date-format="MM/DD/YYYY" placeholder="<%= i18n_t("form.panel.citizen.birthdate.placeholder") %>"/>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div><!-- /.form-group -->
+                    <div class="form-group col-sm-4">
+                      <label for="gender" class="control-label"><%= i18n_t("form.panel.citizen.gender.label") %></label>
+                      <select class="form-control" id="gender">
+                        <option value="" disabled selected><%= i18n_t("form.panel.citizen.gender.placeholder") %></option>
+                        <option value="M"><%= i18n_t("form.panel.citizen.gender.male") %></option>
+                        <option value="F"><%= i18n_t("form.panel.citizen.gender.female") %></option>
+                      </select>
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                  <div class="row">
+                    <div class="form-group col-sm-12">
+                      <label for="residence_country" class="control-label"><%= i18n_t("form.panel.citizen.residence.label") %></label>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <select class="form-control" id="residence_country">
+                            <option value="" disabled selected>País</option>
+                            <!-- <option value="00000">UNKNOWN</option> -->
+                            <option value="00179"selected>PUERTO RICO</option>e
+                            <option value="00003">AFGHANISTAN</option>
+                          </select>
+                        </div><!-- /.col-sm -->
+                        <div class="col-sm-6">
+                          <select class="form-control" id="residence_city_state" disabled>
+                            <option value="" disabled selected>Pueblo/Estado</option>
+                            <option value="00000">UNKNOWN</option>
+                            <option value="00179">PUERTO RICO</option>
+                            <option value="00003">AFGHANISTAN</option>
+                          </select>
+                        </div><!-- /.col-sm -->
+                      </div><!-- /.row -->
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                </div><!-- /.panel-body -->
+              </div><!-- /.panel -->
+              <!-- /CITIZEN INFORMATION PANEL -->
+            </div><!-- /.col-sm -->
+          </div><!-- /.row -->
+          <!-- /CITIZEN INFORMATION -->
+
+          <!-- PURPOSE -->
+          <div class="row">
+            <div class="col-sm-12">
+              <!-- PURPOSE PANEL -->
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><%= i18n_t("form.panel.purpose.title") %></h3>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group col-sm-12">
+                      <label for="purpose" class="control-label"><%= i18n_t("form.panel.purpose.certificate_purpose.label") %></label>
+                      <select class="form-control" id="purpose">
+                        <option value="" disabled selected><%= i18n_t("form.panel.purpose.placeholder") %></option>
+                        <option value="7">Clemencia Ejecutiva</option>
+                        <option value="5">Empleo</option>
+                        <option value="6">Estudios</option>
+                        <option value="3">Licencia de Armas</option>
+                        <option value="1">Pasaporte o Visa</option>
+                        <option value="9">Patentes o Franquicias</option>
+                        <option value="2">Residencia</option>
+                        <option value="4">Vivienda</option>
+                        <option value="11">Cambio de Nombre</option>
+                        <option value="10">Otros...</option>
+                      </select>
+                    </div><!-- /.form-group -->
+                  </div><!-- /.row -->
+                </div><!-- /.panel-body -->
+              </div><!-- /.panel -->
+              <!-- /PURPOSE PANEL -->
+            </div><!-- /.col-sm -->
+          </div><!-- /.row -->
+          <!-- /PURPOSE -->
+
+
+          <!-- SUBMIT BUTTON -->
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-default btn-lg btn-block"><%= i18n_t("form.button.submit") %></button>
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+          <!-- /SUBMIT BUTTON -->
+
+        </form><!-- /.form -->
+      </div><!-- /.row -->
+    </div><!-- /.container -->

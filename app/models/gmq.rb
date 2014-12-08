@@ -7,7 +7,7 @@ class GMQ
     puts request("/health")
   end
 
-  def self.enqueue_confirmation_mail(payload)
+  def self.enqueue_email(payload)
     # This method speaks with the CAP API to enqueue an email
     # If we enqueued successfully:
       # return true
@@ -16,8 +16,11 @@ class GMQ
     # puts request("")
     # test
     # get('/transaction')
-    post('/mail', payload)
-    true
+    if post('/mail', payload)
+      return true
+    else
+      return false
+    end
   end
 
   # Perform an HTTP Get against the GMQ
@@ -58,9 +61,11 @@ class GMQ
       # if response error inside:
       # return false
       # if response no errors inside:
-      puts "HTTP Code:\n#{response.code}\n\n"
-      puts "Headers:\n#{response.headers}\n\n"
+      puts "Performing request to #{self}"
+      puts "HTTP Code:\n#{response.code}\n"
+      puts "Headers:\n#{response.headers}\n"
       puts "Result:\n#{response.gsub(",", ",\n").to_str}\n"
+      puts "End of request."
 
       result = JSON.parse(response)
       return true
@@ -91,18 +96,13 @@ class GMQ
       puts e.inspect.to_s
 
     rescue Exception => e
-      # If an error ocurred
-      # if(result.has_key? "error")
-      #   puts "THE FOLLOWING ERROR OCURRED: #{result}"
-      # end
-      puts "Class is #{e.class}"
+      # When unexpected errors ocurr:
+      puts "Error class is #{e.class}"
       puts e.inspect.to_s
-      puts "NOW LETS DO THIS!"
       error = e.message.strip
       # if the error isn't empty
       if(error.to_s.length > 0)
         # if its likely this is a JSON
-        puts "LEEROY #{error[0]}"
         # RestClient returns errors in the following form:
         # 400 Bad Request: {"error":... }
         # In the documentation it says it does so in this manner:
@@ -111,7 +111,6 @@ class GMQ
         # simply going to drop everything that comes before
         # the actual json.
         if(error[0] == "{" or error[0] == "[")
-          puts "JENKINS"
           error = JSON.parse(error)
 
           # Proceed to check the error type:

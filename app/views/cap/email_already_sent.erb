@@ -29,11 +29,10 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-md-12">
-                  <%= asciidoc(I18n.transliterate(I18n.translate("email_sent.already",
-                      :email => session[:email], :time => count))).html_safe %>
+                  <%= i18n_asciidoc("email_sent.already", :email => session[:email], :time => count) %>
                   <% #image_tag("mail.png", {:class => 'img-responsive center-block', :alt => 'icono de correo'}) %>
                   <a href="#" data-toggle="modal" data-target="#moreInfoModal">
-                    <%= i18n_asciidoc("email_sent.help.text") %>
+                    <%= i18n_t("email_sent.help.text") %>
                   </a>
                   <hr/>
                   <div class="col-xs-12">
@@ -50,19 +49,18 @@
       </div>
 
     </div>
-
-
+    
         <!-- Modal -->
         <div class="modal fade" id="moreInfoModal" tabindex="-1" role="dialog" aria-labelledby="moreInfoModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="moreInfoModalLabel"><%= i18n_t("email_sent.modal.title") %></h4>
+                <h4 class="modal-title" id="moreInfoModalLabel"><%= i18n_asciidoc("email_sent.modal.title") %></h4>
               </div>
               <div class="modal-body">
-                <%= asciidoc(I18n.transliterate(I18n.translate("email_sent.modal.text", :email => session[:email], :time => time))).html_safe %>
-                <%= asciidoc(I18n.transliterate(I18n.translate("email_sent.resend_message", :email => session[:email], :time => time))).html_safe %>
+                <%= i18n_asciidoc("email_sent.modal.text", :email => session[:email], :time => time) %>
+                <%= i18n_asciidoc("email_sent.resend_message", :email => session[:email], :time => time) %>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

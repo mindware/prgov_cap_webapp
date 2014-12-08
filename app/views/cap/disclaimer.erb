@@ -8,12 +8,19 @@
       </div>
 
       <form class="form" role="form" id="disclaimer" name="disclaimer" action="/email" method="post">
-        <% if params[:terms] == "false" %>
+        <% if params[:terms] == "false" or params[:expired] == "true" %>
         <div class="row">
           <div class="col-md-12">
             <div class="alert alert-warning alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <p class="text-center"><%= i18n_asciidoc("error.disclaimer.terms") %></p>
+              <ul>
+              <% if params[:expired] == "true" %>
+                <li><strong><%= i18n_t("error.disclaimer.expired") %></strong></li>
+              <% end %>
+              <% if params[:terms] == "false" %>
+                <li><strong><%= i18n_t("error.disclaimer.terms") %></strong></li>
+              <% end %>
+              </ul>
             </div>
           </div>
         </div>

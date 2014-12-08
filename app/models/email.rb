@@ -14,7 +14,13 @@ class Email < PRgov::Base
 
     include PRgovCAPWebApp::App::CAPHelper
 
-    attr_reader :MAX_MINUTES, :MAX_MINUTES_IN_SECONDS
+    # Add Padrino helpers so we can use link_to properly
+    # These are all required by Padrino.
+    include Padrino::Helpers::AssetTagHelpers
+    include Padrino::Helpers::TagHelpers
+    include Padrino::Helpers::OutputHelpers
+
+    attr_reader :from, :MAX_MINUTES, :MAX_MINUTES_IN_SECONDS
 
     attr_accessor :address,             # The user's email address
                   :confirmation_code,   # The generated confirmation code
@@ -41,6 +47,21 @@ class Email < PRgov::Base
     # Turns MAX_MINUTES minutes into seconds
     MAX_MINUTES_IN_SECONDS = 60 * MAX_MINUTES
 
+    # How many months should we remember an email that has
+    # been confirmed by the user to receive emails from pr.gov,
+    # so that the user doesn't have to go through the process
+    # of revalidating his email through this period:
+    MONTHS_TO_EXPIRATION_OF_EMAIL = 8
+    # The expiration is going to be Z months, in seconds.
+    # Time To Live - Math:
+    # 604800 seconds in a week X 4 weeks = 1 month in seconds
+    # We multiply this amount for the Z amount of months that an email
+    # can last before expiring.
+    EXPIRATION = (604800 * 4) * MONTHS_TO_EXPIRATION_OF_EMAIL
+    # Emails awaiting user to click on the confirmation link
+    # last one week unless confirmed.
+    UNCONFIRMED_EXPIRATION = 604800 # one week.
+
     # Newly created objects from user input
     def self.create(params)
       # The following parameters are allowed to be input by the user
@@ -58,54 +79,6 @@ class Email < PRgov::Base
       email.sent_at             = nil
       # email.request
       return email
-    end
-
-    # Email addresses cannot be duplicated in the database.
-    # If an attempt to create a duplicate is performed, an
-    # exception must be raised.
-
-    # Returns true if confirmed, false otherwise.
-    def confirmed?
-      self.confirmed == true
-    end
-
-    def registered?
-      !self.confirmed?
-    end
-
-    # returns the count down number in minutes
-    def resend_countdown
-      time = ((Time.parse(self.sent_at.to_s) + MAX_MINUTES_IN_SECONDS) - Time.now.utc) / 60
-      time.to_i
-    end
-
-    # returns minutes taking into consideration
-    # internationalization ("1 minute" or "2 minutos")
-    def countdown_in_minutes
-      time = resend_countdown
-      if(time <= 1 and time >= 0)
-        time = 1
-        minutes = "#{i18n_t("email_sent.minute")}"
-      else
-        # make minute/minuto plural by adding an s
-        minutes = "#{i18n_t("email_sent.minute")}s"
-      end
-      "#{time} #{minutes}"
-    end
-
-    def should_resend?
-      # if email is confirmed we shouldn't resend
-      return false if confirmed?
-      # if email doesn't have a sent_at date we must
-      # send an email.
-      return true if self.sent_at.nil?
-      # if email confirmation is older than MAX_MINUTES_IN_SECONDS
-      time = (Time.parse(self.sent_at) - (Time.now.utc - (MAX_MINUTES_IN_SECONDS)))
-      if (time <= 0)
-        return true
-      else
-        return false
-      end
     end
 
     # Tries to find a record, if nothing is found, returns nil
@@ -158,6 +131,59 @@ class Email < PRgov::Base
       return self
     end
 
+    # returns the configured from address
+    def from
+      ENV["PRGOV_FROM_EMAIL"]
+    end
+
+    # Email addresses cannot be duplicated in the database.
+    # If an attempt to create a duplicate is performed, an
+    # exception must be raised.
+
+    # Returns true if confirmed, false otherwise.
+    def confirmed?
+      self.confirmed == true
+    end
+
+    def registered?
+      !self.confirmed?
+    end
+
+    # returns the count down number in minutes
+    def resend_countdown
+      time = ((Time.parse(self.sent_at.to_s) + MAX_MINUTES_IN_SECONDS) - Time.now.utc) / 60
+      time.to_i
+    end
+
+    # returns minutes taking into consideration
+    # internationalization ("1 minute" or "2 minutos")
+    def countdown_in_minutes
+      time = resend_countdown
+      if(time <= 1 and time >= 0)
+        time = 1
+        minutes = "#{i18n_t("email_sent.minute")}"
+      else
+        # make minute/minuto plural by adding an s
+        minutes = "#{i18n_t("email_sent.minute")}s"
+      end
+      "#{time} #{minutes}"
+    end
+
+    def should_resend?
+      # if email is confirmed we shouldn't resend
+      return false if confirmed?
+      # if email doesn't have a sent_at date we must
+      # send an email.
+      return true if self.sent_at.nil?
+      # if email confirmation is older than MAX_MINUTES_IN_SECONDS
+      time = (Time.parse(self.sent_at) - (Time.now.utc - (MAX_MINUTES_IN_SECONDS)))
+      if (time <= 0)
+        return true
+      else
+        return false
+      end
+    end
+
     # Grab all global global variables in this Object, and turn it into
     # a hash.
     def to_hash
@@ -184,23 +210,73 @@ class Email < PRgov::Base
 
     # enqueues a mail in the gateway, requires the client
     # ip to be recieved in order to log it.
-    def enqueue
+    def enqueue_confirmation_email(url)
       # Attempt to queue the email using the preferred
       # mailing method:
-      if(GMQ.enqueue_confirmation_mail(Email.to_json))
+
+      # Create the expected email payload
+      payload = {
+                  "from" => from(),
+                  "to"   => self.address,
+                  "subject" => i18n_raw("email.confirmation.subject"),
+                  "text"    => i18n_raw("email.confirmation.body",
+                                  :link => get_link(url)
+                               ),
+                  "html"    => i18n_raw("email.confirmation.body",
+                                  :link => get_link(url)
+                                ),
+      }
+
+      if(GMQ.enqueue_email(payload))
         self.sent_at = Time.now.utc
         self.save
         return
       else
         # Our mail gateway is down and we couldn't enqueue
-        raise Exception, "Couldn't enqueue confirmation emails in the mailing system."
+        raise PRgov::GMQUnavailable, "Couldn't enqueue confirmation emails in the GMQ."
       end
     end
 
     def save
      # update the last updated_at timestamp
      self.updated_at = Time.now.utc
-     $redis.set db_id, self.to_json
+     # If TTL is not nil, update the Time to Live everytime
+     # a transaction is saved/updated
+     $redis.pipelined do |db|
+       db.set db_id, self.to_json
+       db.expire(db_id, EXPIRATION)
+     end
+    end
+
+    # Class method to decode an email
+    # If it fails we return empty string.
+    def self.decode(str)
+       begin
+         Base64.decode64(str)
+       rescue Exception => e
+         ""
+       end
+    end
+
+    # Class method to encode an email.
+    # If it fails we return empty string.
+    def self.encode(str)
+       begin
+         Base64.encode64(str)
+       rescue Exception => e
+         ""
+       end
+    end
+
+    # Generates a URL for confirmation.
+    # includes confirmation code and the
+    # email address base64 encoded.
+    def get_link(url)
+      puts "value of variable is #{url}"
+      link_to('confirm email',
+      "#{url}/confirm?code=#{self.confirmation_code}&"+
+      "address=#{Email.encode(self.address)}")
+      # link_to('confirm email', '/confirm?123')
     end
 
 end

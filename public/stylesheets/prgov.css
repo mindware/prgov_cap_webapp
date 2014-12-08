@@ -91,3 +91,21 @@ body {
     background-size:cover;
   }
 }
+
+.icon {
+  background-image:url(../images/gavel.png);
+  background-repeat: no-repeat;
+  width: 68px;
+}
+
+.identification {
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+.identification:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+    border-color: red;
+    cursor: pointer;
+}

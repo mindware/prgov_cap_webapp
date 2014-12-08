@@ -1,5 +1,8 @@
 
 $(document).ready(function() {
+  // early checks are used to add
+  // on change event monitoring
+  early_checks();
   $('#birthdate-datetimepicker').datetimepicker({
     pickTime: false
   });
@@ -104,3 +107,6 @@ $(document).ready(function() {
     }
   });
 });
+
+// used and defined in form1
+function early_checks() {}

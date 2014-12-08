@@ -14,14 +14,16 @@ es:
       modal:
         title: "Condiciones de Uso"
   email:
-    header: "Comenzemos"
-    title: "Email Validation"
+    header: "Comencemos"
+    title: "Validemos su Email"
     form:
         email: "Email:"
         confirm: "Confirmar Email:"
         captcha: "Captcha:"
     message: >
-      Compártanos el email al que interesa le enviemos el certificado.
+      Suministre la dirección de correo electrónico al que interesa
+      le enviemos el certificado. Le enviaremos un enlace al mismo para
+      proceder con la solicitud.
     captcha:
       message: "(¿Porqué un captcha?)"
       modal:
@@ -47,7 +49,7 @@ es:
       simplemente acceda a su cuenta de correo, identifique nuestro email
       y pulse sobre el enlace provisto.
 
-      El correo no debe tardar más de %{time} minutos en recibirse.
+      El correo no debe tardar más de *%{time} minutos* en recibirse.
     help:
       text: "Necesita ayuda? Para más información pulse aquí."
     modal:
@@ -56,8 +58,8 @@ es:
         Para identificar el email de 'pr.gov', recuerde acceder y verificar bien su cuenta de correo electrónico,
         incluyendo los folders del 'Inbox' o 'Mail' y 'Spam' o 'Junk-Email'.
 
-        El correo no debe tardar más de %{time} minutos en recibirse. Una vez
-        recibido, proceda a hacer 'click' en el enlace que le hemos enviado en el email.
+        El correo no debe tardar más de *%{time} minutos* en recibirse. Una vez
+        recibido, proceda a pulsar sobre el enlace que le hemos enviado en el email.
       title: "Más Información"
     resend_message: >
       De no recibir su correo en el tiempo antes mencionado, podrá solicitar un
@@ -66,17 +68,25 @@ es:
     already: >
       Recientemente enviamos el correo electrónico a %{email}, debe llegarle en
       los proximos minutos. De no recibirlo, usted podrá solicitar un reenvio
-      del mismo en %{time}, simplemente recargando esta página o pulsando sobre
+      del mismo en *%{time}*, simplemente recargando esta página o pulsando sobre
       el botón de 'Re-enviar'. Agradecemos su patrocinio.
     minute: "minuto"
     reload_button: "Re-enviar correo"
+  confirmation:
+      header: "Su dirección de email ha sido confirmada"
+      body: >
+        Gracias por confirmar que la dirección %{email}
+        recibe correos de pr.gov. Su formulario está listo,
+        puede proceder pulsando el botón a continuación.
+      button: "Proceder al Formulario"
   form:
       header: "Certificado de Antecedentes Penales » Formulario"
       message: >
         Para solicitar el Certificado de Antecedentes Penales, debe tener una
         identificación emitida por el Departamento de Transportación y Obras
         Públicas (DTOP) de Puerto Rico. Para información sobre los requisitos
-        para esta identificación, puede comunicarse al 3-1-1.
+        para esta identificación, puede comunicarse llamando por telefono al
+        3-1-1.
       panel:
         citizen:
           title: "Información del Ciudadano"
@@ -97,20 +107,50 @@ es:
             placeholder: "MM/DD/YYYY"
           gender:
             label: "Género:"
+            placeholder: "--"
+            male: "Masculino"
+            female: "Femenino"
           residence:
             label: "País de Residencia:"
         id:
-          title: "Identificación"
+          title: "Metodo de Identificación"
+          label: "Seleccione El Metodo de Identificación"
+          passport:
+            title: "Pasaporte"
+            label: "Pasaporte:"
+            placeholder: "Entre el número de su pasaporte"
+            help: >
+              Los certificados emitidos mediante este servicio
+              para personas que se identifican mediante pasaporte,
+              están limitados a usos especificos. Recomendamos para
+              los ciudadanos que tienen licencia de conducir de
+              Puerto Rico o identificación válida de DTOP, que
+              utilicen las mismas. Toda solicitud que
+              requiera identificación mediante pasaporte
+              tendrá una validación manual y exhaustiva, que incluye
+              verificación contra bancos de datos federales.
           dtop:
-            label: "ID de DTOP:"
-            placeholder: "Licencia de Conducir o ID Digital"
+            id:
+              title: "Identificación Digital de DTOP"
+              label: "Identificación Digital de DTOP:"
+              placeholder: "Entre el número de su identificación"
+            license:
+              title: "Licencia de Conducir de Puerto Rico"
+              label: "Licencia de Conducir de Puerto Rico:"
+              placeholder: "Entre el número de su licencia de conducir"
           ssn:
+            title: "Seguro Social"
             label: "Seguro Social:"
             placeholder: "xxx-xx-xxxx"
+            help: >
+              Para fines de Ley y Orden, el uso del seguro social está
+              permitido por ley. El proveer el mismo es necesario para este
+              servicio.
         purpose:
           title: "Propósito del Certificado"
           certificate_purpose:
             label: "Propósito del Certificado:"
+          placeholder: "--"
         delivery:
           title: "Método de Entrega"
           email:
@@ -121,4 +161,5 @@ es:
             placeholder: "Confirmar Correo Electrónico"
       button:
         submit: "Solicitar"
+        continue: "Continuar"
 ...

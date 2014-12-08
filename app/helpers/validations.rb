@@ -54,6 +54,25 @@ def validation_complete?
   end
 end
 
+# If the user is missing a specific session value,
+# he hasn't successfully completed the steps to get to this point
+# At this time these required steps are: have email confirmed in db.
+def email_confirmed?
+  # Validate if the user has the email confirmed in the
+  # server side session. This is set by the controller.
+  # after we've validated the email. If the user doesn't
+  # have this session value, he can't complete this form.
+  #
+  # If the user attempts to share/bookmark this url, for example
+  # and the incoming session is not found to be valid
+  # then the user is redirected to the terms and conditions
+  # and a notification that their link has expired is
+  # shown.
+  if session["email_confirmed"].to_s.length == 0
+      redirect to ('/?expired=true')
+  end
+end
+
 ##############################################################
 # The following are data validations inherited from the GMQ  #
 ##############################################################

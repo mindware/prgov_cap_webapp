@@ -4,15 +4,15 @@ source 'https://rubygems.org'
 # gemspec
 
 # Server requirements
-gem 'puma'
-gem 'foreman'
+gem 'puma', '2.9.2'
+gem 'foreman', '0.76.0'
 
 # Optional JSON codec (faster performance)
 # gem 'oj'
 
 # Project requirements
 gem 'rake'
-gem 'dotenv', :require => 'dotenv'
+gem 'dotenv'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
@@ -30,4 +30,6 @@ gem 'rack-test', :require => 'rack/test', :group => 'test'
 # Padrino Stable Gem
 gem 'padrino', '0.12.3'
 
-gem 'rest_client'
+gem 'rest_client', '1.7.3'
+
+gem 'shotgun', '0.9'
