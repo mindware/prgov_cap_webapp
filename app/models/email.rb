@@ -47,6 +47,21 @@ class Email < PRgov::Base
     # Turns MAX_MINUTES minutes into seconds
     MAX_MINUTES_IN_SECONDS = 60 * MAX_MINUTES
 
+    # How many months should we remember an email that has
+    # been confirmed by the user to receive emails from pr.gov,
+    # so that the user doesn't have to go through the process
+    # of revalidating his email through this period:
+    MONTHS_TO_EXPIRATION_OF_EMAIL = 8
+    # The expiration is going to be Z months, in seconds.
+    # Time To Live - Math:
+    # 604800 seconds in a week X 4 weeks = 1 month in seconds
+    # We multiply this amount for the Z amount of months that an email
+    # can last before expiring.
+    EXPIRATION = (604800 * 4) * MONTHS_TO_EXPIRATION_OF_EMAIL
+    # Emails awaiting user to click on the confirmation link
+    # last one week unless confirmed.
+    UNCONFIRMED_EXPIRATION = 604800 # one week.
+
     # Newly created objects from user input
     def self.create(params)
       # The following parameters are allowed to be input by the user
@@ -225,17 +240,32 @@ class Email < PRgov::Base
     def save
      # update the last updated_at timestamp
      self.updated_at = Time.now.utc
-     $redis.set db_id, self.to_json
+     # If TTL is not nil, update the Time to Live everytime
+     # a transaction is saved/updated
+     $redis.pipelined do |db|
+       db.set db_id, self.to_json
+       db.expire(db_id, EXPIRATION)
+     end
     end
 
     # Class method to decode an email
+    # If it fails we return empty string.
     def self.decode(str)
-       Base64.decode64(str)
+       begin
+         Base64.decode64(str)
+       rescue Exception => e
+         ""
+       end
     end
 
     # Class method to encode an email.
+    # If it fails we return empty string.
     def self.encode(str)
-       Base64.encode64(str)
+       begin
+         Base64.encode64(str)
+       rescue Exception => e
+         ""
+       end
     end
 
     # Generates a URL for confirmation.
