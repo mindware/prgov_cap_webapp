@@ -5,13 +5,10 @@ en:
       title: "WARNING"
       text: |
         The source of this transaction will be registered in our systems and it
-        is governed by the penal code of Puerto Rico.
-
-        The penal code of Puerto Rico, under the law No. 146 of July 30, 2012
-        sets forth:
+        is governed by the penal code of Puerto Rico. The penal code of Puerto
+        Rico, under the law No. 146 of July 30, 2012 sets forth:
 
         '''
-
         ==== CHAPTER II - OFFENSES AGAINST THE SECURITY OF TRANSACTIONS
 
         ===== SECTION ONE - Fakes and Forgeries
@@ -36,7 +33,6 @@ en:
         be punished with imprisonment for a fixed term of three (3) years.
 
         '''
-
         ==== CHAPTER II - OFFENSES AGAINST THE JUDICIAL FUNCTION
 
         ===== Article 286 - Preparation of false documents

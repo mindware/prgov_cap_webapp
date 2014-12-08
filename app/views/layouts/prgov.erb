@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta charset="UTF-8">
 
+  <!-- Repel some of the guys, let's add cross-site-request-forgery protection -->
+  <% # csrf_meta_tags() %>
+
   <!-- Stylesheets -->
   <%= stylesheet_link_tag 'bootstrap.min' %>
-
   <%= yield_content :bootstrap_css_extras %>
-
   <%= stylesheet_link_tag 'prgov' %>
-
   <%= yield_content :cap_css %>
 
   <!-- Javascript -->
@@ -19,7 +19,6 @@
   <%= javascript_include_tag 'bootstrap.min' %>
 
   <%= yield_content :bootstrap_js_extras %>
-
   <%= yield_content :prgov_cap_js %>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -1,0 +1,29 @@
+
+Project: WebApp
+===============
+
++Tasks
+------
+Pending:
+1. Add PR.Gov default 400s and 500s error pages. Do not show the sinatra error page for unknown resources.
+2. Add CSRF protection to forms.
+3. Update recaptcha for pr.gov domain at publication time.
+4. Actualizar advertencias
+5. Form Data in Session
+6. Server Side Validations
+7. UI errors for validation
+8. Send data to GMQ and process errors, messages
+9. Language Selection Support in Form
+10. UI: Certificate Validation form input form
+11. UI: Certificate Validation results page
+12. UI: Certificate Validation form output loading page AJAX
+13. Web Backend Validation against the GMQ
+14. Google Analytics
+15. Email Validation - save email and mail / validate if already confirmed / provide mechanism for validating
+16. At deployment if webserver needs a proxy it must be configured in rack-recaptcha
+17. Update ENV Redis variables to point to HAProxy on production.
+18. update email_sent to check if a long time has transcurred since last email to resend
+19. Performs postman tests against backend validation especially email
+
+---
+Auto-generated using: github.com/mindware/todo

@@ -12,10 +12,11 @@ es:
         clemency: "Clemencia Ejecutiva"
         employment: "Empleo"
         study: "Estudio"
-        weapon: "Licencia de Armas, etc."
+        weapon: "Licencia de Armas"
         passport_visa: "Pasaporte o Visa"
         patent_franchise: "Patentes o Franquicias"
         residence: "Residencia"
         housing: "Vivienda"
+        name_change: "Cambio de Nombre"
         other: "Otros"
 ...

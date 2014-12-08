@@ -1,0 +1,19 @@
+---
+es:
+  error:
+    disclaimer:
+      terms: >
+        Error: Debe leer las advertencias y aceptar los terminos y condiciones
+        para proceder.
+      expired: >
+        Error: Su acceso al enlace ha expirado o la información provista no es
+        valida. Para comenzar, debe aceptar los terminos y condiciones.
+    email:
+      captcha: >
+        Debe escribir la información contenida en el captcha en el recuadro
+        provisto para proceder.
+      email: "Debe escbribir un correo electrónico válido."
+      confirm: >
+        Debe escribir la dirección electrónica dos veces para confirmar la
+        misma.
+...

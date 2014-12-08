@@ -1,0 +1,12 @@
+---
+en:
+  email:
+    confirmation:
+      subject: "Access the Good Standing Certificate Form"
+      body: >
+        This is the body of the message. This will be sent as both text
+        and converted HTML.
+        We received a request to fill out the form for  Good Standing Certificate
+        validation. In order to validate your email, click here: %{link}.
+        If you did not request this email, you may delete it.
+...

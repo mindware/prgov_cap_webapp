@@ -17,5 +17,6 @@ en:
         patent_franchise: "Patent or Franchise"
         residence: "Residence"
         housing: "Dwelling"
+        name_change: "Name change"
         other: "Others"
 ...

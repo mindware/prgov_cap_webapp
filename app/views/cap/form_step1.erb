@@ -1,0 +1,163 @@
+
+  <% content_for :bootstrap_css_extras do %>
+    <%= stylesheet_link_tag 'bootstrapValidator.min' %>
+    <%= stylesheet_link_tag 'bootstrap-datetimepicker.min' %>
+  <% end %>
+
+  <% content_for :bootstrap_js_extras do %>
+    <%= javascript_include_tag 'moment.min' %>
+    <%= javascript_include_tag 'bootstrap-datetimepicker.min' %>
+    <%= javascript_include_tag 'bootstrapValidator.min' %>
+  <% end %>
+
+  <% content_for :prgov_cap_js do %>
+    <%= javascript_include_tag 'prgov-cap-form' %>
+    <%= javascript_include_tag 'prgov-cap-form1' %>
+  <% end %>
+
+    <div class="container">
+      <h3 class="text-center"><%= i18n_t("header") %></h3>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <di2v class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+              80%
+            </div>
+          </div>
+      </div>
+      <div class="row">
+          <!-- IDENTIFICATION AND PURPOSE -->
+          <div class="row">
+            <div class="col-sm-12">
+              <!-- IDENTIFICATION PANEL -->
+              <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                  <h3 class="panel-title"><%= i18n_t("form.panel.id.title") %></h3>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body">
+                  <div class="row">
+                    <!-- Form to select id type -->
+                    <div class="form-group col-sm-12">
+                      <!-- Select a form menu -->
+                      <form class="form" role="form" id="option" name="option" action="#">
+                        <label class="control-label"><%= i18n_t("form.panel.id.label") %></label>
+                        <select class="form-control">
+                          <% # if none of the options is selected, default to this first one %>
+                          <% form = "license" if form.to_s.length == 0 %>
+                          <% if form == "license" %>
+                            <option value="license" selected><%= i18n_t("form.panel.id.dtop.license.title") %></option>
+                          <% else %>
+                            <option value="license"><%= i18n_t("form.panel.id.dtop.license.title") %></option>
+                          <% end %>
+                          <% if form == "dtop" %>
+                            <option value="dtop" selected><%= i18n_t("form.panel.id.dtop.id.title") %></option>
+                          <% else %>
+                            <option value="dtop"><%= i18n_t("form.panel.id.dtop.id.title") %></option>
+                          <% end %>
+                          <% if form == "passport" %>
+                            <option value="passport" selected><%= i18n_t("form.panel.id.passport.title") %></option>
+                          <% else %>
+                            <option value="passport"><%= i18n_t("form.panel.id.passport.title") %></option>
+                          <% end %>
+                        </select>
+                      </form>
+                    </div>
+                  </div>
+
+                  <!-- DTOP LICENSE FORM -->
+                  <form class="form" role="form" id="license" name="license" action="/form2"  method="post">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <!-- Imagen de la Licencia -->
+                          <%= image_tag("license_by_paomedia_creative_commons.png",
+                                {:class => 'img-responsive identification',
+                                 :alt => 'icono representando una licencia de conducir'}
+                                 ) %>
+                      </div>
+                      <!-- Form Column -->
+                      <div class="col-sm-9">
+                        <!-- Dtop ID input -->
+                        <div class="form-group col-sm-12">
+                          <label for="id_dtop" class="control-label"><%= i18n_t("form.panel.id.dtop.license.label") %></label>
+                          <input type="text" class="form-control" id="id_dtop" name="id_dtop" maxlength="7" placeholder="<%= i18n_t("form.panel.id.dtop.license.placeholder") %>" style="margin-bottom: 8px;">
+                          <label for="ssn" class="control-label"><%= i18n_t("form.panel.id.ssn.label") %></label>
+                          <input type="text" class="form-control" id="ssn" placeholder="<%= i18n_t("form.panel.id.ssn.placeholder") %>">
+                          <span id="helpBlock" class="help-block"><%= i18n_t("form.panel.id.ssn.help") %></span>
+                          <input type="hidden" name="form" value="dtop">
+                        </div><!-- /.form-group -->
+                      </div>
+                        <!-- End of Dtop input -->
+                    </div>
+                  </form> <!-- End of DTOP License Form -->
+
+                  <!-- DTOP ID FORM -->
+                 <form class="form hidden" role="form" id="dtop" name="dtop" action="/form2"  method="post">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <!-- Imagen de la Licencia -->
+                        <%= image_tag("license_by_paomedia_creative_commons.png",
+                              {:class => 'img-responsive identification',
+                               :alt => 'icono representando una licencia de conducir'}
+                               ) %>
+                    </div>
+                    <!-- Form Column -->
+                    <div class="col-sm-9">
+                      <!-- Dtop ID input -->
+                      <div class="form-group col-sm-12">
+                        <label for="id_dtop" class="control-label"><%= i18n_t("form.panel.id.dtop.id.label") %></label>
+                        <input type="text" class="form-control" id="id_dtop" name="id_dtop" maxlength="7" placeholder="<%= i18n_t("form.panel.id.dtop.id.placeholder") %>" style="margin-bottom: 8px;">
+                        <label for="ssn" class="control-label"><%= i18n_t("form.panel.id.ssn.label") %></label>
+                        <input type="text" class="form-control" id="ssn" placeholder="<%= i18n_t("form.panel.id.ssn.placeholder") %>">
+                        <span id="helpBlock" class="help-block"><%= i18n_t("form.panel.id.ssn.help") %></span>
+                        <input type="hidden" name="form" value="dtop">
+                      </div><!-- /.form-group -->
+                    </div>
+                      <!-- End of Dtop input -->
+                  </div>
+                  <!-- End of DTOP ID Form -->
+                </form>
+
+                  <!-- Passport FORM -->
+                <form class="form hidden" role="form" id="passport" name="passport" action="/form2"  method="post">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <!-- Passport image -->
+                        <%= image_tag("pasaporte_prgov.png",
+                              {:class => 'img-responsive identification',
+                               :alt => 'icono representando un pasaporte'}
+                               ) %>
+                    </div>
+                    <!-- Form Column -->
+                    <div class="col-sm-9">
+                      <!-- Passport input -->
+                      <div class="form-group col-sm-12">
+                        <label for="passport" class="control-label"><%= i18n_t("form.panel.id.passport.label") %></label>
+                        <input type="text" class="form-control" id="passport" placeholder="<%= i18n_t("form.panel.id.passport.placeholder") %>">
+                        <span id="helpBlock" class="help-block"><%= i18n_t("form.panel.id.passport.help") %></span>
+                        <input type="hidden" name="form" value="passport">
+                      </div><!-- /.form-group -->
+                    </div>
+                      <!-- End of Passport input -->
+                  </div>
+                  <!-- End of Passport Form -->
+                </form>
+
+                </div> <!-- End of Panel -->
+              </div><!-- /.panel-body -->
+            </div><!-- /.panel -->
+            <!-- /IDENTIFICATION PANEL -->
+          </div><!-- /.col-sm -->
+        </div>
+
+          <!-- SUBMIT BUTTON -->
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+              <button id="continue" type="submit" class="btn btn-default btn-lg btn-block"><%= i18n_t("form.button.continue") %></button>
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+          <!-- /SUBMIT BUTTON -->
+      </div><!-- /.row -->
+    </div><!-- /.container -->
