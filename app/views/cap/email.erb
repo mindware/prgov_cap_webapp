@@ -25,15 +25,17 @@
         <div class="col-md-8">
           <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <% if params[:email] == "false" %>
-              <strong><%= i18n_asciidoc('error.email.email') %></strong>
-            <% end %>
-            <% if params[:confirm] == "false" %>
-              <strong><%= i18n_asciidoc('error.email.confirm') %></strong>
-            <% end %>
-            <% if params[:captcha] == "false" %>
-              <strong><%= i18n_asciidoc('error.email.captcha') %></strong>
-            <% end %>
+            <ul>
+              <% if params[:email] == "false" %>
+                <li><strong><%= i18n_t('error.email.email') %></strong></li>
+              <% end %>
+              <% if params[:confirm] == "false" %>
+                <li><strong><%= i18n_t('error.email.confirm') %></strong></li>
+              <% end %>
+              <% if params[:captcha] == "false" %>
+                <li><strong><%= i18n_t('error.email.captcha') %></strong></li>
+              <% end %>
+            </ul>
           </div>
         </div>
         <div class="col-md-2"></div>
@@ -50,7 +52,9 @@
                 <h3 class="panel-title"><center><%= i18n_t("email.title") %></center></h3>
               </div>
               <div class="panel-body">
-                <%= i18n_asciidoc("email.message") %>
+                <p>
+                  <%= i18n_t("email.message") %>
+                <p/>
                 <!-- Input email -->
                 <div class="form-group <% if(params[:email] == "false")%> has-error <% end %>">
                   <label for="email" class="col-md-4 control-label"><%= i18n_t("email.form.email") %></label>
@@ -111,7 +115,7 @@
             <h4 class="modal-title" id="aboutCaptchaModal"><%= i18n_t("email.captcha.modal.title") %></h4>
           </div>
           <div class="modal-body">
-            <%= i18n_asciidoc("email.captcha.modal.text") %>
+            <%= i18n_t("email.captcha.modal.text") %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"><%= i18n_t("email.captcha.modal.close") %></button>
