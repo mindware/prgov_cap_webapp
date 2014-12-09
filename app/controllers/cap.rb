@@ -13,7 +13,7 @@ PRgovCAPWebApp::App.controllers :cap do
   # perform certain checks before the action is
   # evaluated. We can exclude specific actions from
   # the check.
-  before :except => [:index, :disclaimer, :form, :confirm] do
+  before :except => [:index, :disclaimer, :form, :form2, :confirm] do
     validate_terms()
     # Terms accepted. Check Captcha flag.
     # Captcha flag missing? Check captcha input.
@@ -32,6 +32,7 @@ PRgovCAPWebApp::App.controllers :cap do
   before :form do
     email_confirmed?
   end
+
 
   ############################
   #         Resources        #
@@ -121,6 +122,20 @@ PRgovCAPWebApp::App.controllers :cap do
         if email.confirmed?
           # redirect to form
           session["email_confirmed"] = true
+          # for security purposes, store the email address
+          # in a variable that is modified only in this
+          # specific section where the email is confirmed
+          # and in the :confirm resource. Then identify
+          # any disparities in email vs locked_address
+          # using a before_filter called email_confirmed?.
+          # This will help detect attacks where a
+          # a malicious user exploits our ability to
+          # process concurrent requests across
+          # instances to attempt to modify the session
+          # in order to use a confirmed address to
+          # send emails to an unconfirmed address.
+          # Stop them in their tracks here.
+          session["locked_address"] = email.address
           redirect to '/form'
         # Email not yet confirmed but is awaiting confirmation:
         else
@@ -157,6 +172,25 @@ PRgovCAPWebApp::App.controllers :cap do
   # We will be validating the code and email in this
   # resource. Before this resource executes, this controller
   # validates the current session.
+  #
+  # Once we're in this step (of confirming), we
+  # start the session a new. This way, if the user
+  # opened the form in a non-default browser, but then clicked
+  # and opened the email confirmation link in their default
+  # browser, they can still work through as we're
+  # validating the code and the email.
+  #
+  # We make sure to delete all session data at this
+  # point, so that a malicious user attempting to use
+  # this confirmation page for one email that
+  # simultaneously alters the session using a form
+  # is unable to trick the system, and always
+  # gets stuck to the confirmation data.
+  # At this point, we don't care about session data
+  # confirming the users clicked on the disclaimer,
+  # as they could only have gotten to this point
+  # by accepting it previously in order to get
+  # the confirmation code.
   get :confirm, :map => '/confirm' do
       # if address and code were provided:
       if (params["address"].to_s.length > 0 and
@@ -177,11 +211,41 @@ PRgovCAPWebApp::App.controllers :cap do
                       # and skip the validation step
                       email.confirmed = true
                       email.save
+
                       # Now for the current session:
                       # set the current session data to
                       # email_confirmed, which will be validated
                       # by the form resource.
                       session["email_confirmed"] = true
+
+                      # Immediately lock the email address
+                      # this will help us deter a specific
+                      # kind of session attack. This assignment
+                      # must only ocurr in this resource and
+                      # in the email_sent action where we
+                      # allow confirmed email addresses
+                      # to pass through to the form.
+                      # Nowhere else should this occurr in order
+                      # to protect the system. Got it? Great.
+                      # By only setting this variable in very
+                      # precise locations, we can later easily
+                      # compare it against the more unreliable
+                      # session["email"] information, which
+                      # is modified in multiple stages.
+                      session["locked_address"] = email.address
+                      # Also add/udpate the email session
+                      # it may ocurr that a user goes through
+                      # the entire process of requesting an
+                      # email confirmation, but some time later
+                      # clicks the link on an entirely new browser,
+                      # such as a default browser or an entirely new
+                      # computer. We consider email confirmation
+                      # and actually filling the form as two
+                      # seperate events. We make sure to
+                      # set up the email address here, which will
+                      # be used for validation against the
+                      # locked address.
+                      session["email"]  = email.address
                       # Give a brief explanation that the email
                       # has been validated, and provide a link
                       # to the form so the user can get started.
@@ -213,7 +277,7 @@ PRgovCAPWebApp::App.controllers :cap do
       end
   end
 
-  post :form, :map => '/form' do
+  get :form, :map => '/form' do
     form = "dtop"
     if(params[:form].to_s.length == 0 and
        params[:form].to_s.length < 10)
@@ -223,11 +287,28 @@ PRgovCAPWebApp::App.controllers :cap do
             :locals => { :form => form }
   end
 
-  post :form2, :map => '/form2' do
+  get :form2, :map => '/form2' do
     render 'form_step2', :layout => :prgov
   end
 
   post :form_validate, :map => '/form_validation' do
+    # perform server side validation of form data.
+
+    if(params[:form] == "dtop")
+    # If the user selected to identify herself
+    # using a dtop id or driver license:
+
+    elsif(params[:form] == "passport")
+    # if the user selected to identify using
+    # a passport:
+    else
+    # The user chose an unknown form type,
+    # redirect and show an error
+    redirect to ("/form?errors=true&")
+    end
+  end
+
+  post :form2_validate, :map => '/form2_validation' do
     # perform server side validation of form data.
     # if form data correct,
       # post certificate
@@ -245,6 +326,7 @@ PRgovCAPWebApp::App.controllers :cap do
       # and uses their own email. If their email is confirmed
       # they won't need
   end
+
 
   ###########################
   #  Aliases & Redirections #
@@ -265,19 +347,6 @@ PRgovCAPWebApp::App.controllers :cap do
   get :email, :map => '/email' do
     render 'email', :layout => :prgov
   end
-
-  get :form, :map => '/form' do
-    render 'form_step1', :layout => :prgov
-  end
-
-  get :form_second, :map => '/form' do
-    render 'form_step2', :layout => :prgov
-  end
-
-  get :form2, :map => '/form2' do
-    render 'form_step2', :layout => :prgov
-  end
-
 
 
   # private

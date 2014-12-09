@@ -162,4 +162,5 @@ es:
       button:
         submit: "Solicitar"
         continue: "Continuar"
+        cancel: "Cancelar"
 ...
