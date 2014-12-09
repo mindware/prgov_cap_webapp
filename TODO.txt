@@ -24,6 +24,8 @@ Pending:
 17. Update ENV Redis variables to point to HAProxy on production.
 18. update email_sent to check if a long time has transcurred since last email to resend
 19. Performs postman tests against backend validation especially email
+Done:
+1. Añadir seguridad para detectar ataques a las sesiones mediante concurrent requests.
 
 ---
 Auto-generated using: github.com/mindware/todo
