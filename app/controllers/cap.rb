@@ -29,7 +29,7 @@ PRgovCAPWebApp::App.controllers :cap do
 
   # For all resources that are accessible once the email
   # has been confirmed, we check for email validation:
-  before :form do
+  before [:form, :form2] do
     email_confirmed?
   end
 
