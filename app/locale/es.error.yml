@@ -8,6 +8,14 @@ es:
       expired: >
         Error: Su acceso al enlace ha expirado o la información provista no es
         valida. Para comenzar, debe aceptar los terminos y condiciones.
+      email: >
+        Error: Identificamos que tiene dos o más sesiones de este servicio
+        en uso de forma simultanea en su navegador de internet.
+        La dirección de email actual no corresponde a la dirección para
+        la cual fue preparada la solicitud. Para proceder, debe asegurarse
+        de realizar una sola petición a la vez de este servicio.
+        Para comenzar, solo necesita aceptar los terminos y condiciones
+        a continuación.
     email:
       captcha: >
         Debe escribir la información contenida en el captcha en el recuadro

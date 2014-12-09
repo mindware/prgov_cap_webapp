@@ -116,4 +116,5 @@ en:
       button:
         submit: "Submit"
         continue: "Continue"
+        cancel: "Cancel"
 ...

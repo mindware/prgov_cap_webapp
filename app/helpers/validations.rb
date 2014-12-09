@@ -56,7 +56,9 @@ end
 
 # If the user is missing a specific session value,
 # he hasn't successfully completed the steps to get to this point
-# At this time these required steps are: have email confirmed in db.
+# At this time these required steps are: have email confirmed in session
+# AND very important, have email confirmed in db. We can't rely
+# on the session alone.
 def email_confirmed?
   # Validate if the user has the email confirmed in the
   # server side session. This is set by the controller.
@@ -68,9 +70,27 @@ def email_confirmed?
   # then the user is redirected to the terms and conditions
   # and a notification that their link has expired is
   # shown.
-  if session["email_confirmed"].to_s.length == 0
+  if session["email_confirmed"].to_s.length == 0 or
+     session["email_confirmed"] == false or
+     session["email"].to_s.length == 0 or
+     session["locked_address"].to_s.length == 0
       redirect to ('/?expired=true')
+  # If the email address and the locked address
+  # do not match, we could have a user using
+  # multiple tabs at the same time to process different
+  # certificate requests. This could happen if a
+  # shared computer is left open with a partially
+  # uncompleted request that already has access to the
+  # form, and another request that is processing an email
+  # confirmation. Other than that, and on a more malicious
+  # note, an attacker could be trying to exploit our
+  # session system, to attempt to send email to an
+  # unconfirmed address. We stop both potential situations
+  # immediately here.
+  elsif (session["locked_address"] != session["email"])
+    redirect to ('/?email=false')
   end
+
 end
 
 ##############################################################
