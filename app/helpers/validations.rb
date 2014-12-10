@@ -93,6 +93,62 @@ def email_confirmed?
 
 end
 
+def validate_form1
+  errors = ""
+
+  # First, clean up any malicious code.
+  params[:form] = escape_html(params[:form])
+  params[:dtop_id] = escape_html(params[:dtop_id])
+  params[:ssn] = escape_html(params[:ssn])
+  params[:passport] = escape_html(params[:passport])
+
+  # Store the data so we can show it again in case of
+  # errors, using the session.
+  session[:form] = params[:form]
+  session[:dtop_id] = params[:dtop_id]
+  session[:ssn] = params[:ssn]
+  session[:passport] = params[:passport]
+
+
+  # perform server side validation of form1 data.
+  # If the user selected to identify
+  # using a dtop id or driver license:
+  if(params[:form] == "dtop" or params[:form] == "license")
+    if(params[:dtop_id].to_s.length == 0 or
+      !validate_dtop_id(params[:dtop_id]))
+        errors += "&license=false"
+    end
+    if(params[:ssn].to_s.length == 0 or
+       !validate_ssn(params[:ssn]))
+        errors += "&ssn=false"
+    end
+  # If the user selected to identify using
+  # a passport:
+  elsif(params[:form] == "passport")
+    # if pass port number cannot be validated
+    # later add password number validation
+    # Normally passwords are 9 digits long, but
+    # that could vary through countries. Let's
+    # put a a limit on 20 for now.
+    if(!validate_passport(params[:passport]))
+       errors += "&passport=false"
+    else
+      puts "FOUND NO ERRORS"
+    end
+  # The user chose an unknown form type
+  else
+    errors += "&invalid_form=true"
+  end
+
+  # If any errors ocurred, do a redirect:
+  redirect to ("/form?errors=true#{errors}&form=#{params[:form]}") if errors.length > 0
+end
+
+def is_integer?(str)
+  return true if ((str =~ /\A\+?0*[1-9]\d*\Z/)== 0 )
+  return false
+end
+
 ##############################################################
 # The following are data validations inherited from the GMQ  #
 ##############################################################
@@ -105,10 +161,14 @@ module PRgov
       ##            Constants:               #
       ########################################
 
+      PASSPORT_MIN_LENGTH     = 9
+      PASSPORT_MAX_LENGTH     = 20
       SSN_LENGTH              = 9       # In 2014 SSN length was 9 digits.
       MAX_EMAIL_LENGTH        = 254     # IETF maximum length RFC3696/Errata ID: 1690
-      DTOP_ID_MAX_LENGTH      = 20      # Arbitrarily selected length. Review this!
-      PRPD_USER_ID_MAX_LENGTH = 255     # Arbitrarily selected length. Review this!
+      DTOP_ID_MIN_LENGTH      = 7       # Selected based on license length.
+      DTOP_ID_MAX_LENGTH      = 9       # Arbitrarily selected length. To support
+                                        # any future changes.
+      PRPD_USER_ID_MAX_LENGTH = 255     # Arbitrarily selected length.
       MAX_NAME_LENGTH         = 255     # Max length for individual components of
                                         # a full name (name, middle, last names)
       MAX_FULLNAME_LENGTH     = 255     # Max length for full name. 255 is long
@@ -194,9 +254,6 @@ module PRgov
         # Validate the Email
         raise InvalidEmail           if validate_email(params["email"])
 
-        # Validate the SSN
-        # we eliminate any potential dashes in ssn
-        params["ssn"]                 = params["ssn"].gsub("-", "").strip
         raise InvalidSSN             if !validate_ssn(params["ssn"])
 
         # Validate the DTOP id:
@@ -303,9 +360,27 @@ module PRgov
 
       # Validate Social Security Number
       def validate_ssn(value)
-        value = value.to_s
+        false if value.to_s.length == 0
+        # Validate the SSN
+        # we eliminate any potential dashes in ssn
+        value = value.to_s.gsub("-", "").strip
         # validates if its an integer
         if(validate_str_is_integer(value) and value.length == SSN_LENGTH)
+          return true
+        else
+          return false
+        end
+      end
+
+      # Validate Passport number
+      def validate_passport(value)
+        return false if value.to_s.length == 0
+        # Validate the Passport
+        # we eliminate any potential dashes in the passport
+        value = value.to_s.gsub("-", "").strip
+        # validates if its has proper length
+        if(value.length >= PASSPORT_MIN_LENGTH and
+           value.length <= PASSPORT_MAX_LENGTH)
           return true
         else
           return false
@@ -335,10 +410,12 @@ module PRgov
         !!(value =~ /\A[-+]?[0-9]+\z/)
       end
 
-      # Validates a DTOP id
+      # Validates a DTOP id.
       def validate_dtop_id(value)
+        return false if value.to_s.length == 0
         return false if(!validate_str_is_integer(value) or
-                  value.to_s.length >= DTOP_ID_MAX_LENGTH )
+                  value.to_s.length >= DTOP_ID_MAX_LENGTH or
+                  value.to_s.length <  DTOP_ID_MIN_LENGTH)
         return true
       end
 
