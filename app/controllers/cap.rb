@@ -28,9 +28,13 @@ PRgovCAPWebApp::App.controllers :cap do
   end
 
   # For all resources that are accessible once the email
-  # has been confirmed, we check for email validation:
-  before [:form, :form2] do
+  # has been confirmed, we need to check for email validation:
+  before :form, :form2, :form2_validation do
     email_confirmed?
+  end
+
+  before :form2 do
+    validate_form1
   end
 
 
@@ -46,6 +50,8 @@ PRgovCAPWebApp::App.controllers :cap do
   # not be mapped to '/'.
   #
   get :index, :map => '/info' do
+    # destroy any existing session.
+    session.clear
     render 'info', :layout => :prgov
   end
 
@@ -56,8 +62,14 @@ PRgovCAPWebApp::App.controllers :cap do
   # time, and other resources will redirect to '/'
   # when errors ocurr.
   get :disclaimer, :map => '/' do
-    # Alawys clear any sessions if the user goes to the
-    # disclaimer:
+    # This next line is very important. We *must*
+    # always clear any sessions if the user goes to the
+    # root '/', as the system redirects here upon
+    # various errors that requires the session be
+    # fully destroyed. Don't modify the next line
+    # unless you're fully aware of what you're doing,
+    # have taken every absolute precaution and your
+    # name is Andrés. Thanks.
     session.clear
     render 'disclaimer', :layout => :prgov
   end
@@ -246,6 +258,10 @@ PRgovCAPWebApp::App.controllers :cap do
                       # be used for validation against the
                       # locked address.
                       session["email"]  = email.address
+
+                      session["ssn"] = ""
+                      session["passport"] = ""
+                      session["dtop_id"] = ""
                       # Give a brief explanation that the email
                       # has been validated, and provide a link
                       # to the form so the user can get started.
@@ -278,34 +294,25 @@ PRgovCAPWebApp::App.controllers :cap do
   end
 
   get :form, :map => '/form' do
-    form = "dtop"
-    if(params[:form].to_s.length == 0 and
-       params[:form].to_s.length < 10)
+    form = "license"
+    # Allow optional identification selection:
+    # we won't be using form names longer
+    # than 15 characters for this resource,
+    # so we limit it here.
+    if(params[:form].to_s.length > 0 and
+       params[:form].to_s.length < 15)
+       puts "USING THE PARAMS ONE"
        form = params[:form]
+    elsif(session[:form].to_s.length > 0)
+      puts "USING THE SESSION"
+        form = params[:form]
     end
     render 'form_step1', :layout => :prgov,
             :locals => { :form => form }
   end
 
-  get :form2, :map => '/form2' do
+  post :form2, :map => '/form2' do
     render 'form_step2', :layout => :prgov
-  end
-
-  post :form_validate, :map => '/form_validation' do
-    # perform server side validation of form data.
-
-    if(params[:form] == "dtop")
-    # If the user selected to identify herself
-    # using a dtop id or driver license:
-
-    elsif(params[:form] == "passport")
-    # if the user selected to identify using
-    # a passport:
-    else
-    # The user chose an unknown form type,
-    # redirect and show an error
-    redirect to ("/form?errors=true&")
-    end
   end
 
   post :form2_validate, :map => '/form2_validation' do
@@ -348,6 +355,17 @@ PRgovCAPWebApp::App.controllers :cap do
     render 'email', :layout => :prgov
   end
 
+  # If someone attempts to load the form2 using a
+  # GET, we simply redirect them to the first
+  # form which allows GET requests.
+  #
+  # We give it a different from post action, as this
+  # is simply a redirect that doesn't require before
+  # validations directly. The before validations are
+  # done on the redirected page.
+  get :form2_redirect, :map => '/form2' do
+    redirect to('/form')
+  end
 
   # private
 
