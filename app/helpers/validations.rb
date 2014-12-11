@@ -93,6 +93,10 @@ def email_confirmed?
 
 end
 
+# This controller method sanitizes input, validates the
+# input from the the multiple forms available
+# in form1, sets the data in session, and
+# redirects if any errors ocurred.
 def validate_form1
   errors = ""
 
@@ -108,7 +112,6 @@ def validate_form1
   session[:dtop_id] = params[:dtop_id]
   session[:ssn] = params[:ssn]
   session[:passport] = params[:passport]
-
 
   # perform server side validation of form1 data.
   # If the user selected to identify
@@ -132,8 +135,6 @@ def validate_form1
     # put a a limit on 20 for now.
     if(!validate_passport(params[:passport]))
        errors += "&passport=false"
-    else
-      puts "FOUND NO ERRORS"
     end
   # The user chose an unknown form type
   else
@@ -142,6 +143,56 @@ def validate_form1
 
   # If any errors ocurred, do a redirect:
   redirect to ("/form?errors=true#{errors}&form=#{params[:form]}") if errors.length > 0
+end
+
+# This controller method sanitizes input, validates the
+# input from the the form available
+# in form2, sets the data in session, and
+# redirects if any errors ocurred.
+def validate_form2
+  errors = ""
+
+  puts "WE BE VALIDATING #{params[:name]}"
+  # First, clean up any malicious code.
+  params[:name] = escape_html(params[:name])
+  params[:name_initial] = escape_html(params[:name_initial])
+  params[:last_name] = escape_html(params[:last_name])
+  params[:mother_last_name] = escape_html(params[:mother_last_name])
+  params[:purpose] = escape_html(params[:purpose])
+  # params[:birthdate] = escape_html(params[:birthdate])
+  params[:birthdate] = params[:birthdate]
+  params[:residency_country] = escape_html(params[:residency_country])
+  params[:residency_city_state] = escape_html(params[:residency_city_state])
+
+  # Store the data so we can show it again in case of
+  # errors, using the session.
+  session[:name] = params[:name]
+  session[:name_initial] = params[:name_initial]
+  session[:last_name] = params[:last_name]
+  session[:mother_last_name] = params[:mother_last_name]
+  session[:purpose] = params[:purpose]
+  session[:birthdate] = params[:birthdate]
+  session[:residency_country] = params[:residency_country]
+  session[:residency_city_state] = params[:residency_city_state]
+
+  # Now let's start validation
+  # if(params[:dtop_id].to_s.length == 0 or
+  #     !validate_dtop_id(params[:dtop_id]))
+  #       errors += "&license=false"
+  # end
+  # if(params[:ssn].to_s.length == 0 or
+  #      !validate_ssn(params[:ssn]))
+  #       errors += "&ssn=false"
+  # end
+
+  # If any errors ocurred, do a redirect:
+  redirect to ("/form2?errors=true#{errors}") if errors.length > 0
+  # otherwise, we're good to go on.
+end
+
+def done?
+     return true if session[:done]
+     return false
 end
 
 def is_integer?(str)
