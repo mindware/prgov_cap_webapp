@@ -18,4 +18,32 @@ en:
       captcha: "You must properly fill out the captcha before proceeding."
       email: "You must enter a valid email address."
       confirm: "The email address must be entered twice in order to confirm it."
+    form:
+      invalid_form: >
+        The identification method selected is not supported yet, please
+        select another one from the list.
+      license: >
+        The number you've provided is incorrect. Please enter a
+        valid Puerto Rico driver license number or a valid DTOP
+        identification number.
+      ssn: >
+        The social security number provided appears to be invalid.
+      passport: >
+        The passport number is incorrect.
+      name: >
+        You must enter a proper name.
+      father: >
+        You must enter a proper last name.
+      mother: >
+        You can enter a proper mother last name.
+      birthdate: >
+        You must pick or enter your birthdate in the format DD/MM/YYYY.
+      purpose: >
+        You must specify the purpose behind the certificate request.
+      country: >
+        You must specify a country of residence.
+      city: >
+        You must specify a city of residence.
+      state: >
+        You must specify a state of residence.
 ...

@@ -24,4 +24,31 @@ es:
       confirm: >
         Debe escribir la dirección electrónica dos veces para confirmar la
         misma.
+    form:
+      invalid_form: >
+        El metodo de validación seleccionado no está apoyado aún, favor de
+        seleccionar uno de la lista provista.
+      license: >
+        El número de DTOP provisto no es correcto. Favor de entrar un
+        número de licencia de Puerto Rico o una identifiación de DTOP válida.
+      ssn: >
+        El número de seguro social provisto es incorrecto.
+      passport: >
+        El número de pasaporte no es correcto.
+      name: >
+        Debe escribir el nombre correctamente.
+      father: >
+        Debe escribir el apellido materno correctamente.
+      mother: >
+        Debe escribir el apellido materno correctamente.
+      birthdate: >
+        Debe escribir la fecha de nacimiento correctamente.
+      purpose: >
+        Debe especificar el propósito para el cual solicita el certificado.
+      country: >
+        Debe especificar un pais de residencia.
+      city: >
+        Debe espeificar un pueblo de residencia.
+      state: >
+        Debe especificar un estado de residencia.
 ...
