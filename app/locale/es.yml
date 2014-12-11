@@ -1,6 +1,8 @@
 ---
 es:
-  header: "Servicio para el Certificado de Antecedentes Penales"
+  header:
+    title: "Nuevo Servicio para el Certificado de Antecedentes Penales"
+    status: "beta"
   disclaimer:
     header: "Certificado de Antecedentes Penales"
     terms:
@@ -23,7 +25,10 @@ es:
     message: >
       Suministre la dirección de correo electrónico al que interesa
       le enviemos el certificado. Le enviaremos un enlace al mismo para
-      proceder con la solicitud.
+      proceder con la solicitud con el fin de validar que recibe nuestros
+      correos electrónicos. Si su dirección de correo ha sido
+      validada recientemente, le permitiremos acceder directamente
+      al formulario.
     captcha:
       message: "(¿Porqué un captcha?)"
       modal:
@@ -104,7 +109,8 @@ es:
             placeholder: "Apellido Materno"
           birthdate:
             label: "Fecha de Nacimiento:"
-            placeholder: "MM/DD/YYYY"
+            placeholder: "DD/MM/YYYY"
+            format: "DD/MM/YYYY"
           gender:
             label: "Género:"
             placeholder: "--"
@@ -141,7 +147,7 @@ es:
           ssn:
             title: "Seguro Social"
             label: "Seguro Social:"
-            placeholder: "xxx-xx-xxxx"
+            placeholder: "xxx-xx-xxxx (los guiones son opcionales)"
             help: >
               Para fines de Ley y Orden, el uso del seguro social está
               permitido por ley. El proveer el mismo es necesario para este
@@ -151,6 +157,17 @@ es:
           certificate_purpose:
             label: "Propósito del Certificado:"
           placeholder: "--"
+          options:
+            "1": "Clemencia Ejecutiva"
+            "2": "Empleo"
+            "3": "Estudios"
+            "4": "Licencia de Armas"
+            "5": "Pasaporte o Visa"
+            "6": "Patentes o Franquicias"
+            "7": "Residencia"
+            "8": "Vivienda"
+            "9": "Cambio de Nombre"
+            "10": "Otros..."
         delivery:
           title: "Método de Entrega"
           email:
@@ -163,4 +180,14 @@ es:
         submit: "Solicitar"
         continue: "Continuar"
         cancel: "Cancelar"
+  complete:
+    header: "Solicitud Completada"
+    body: >
+      Gracias por completar la solicitud. Ahora la misma
+      será enviada al sistema interconexión gubernamental
+      para validar su información en el Sistema Integrado
+      de Justicia Criminal. Recibirá un correo en
+      %{email} con más información de nuestra parte.
+    transaction: "Su número de transacción es:"
+
 ...

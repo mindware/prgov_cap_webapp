@@ -1,0 +1,48 @@
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h3><center><%= i18n_t("header.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
+          <br>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <di2v class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+              100%
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h4><%= i18n_t("complete.header") %></h4></div>
+            <div class="panel-body">
+              <div class="col-md-10 text-justify">
+                 <form class="form" role="form" id="form" name="form" action="/form" method="get">
+                  <font size="4"><%= i18n_asciidoc("complete.body", :email => email) %></font>
+                      <p class="lead">
+                        <%= i18n_t("complete.transaction") %>
+                        <BR/>
+                        <strong><a href="#"><%= id %></a></strong>
+                      </p>
+
+                    </button>
+                 </form>
+              </div>
+              <div class="col-md-2 text-center visible-lg-inline visible-md-inline">
+                  <%= image_tag("prgov_acp_email_confirmed2.gif",
+                        {:class => 'img-responsive',
+                         :alt => 'imagen animada de solicitud completada'}
+                         ) %>
+                  <br/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- end of container -->

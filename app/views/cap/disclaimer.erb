@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h3><center><%= i18n_t("header") %></center></h3>
+          <h3><center><%= i18n_t("header.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
           <br>
         </div>
       </div>
@@ -12,7 +12,7 @@
               params[:email] == "false" %>
         <div class="row">
           <div class="col-md-12">
-            <div class="alert alert-warning alert-dismissible" role="alert">
+            <div class="alert alert-danger alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <ul>
               <% if params[:expired] == "true" %>
@@ -32,7 +32,7 @@
        <input type="hidden" name="terms" value="true">
         <div class="row">
           <div class="col-md-12">
-            <div class="panel panel-danger">
+            <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title"><center><%= i18n_t("disclaimer.warning.title") %></center></h3>
               </div>

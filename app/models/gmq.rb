@@ -68,7 +68,6 @@ class GMQ
       puts "End of request."
 
       result = JSON.parse(response)
-      return true
     rescue Errno::ECONNREFUSED => e
       # connection error - server offline or network failure
       puts "We got a connection refused, everybody."

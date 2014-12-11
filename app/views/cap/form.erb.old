@@ -47,12 +47,12 @@
                       <input type="text" class="form-control" id="name_initial" name="name_initial" maxlength="1" placeholder="<%= i18n_t("form.panel.citizen.name_initial.placeholder") %>">
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-4">
-                      <label for="name_lastname_first" class="control-label"><%= i18n_t("form.panel.citizen.lastname_first.label") %></label>
-                      <input type="text" class="form-control" id="name_lastname_first" name="name_lastname_first" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_first.placeholder") %>">
+                      <label for="last_name" class="control-label"><%= i18n_t("form.panel.citizen.lastname_first.label") %></label>
+                      <input type="text" class="form-control" id="last_name" name="last_name" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_first.placeholder") %>">
                     </div><!-- /.form-group -->
                     <div class="form-group col-sm-4">
-                      <label for="name_lastname_second" class="control-label"><%= i18n_t("form.panel.citizen.lastname_second.label") %></label>
-                      <input type="text" class="form-control" id="name_lastname_second" name="name_lastname_second" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_second.placeholder") %>">
+                      <label for="mother_last_name" class="control-label"><%= i18n_t("form.panel.citizen.lastname_second.label") %></label>
+                      <input type="text" class="form-control" id="mother_last_name" name="mother_last_name" maxlength="50" placeholder="<%= i18n_t("form.panel.citizen.lastname_second.placeholder") %>">
                     </div><!-- /.form-group -->
                   </div><!-- /.row -->
                   <div class="row">
