@@ -1,6 +1,8 @@
 ---
 en:
-  header: "Request for Goodstanding Certificate"
+  header:
+    title: "New Service for Requesting Goodstanding Certificate"
+    status: "beta"
   disclaimer:
     header: "Bienvenido"
     terms:
@@ -84,6 +86,7 @@ en:
           birthdate:
             label: "Birth date:"
             placeholder: "MM/DD/YYYY"
+            format: "MM/DD/YYYY"
           gender:
             label: "Gender:"
             placeholder: "--"
@@ -100,11 +103,23 @@ en:
             placeholder: "Drivers License or Digital ID"
           ssn:
             label: "Social Security:"
-            placeholder: "xxx-xx-xxxx"
+            placeholder: "xxx-xx-xxxx (dashes are optional)"
         purpose:
           title: "Certificate Purpose"
           certificate_purpose:
             label: "Certificate Purpose:"
+          placeholder: "--"
+          options:
+            "1": "Clemencia Ejecutiva"
+            "2": "Empleo"
+            "3": "Estudios"
+            "4": "Licencia de Armas"
+            "5": "Pasaporte o Visa"
+            "6": "Patentes o Franquicias"
+            "7": "Residencia"
+            "8": "Vivienda"
+            "9": "Cambio de Nombre"
+            "10": "Otros..."
         delivery:
           title: "Delivery Method"
           email:
@@ -116,4 +131,16 @@ en:
       button:
         submit: "Submit"
         continue: "Continue"
+        cancel: "Cancel"
+  complete:
+    header: "Request Completed"
+    body: >
+      Thank you for completing the forms. Your request
+      is now being sent to the government messaging
+      system, in order to validate the information provided
+      with Criminal Justice Information System.
+      You will receive an email at %{email} with additional
+      information.
+    transaction: "Your transaction number is:"
+
 ...

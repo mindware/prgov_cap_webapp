@@ -1,7 +1,113 @@
 require PADRINO_ROOT + "/app/models/email"
 require PADRINO_ROOT + "/app/helpers/validations"
 
+# This app component was designed and developed by
+# Andés Colón and Alberto Colón.
 PRgovCAPWebApp::App.controllers :cap do
+
+  # CAP Web App:
+  # ------------
+  # On Data:
+  # Our application has two types of user data.
+  #
+  # The Session:
+  # The session is a temporary database backed storage that
+  # is volatile and expires quickly. It contains data
+  # such as the form data the the user enters, and helps
+  # automagically fill form data for the user when they
+  # make a mistake and the like. It is saved on the backend.
+  #
+  # Improvement tip:
+  # Ideally, the session data should be moved to
+  # local storage on the client-side in the future.
+  #
+  # The Profile objects:
+  # The profiles are longer-term database backed
+  # stored data, that represents information that we
+  # should store and is more long term for a user than a
+  # session. This includes information that is created
+  # after a user has completed some milestone.
+  # An example of a milestone is that a user has
+  # passed the first stage, and is awaiting some email
+  # from PR.gov. Essentially profile objects are data
+  # which must outlive a session.
+  # If a user completes the first stage, where by
+  # his email is confirmed, he has achieved a milestone
+  # and we now store that email profile with its confirmation
+  # link, awaiting for the GMQ to send the email user to
+  # and for the user to come back and confirm us the codes,
+  # there by confirming their email. Profile objects expire
+  # as well, and they're not permanent objects, but their
+  # life expecancy is much longer than a session.
+  # Profile objects are stored on the backend.
+  #
+  # Stages:
+  #
+  # Our applications consists of two stages at this point:
+  #
+  # First Stage: the user accepts terms, and provides email
+  #              and awaits email confirmation link.
+  # Second Stage: the user has confirmed email, and proceeds
+  #               to fill the form, and awaits the certificate
+  #               request response.
+  #
+  # First Stage:
+  # In the first stage, we provide a session, where we track
+  # that the user has accepted the terms and conditions
+  # and validates email information. We use
+  # a before_filter, to validate that state is correct.
+  #
+  # Transition:
+  #
+  # There are possible transitions from First stage to
+  # Second Stage.
+  #
+  # For users that do not have a confirmed profile (have not
+  # recently confirmed their email), they will go through
+  # Email Confirmation Transition. For profiles that have
+  # already confirmed their email, they will go directly
+  # to the Second Stage.
+  #
+  # Email Confirmation Transition:
+  # As we transition from the first stage to the second stage
+  # we cannot guarantee that the user is using the same browser
+  # and the same session. This ocurrs when we send the email
+  # and the user at some unspecified time in the future
+  # before his link expires, visits our confirmation page.
+  # The user may have filled out the form in one browser,
+  # or computer, and eventually click on the link on some
+  # other browser or computer. This is important to take note.
+  # This may happen because:
+  # - The user used one browser and when he clicked
+  #   the email, he opened it in another default browser.
+  #   Such as when he uses a mail client that opens links using
+  #   default browser.
+  # - PR.gov took too long to send the email. Days passed
+  #   and the 'session' expired, but the profile lives on.
+  #
+  # By using profiles, we guarantee that session information
+  # can be safely discarded. When the user arrives, and
+  # he has a valid profile, we can safely accept that
+  # he has completed the previous steps, as we have put the
+  # guarantees in place to prohibit a user to create a
+  # profile without going through the necessary steps.
+  #
+  # Second Stage:
+  # The user has already confirmed their email and
+  # has a profile. User fills out the various forms, and is ready
+  # to preform his request. He completes the second stage
+  # by reviewing and submitting the certificate request forms.
+  #
+  # Complete:
+  # Once the request is being processed by the Governement
+  # Messaging Queue and SIJC's RCI, our app has completed
+  # its job. The system will message the user with
+  # the result of their request. The system will retain
+  # the profile until it expires.
+  #
+  # In the future we may add a third stage, by which
+  # the user proceeds to a payment processor, before
+  # completing. ACP.
 
   include PRgov::Validations
 
@@ -13,10 +119,10 @@ PRgovCAPWebApp::App.controllers :cap do
   # perform certain checks before the action is
   # evaluated. We can exclude specific actions from
   # the check.
-  before :except => [:index, :disclaimer, :form, :confirm] do
+  before :except => [:index, :disclaimer, :confirm, :form, :form2,
+                     :validate_request, :done] do
+    # check if terms have been accepted
     validate_terms()
-    # Terms accepted. Check Captcha flag.
-    # Captcha flag missing? Check captcha input.
     # Captcha accepted. Check email.
     # Email accepted. Check validated email database.
     # Email not validated? Send email.
@@ -24,30 +130,55 @@ PRgovCAPWebApp::App.controllers :cap do
   end
 
   before :email_sent do
+    # Before sending email,
+    # Check captcha and email were provided.
     validation_complete?
   end
 
   # For all resources that are accessible once the email
-  # has been confirmed, we check for email validation:
-  before :form do
+  # has been confirmed, we need to check for email validation:
+  before :form, :form2, :form2_validation do
+    # Before showing the second stage form, confirm that the user
+    # has completed the first stage and has confirmed their
+    # email.
     email_confirmed?
   end
+
+  # Before proceeding to form2, validate form 1.
+  before :form2 do
+    # Before showing the second form,
+    # check the data from the first one to make sure
+    # it is correct
+    validate_form1
+  end
+
+  # Before proceeding to complete, validate form 2.
+  before :validate_request do
+    # Validate the final form before completing the
+    # online service
+    validate_form2
+  end
+
 
   ############################
   #         Resources        #
   ############################
 
-  # RESOURCE AVAILABLE:
-  # !!!!!!!!!!!!!!!!
-  # TODO: Code this!
-  # An unused resource. We can use this to provide
-  # information prior to the disclaimer. This should
-  # not be mapped to '/'.
-  #
+  # We can use this to provide information prior to
+  # the disclaimer. This should not be mapped to '/', ever.
+  # This could be the main page where we redirect
+  # users when we want to show them promotional
+  # information or guide about this online service.
+  # This cannot be root, as root is used for when
+  # the First Stage has started, and it contains
+  # error and session handling mechanisms.
   get :index, :map => '/info' do
+    # destroy any existing session.
+    session.clear
     render 'info', :layout => :prgov
   end
 
+  # Begginging for First Stage:
   # This resource provides the terms and conditions
   # and initiates the session for the user.
   # Only: disclaimer should be mapped to '/'
@@ -55,8 +186,14 @@ PRgovCAPWebApp::App.controllers :cap do
   # time, and other resources will redirect to '/'
   # when errors ocurr.
   get :disclaimer, :map => '/' do
-    # Alawys clear any sessions if the user goes to the
-    # disclaimer:
+    # This next line is very important. We *must*
+    # always clear any sessions if the user goes to the
+    # root '/', as the system redirects here upon
+    # various errors that requires the session be
+    # fully destroyed. Don't modify the next line
+    # unless you're fully aware of what you're doing,
+    # have taken every absolute precaution and your
+    # name is Andrés. Thanks.
     session.clear
     render 'disclaimer', :layout => :prgov
   end
@@ -121,6 +258,20 @@ PRgovCAPWebApp::App.controllers :cap do
         if email.confirmed?
           # redirect to form
           session["email_confirmed"] = true
+          # for security purposes, store the email address
+          # in a variable that is modified only in this
+          # specific section where the email is confirmed
+          # and in the :confirm resource. Then identify
+          # any disparities in email vs locked_address
+          # using a before_filter called email_confirmed?.
+          # This will help detect attacks where a
+          # a malicious user exploits our ability to
+          # process concurrent requests across
+          # instances to attempt to modify the session
+          # in order to use a confirmed address to
+          # send emails to an unconfirmed address.
+          # Stop them in their tracks here.
+          session["locked_address"] = email.address
           redirect to '/form'
         # Email not yet confirmed but is awaiting confirmation:
         else
@@ -157,7 +308,29 @@ PRgovCAPWebApp::App.controllers :cap do
   # We will be validating the code and email in this
   # resource. Before this resource executes, this controller
   # validates the current session.
+  #
+  # Once we're in this step (of confirming), we
+  # start the session a new. This way, if the user
+  # opened the form in a non-default browser, but then clicked
+  # and opened the email confirmation link in their default
+  # browser, they can still work through as we're
+  # validating the code and the email.
+  #
+  # We make sure to delete all session data at this
+  # point, so that a malicious user attempting to use
+  # this confirmation page for one email that
+  # simultaneously alters the session using a form
+  # is unable to trick the system, and always
+  # gets stuck to the confirmation data.
+  # At this point, we don't care about session data
+  # confirming the users clicked on the disclaimer,
+  # as they could only have gotten to this point
+  # by accepting it previously in order to get
+  # the confirmation code.
   get :confirm, :map => '/confirm' do
+    # Clear the session. Everything else will be
+    # built from here using the Profile.
+    session.clear
       # if address and code were provided:
       if (params["address"].to_s.length > 0 and
           params["code"].to_s.length > 0)
@@ -177,11 +350,45 @@ PRgovCAPWebApp::App.controllers :cap do
                       # and skip the validation step
                       email.confirmed = true
                       email.save
+
                       # Now for the current session:
                       # set the current session data to
                       # email_confirmed, which will be validated
                       # by the form resource.
                       session["email_confirmed"] = true
+
+                      # Immediately lock the email address
+                      # this will help us deter a specific
+                      # kind of session attack. This assignment
+                      # must only ocurr in this resource and
+                      # in the email_sent action where we
+                      # allow confirmed email addresses
+                      # to pass through to the form.
+                      # Nowhere else should this occurr in order
+                      # to protect the system. Got it? Great.
+                      # By only setting this variable in very
+                      # precise locations, we can later easily
+                      # compare it against the more unreliable
+                      # session["email"] information, which
+                      # is modified in multiple stages.
+                      session["locked_address"] = email.address
+                      # Also add/udpate the email session
+                      # it may ocurr that a user goes through
+                      # the entire process of requesting an
+                      # email confirmation, but some time later
+                      # clicks the link on an entirely new browser,
+                      # such as a default browser or an entirely new
+                      # computer. We consider email confirmation
+                      # and actually filling the form as two
+                      # seperate events. We make sure to
+                      # set up the email address here, which will
+                      # be used for validation against the
+                      # locked address.
+                      session["email"]  = email.address
+
+                      session["ssn"] = ""
+                      session["passport"] = ""
+                      session["dtop_id"] = ""
                       # Give a brief explanation that the email
                       # has been validated, and provide a link
                       # to the form so the user can get started.
@@ -213,11 +420,17 @@ PRgovCAPWebApp::App.controllers :cap do
       end
   end
 
-  post :form, :map => '/form' do
-    form = "dtop"
-    if(params[:form].to_s.length == 0 and
-       params[:form].to_s.length < 10)
+  get :form, :map => '/form' do
+    form = "license"
+    # On errors, we get the selected form through
+    # the URL.
+    if(params[:form].to_s.length > 0)
        form = params[:form]
+    # If not provided via URL,
+    # use data from the session, if it has
+    # any data.
+    elsif(session[:form].to_s.length > 0)
+        form = params[:form]
     end
     render 'form_step1', :layout => :prgov,
             :locals => { :form => form }
@@ -227,7 +440,38 @@ PRgovCAPWebApp::App.controllers :cap do
     render 'form_step2', :layout => :prgov
   end
 
-  post :form_validate, :map => '/form_validation' do
+  post :validate_request, :map => '/complete' do
+
+    payload = {
+    		:first_name => session[:name].to_s,
+        :middle_name => session[:name_initial].to_s,
+    		:last_name  => session[:last_name].to_s,
+    		:mother_last_name => session[:mother_last_name].to_s,
+    		:ssn	=> session[:ssn].to_s,
+    		:license_number => session[:dtop_id].to_s,
+    		:birth_date => session[:birthdate].to_s,
+    		:residency  => "#{session[:residency_city_state]}, "+
+                       "#{session[:residency_country]}",
+    		:IP   	    => request.ip.to_s,
+    		:reason	    => session[:purpose].to_s,
+    		:birth_place=> "not specified",
+    		:email	    => session[:email].to_s,
+    		:language   => "spanish"
+	 }
+
+   result = GMQ.enqueue_cap_transaction(payload)
+  #  if(result["error"])
+  #  else
+   session[:tx_id] = result["id"]
+
+   # mark the transaction as done, for validation
+   session[:done] = true
+
+   redirect to('done')
+
+    # "#{params.keys.join("<br>")}"
+    # render 'complete', :layout => :prgov
+    # render 'review', :layout => :prgov
     # perform server side validation of form data.
     # if form data correct,
       # post certificate
@@ -244,6 +488,14 @@ PRgovCAPWebApp::App.controllers :cap do
       # make sure each user accepts the terms and conditions
       # and uses their own email. If their email is confirmed
       # they won't need
+  end
+
+  # Present the final page.
+  get :done, :map => '/done' do
+       done?
+       render 'complete', :layout => :prgov,
+                          :locals => { :id    => session[:tx_id],
+                                       :email => session[:email] }
   end
 
   ###########################
@@ -266,19 +518,17 @@ PRgovCAPWebApp::App.controllers :cap do
     render 'email', :layout => :prgov
   end
 
-  get :form, :map => '/form' do
-    render 'form_step1', :layout => :prgov
+  # If someone attempts to load the form2 using a
+  # GET, we simply redirect them to the first
+  # form which allows GET requests.
+  #
+  # We give it a different from post action, as this
+  # is simply a redirect that doesn't require before
+  # validations directly. The before validations are
+  # done on the redirected page.
+  get :form2_redirect, :map => '/form2' do
+    redirect to('/form')
   end
-
-  get :form_second, :map => '/form' do
-    render 'form_step2', :layout => :prgov
-  end
-
-  get :form2, :map => '/form2' do
-    render 'form_step2', :layout => :prgov
-  end
-
-
 
   # private
 

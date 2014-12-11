@@ -1,22 +1,11 @@
 
-  <% content_for :bootstrap_css_extras do %>
-    <%= stylesheet_link_tag 'bootstrapValidator.min' %>
-    <%= stylesheet_link_tag 'bootstrap-datetimepicker.min' %>
-  <% end %>
-
-  <% content_for :bootstrap_js_extras do %>
-    <%= javascript_include_tag 'moment.min' %>
-    <%= javascript_include_tag 'bootstrap-datetimepicker.min' %>
-    <%= javascript_include_tag 'bootstrapValidator.min' %>
-  <% end %>
-
   <% content_for :prgov_cap_js do %>
     <%= javascript_include_tag 'prgov-cap-form' %>
     <%= javascript_include_tag 'prgov-cap-form1' %>
   <% end %>
 
     <div class="container">
-      <h3 class="text-center"><%= i18n_t("header") %></h3>
+      <h3><center><%= i18n_t("header.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
       <hr>
       <div class="row">
         <div class="col-md-12">
@@ -28,8 +17,32 @@
       </div>
       <div class="row">
           <!-- IDENTIFICATION AND PURPOSE -->
-          <div class="row">
             <div class="col-sm-12">
+             <!-- Display any potential Errors -->
+              <% if params[:errors] == "true"  %>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      <ul>
+                      <% if params[:invalid_form] == "true" %>
+                        <li><strong><%= i18n_t("error.form.invalid_form") %></strong></li>
+                      <% end %>
+                      <% if params[:license] == "false" %>
+                        <li><strong><%= i18n_t("error.form.license") %></strong></li>
+                      <% end %>
+                      <% if params[:ssn] == "false" %>
+                        <li><strong><%= i18n_t("error.form.ssn") %></strong></li>
+                      <% end %>
+                      <% if params[:passport] == "false" %>
+                        <li><strong><%= i18n_t("error.form.passport") %></strong></li>
+                      <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <!-- End of Errors -->
               <!-- IDENTIFICATION PANEL -->
               <div class="panel panel-default">
                 <div class="panel-heading text-center">
@@ -40,11 +53,13 @@
                     <!-- Form to select id type -->
                     <div class="form-group col-sm-12">
                       <!-- Select a form menu -->
+                      <!-- this data is never actually sent to the server -->
+                      <!-- we use it at the client-side to determine the -->
+                      <!-- form they're going to use. -->
                       <form class="form" role="form" id="option" name="option" action="#">
                         <label class="control-label"><%= i18n_t("form.panel.id.label") %></label>
                         <select class="form-control">
-                          <% # if none of the options is selected, default to this first one %>
-                          <% form = "license" if form.to_s.length == 0 %>
+
                           <% if form == "license" %>
                             <option value="license" selected><%= i18n_t("form.panel.id.dtop.license.title") %></option>
                           <% else %>
@@ -74,17 +89,25 @@
                                 {:class => 'img-responsive identification',
                                  :alt => 'icono representando una licencia de conducir'}
                                  ) %>
+                                 <br/>
                       </div>
                       <!-- Form Column -->
                       <div class="col-sm-9">
-                        <!-- Dtop ID input -->
-                        <div class="form-group col-sm-12">
-                          <label for="id_dtop" class="control-label"><%= i18n_t("form.panel.id.dtop.license.label") %></label>
-                          <input type="text" class="form-control" id="id_dtop" name="id_dtop" maxlength="7" placeholder="<%= i18n_t("form.panel.id.dtop.license.placeholder") %>" style="margin-bottom: 8px;">
+                        <!-- Dtop License input -->
+                        <div class="form-group col-sm-12 <% if(params[:license] == "false")%> has-error <% end %>">
+                          <label for="dtop_id" class="control-label"><%= i18n_t("form.panel.id.dtop.license.label") %></label>
+                          <%
+                          # If there is ever a need to add more length to dtop, simply modify all form's maxlength for dtop_id.
+                          # No need to modify the validation backend as it currently allows up to 999Million,
+                          # while dtop is currently limiting itself to 9 million.
+                          %>
+                          <input type="text" class="form-control" id="dtop_id" name="dtop_id" value="<%= session[:dtop_id].to_s %>" maxlength="7" placeholder="<%= i18n_t("form.panel.id.dtop.license.placeholder") %>" style="margin-bottom: 8px;">
+                        </div>
+                        <div class="form-group col-sm-12 <% if(params[:ssn] == "false")%> has-error <% end %>">
                           <label for="ssn" class="control-label"><%= i18n_t("form.panel.id.ssn.label") %></label>
-                          <input type="text" class="form-control" id="ssn" placeholder="<%= i18n_t("form.panel.id.ssn.placeholder") %>">
+                          <input type="text" class="form-control" name="ssn" maxlength="11" value="<%= session[:ssn].to_s %>" id="ssn" placeholder="<%= i18n_t("form.panel.id.ssn.placeholder") %>">
                           <span id="helpBlock" class="help-block"><%= i18n_t("form.panel.id.ssn.help") %></span>
-                          <input type="hidden" name="form" value="dtop">
+                          <input type="hidden" name="form" value="license">
                         </div><!-- /.form-group -->
                       </div>
                         <!-- End of Dtop input -->
@@ -100,15 +123,18 @@
                               {:class => 'img-responsive identification',
                                :alt => 'icono representando una licencia de conducir'}
                                ) %>
+                               <br/>
                     </div>
                     <!-- Form Column -->
                     <div class="col-sm-9">
                       <!-- Dtop ID input -->
-                      <div class="form-group col-sm-12">
-                        <label for="id_dtop" class="control-label"><%= i18n_t("form.panel.id.dtop.id.label") %></label>
-                        <input type="text" class="form-control" id="id_dtop" name="id_dtop" maxlength="7" placeholder="<%= i18n_t("form.panel.id.dtop.id.placeholder") %>" style="margin-bottom: 8px;">
+                      <div class="form-group col-sm-12 <% if(params[:license] == "false")%> has-error <% end %>">
+                        <label for="dtop_id" class="control-label"><%= i18n_t("form.panel.id.dtop.id.label") %></label>
+                        <input type="text" class="form-control" id="dtop_id" name="dtop_id" value="<%= session[:dtop_id].to_s %>" maxlength="7" placeholder="<%= i18n_t("form.panel.id.dtop.id.placeholder") %>" style="margin-bottom: 8px;">
+                      </div>
+                      <div class="form-group col-sm-12 <% if(params[:ssn] == "false")%> has-error <% end %>">
                         <label for="ssn" class="control-label"><%= i18n_t("form.panel.id.ssn.label") %></label>
-                        <input type="text" class="form-control" id="ssn" placeholder="<%= i18n_t("form.panel.id.ssn.placeholder") %>">
+                        <input type="text" class="form-control" id="ssn" value="<%= session[:ssn].to_s %>" name="ssn" maxlength="11" placeholder="<%= i18n_t("form.panel.id.ssn.placeholder") %>">
                         <span id="helpBlock" class="help-block"><%= i18n_t("form.panel.id.ssn.help") %></span>
                         <input type="hidden" name="form" value="dtop">
                       </div><!-- /.form-group -->
@@ -119,7 +145,7 @@
                 </form>
 
                   <!-- Passport FORM -->
-                <form class="form hidden" role="form" id="passport" name="passport" action="/form2"  method="post">
+                <form class="form hidden" role="form" id="passport" name="passport_form" action="/form2"  method="post">
                   <div class="row">
                     <div class="col-sm-3">
                       <!-- Passport image -->
@@ -127,13 +153,14 @@
                               {:class => 'img-responsive identification',
                                :alt => 'icono representando un pasaporte'}
                                ) %>
+                               <br/>
                     </div>
                     <!-- Form Column -->
                     <div class="col-sm-9">
                       <!-- Passport input -->
-                      <div class="form-group col-sm-12">
+                      <div class="form-group col-sm-12 <% if(params[:passport] == "false")%> has-error <% end %>">
                         <label for="passport" class="control-label"><%= i18n_t("form.panel.id.passport.label") %></label>
-                        <input type="text" class="form-control" id="passport" placeholder="<%= i18n_t("form.panel.id.passport.placeholder") %>">
+                        <input type="text" class="form-control" id="passport" value="<%= session[:passport].to_s %>" name="passport" maxlength="20" placeholder="<%= i18n_t("form.panel.id.passport.placeholder") %>">
                         <span id="helpBlock" class="help-block"><%= i18n_t("form.panel.id.passport.help") %></span>
                         <input type="hidden" name="form" value="passport">
                       </div><!-- /.form-group -->
@@ -148,16 +175,17 @@
             </div><!-- /.panel -->
             <!-- /IDENTIFICATION PANEL -->
           </div><!-- /.col-sm -->
-        </div>
-
           <!-- SUBMIT BUTTON -->
           <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-              <button id="continue" type="submit" class="btn btn-default btn-lg btn-block"><%= i18n_t("form.button.continue") %></button>
+            <div class="col-md-6">
+              <a href="/info" class="btn btn-default btn-lg btn-block"><%= i18n_t("form.button.cancel") %></a>
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-md-6">
+                  <button id="continue" type="submit" class="btn btn-warning btn-lg btn-block"><%= i18n_t("form.button.continue") %></button>
+            </div>
           </div>
           <!-- /SUBMIT BUTTON -->
+        </div>
+
       </div><!-- /.row -->
     </div><!-- /.container -->

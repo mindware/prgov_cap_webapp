@@ -56,7 +56,9 @@ end
 
 # If the user is missing a specific session value,
 # he hasn't successfully completed the steps to get to this point
-# At this time these required steps are: have email confirmed in db.
+# At this time these required steps are: have email confirmed in session
+# AND very important, have email confirmed in db. We can't rely
+# on the session alone.
 def email_confirmed?
   # Validate if the user has the email confirmed in the
   # server side session. This is set by the controller.
@@ -68,9 +70,134 @@ def email_confirmed?
   # then the user is redirected to the terms and conditions
   # and a notification that their link has expired is
   # shown.
-  if session["email_confirmed"].to_s.length == 0
+  if session["email_confirmed"].to_s.length == 0 or
+     session["email_confirmed"] == false or
+     session["email"].to_s.length == 0 or
+     session["locked_address"].to_s.length == 0
       redirect to ('/?expired=true')
+  # If the email address and the locked address
+  # do not match, we could have a user using
+  # multiple tabs at the same time to process different
+  # certificate requests. This could happen if a
+  # shared computer is left open with a partially
+  # uncompleted request that already has access to the
+  # form, and another request that is processing an email
+  # confirmation. Other than that, and on a more malicious
+  # note, an attacker could be trying to exploit our
+  # session system, to attempt to send email to an
+  # unconfirmed address. We stop both potential situations
+  # immediately here.
+  elsif (session["locked_address"] != session["email"])
+    redirect to ('/?email=false')
   end
+
+end
+
+# This controller method sanitizes input, validates the
+# input from the the multiple forms available
+# in form1, sets the data in session, and
+# redirects if any errors ocurred.
+def validate_form1
+  errors = ""
+
+  # First, clean up any malicious code.
+  params[:form] = escape_html(params[:form])
+  params[:dtop_id] = escape_html(params[:dtop_id])
+  params[:ssn] = escape_html(params[:ssn])
+  params[:passport] = escape_html(params[:passport])
+
+  # Store the data so we can show it again in case of
+  # errors, using the session.
+  session[:form] = params[:form]
+  session[:dtop_id] = params[:dtop_id]
+  session[:ssn] = params[:ssn]
+  session[:passport] = params[:passport]
+
+  # perform server side validation of form1 data.
+  # If the user selected to identify
+  # using a dtop id or driver license:
+  if(params[:form] == "dtop" or params[:form] == "license")
+    if(params[:dtop_id].to_s.length == 0 or
+      !validate_dtop_id(params[:dtop_id]))
+        errors += "&license=false"
+    end
+    if(params[:ssn].to_s.length == 0 or
+       !validate_ssn(params[:ssn]))
+        errors += "&ssn=false"
+    end
+  # If the user selected to identify using
+  # a passport:
+  elsif(params[:form] == "passport")
+    # if pass port number cannot be validated
+    # later add password number validation
+    # Normally passwords are 9 digits long, but
+    # that could vary through countries. Let's
+    # put a a limit on 20 for now.
+    if(!validate_passport(params[:passport]))
+       errors += "&passport=false"
+    end
+  # The user chose an unknown form type
+  else
+    errors += "&invalid_form=true"
+  end
+
+  # If any errors ocurred, do a redirect:
+  redirect to ("/form?errors=true#{errors}&form=#{params[:form]}") if errors.length > 0
+end
+
+# This controller method sanitizes input, validates the
+# input from the the form available
+# in form2, sets the data in session, and
+# redirects if any errors ocurred.
+def validate_form2
+  errors = ""
+
+  puts "WE BE VALIDATING #{params[:name]}"
+  # First, clean up any malicious code.
+  params[:name] = escape_html(params[:name])
+  params[:name_initial] = escape_html(params[:name_initial])
+  params[:last_name] = escape_html(params[:last_name])
+  params[:mother_last_name] = escape_html(params[:mother_last_name])
+  params[:purpose] = escape_html(params[:purpose])
+  # params[:birthdate] = escape_html(params[:birthdate])
+  params[:birthdate] = params[:birthdate]
+  params[:residency_country] = escape_html(params[:residency_country])
+  params[:residency_city_state] = escape_html(params[:residency_city_state])
+
+  # Store the data so we can show it again in case of
+  # errors, using the session.
+  session[:name] = params[:name]
+  session[:name_initial] = params[:name_initial]
+  session[:last_name] = params[:last_name]
+  session[:mother_last_name] = params[:mother_last_name]
+  session[:purpose] = params[:purpose]
+  session[:birthdate] = params[:birthdate]
+  session[:residency_country] = params[:residency_country]
+  session[:residency_city_state] = params[:residency_city_state]
+
+  # Now let's start validation
+  # if(params[:dtop_id].to_s.length == 0 or
+  #     !validate_dtop_id(params[:dtop_id]))
+  #       errors += "&license=false"
+  # end
+  # if(params[:ssn].to_s.length == 0 or
+  #      !validate_ssn(params[:ssn]))
+  #       errors += "&ssn=false"
+  # end
+
+  # If any errors ocurred, do a redirect:
+  redirect to ("/form2?errors=true#{errors}") if errors.length > 0
+  # otherwise, we're good to go on.
+end
+
+def done?
+     return true if session[:done]
+     return false
+end
+
+def is_integer?(str)
+  return true if ((str =~ /\A\+?0*[1-9]\d*\Z/)== 0 )
+  return false
 end
 
 ##############################################################
@@ -85,10 +212,14 @@ module PRgov
       ##            Constants:               #
       ########################################
 
+      PASSPORT_MIN_LENGTH     = 9
+      PASSPORT_MAX_LENGTH     = 20
       SSN_LENGTH              = 9       # In 2014 SSN length was 9 digits.
       MAX_EMAIL_LENGTH        = 254     # IETF maximum length RFC3696/Errata ID: 1690
-      DTOP_ID_MAX_LENGTH      = 20      # Arbitrarily selected length. Review this!
-      PRPD_USER_ID_MAX_LENGTH = 255     # Arbitrarily selected length. Review this!
+      DTOP_ID_MIN_LENGTH      = 7       # Selected based on license length.
+      DTOP_ID_MAX_LENGTH      = 9       # Arbitrarily selected length. To support
+                                        # any future changes.
+      PRPD_USER_ID_MAX_LENGTH = 255     # Arbitrarily selected length.
       MAX_NAME_LENGTH         = 255     # Max length for individual components of
                                         # a full name (name, middle, last names)
       MAX_FULLNAME_LENGTH     = 255     # Max length for full name. 255 is long
@@ -174,9 +305,6 @@ module PRgov
         # Validate the Email
         raise InvalidEmail           if validate_email(params["email"])
 
-        # Validate the SSN
-        # we eliminate any potential dashes in ssn
-        params["ssn"]                 = params["ssn"].gsub("-", "").strip
         raise InvalidSSN             if !validate_ssn(params["ssn"])
 
         # Validate the DTOP id:
@@ -283,9 +411,27 @@ module PRgov
 
       # Validate Social Security Number
       def validate_ssn(value)
-        value = value.to_s
+        false if value.to_s.length == 0
+        # Validate the SSN
+        # we eliminate any potential dashes in ssn
+        value = value.to_s.gsub("-", "").strip
         # validates if its an integer
         if(validate_str_is_integer(value) and value.length == SSN_LENGTH)
+          return true
+        else
+          return false
+        end
+      end
+
+      # Validate Passport number
+      def validate_passport(value)
+        return false if value.to_s.length == 0
+        # Validate the Passport
+        # we eliminate any potential dashes in the passport
+        value = value.to_s.gsub("-", "").strip
+        # validates if its has proper length
+        if(value.length >= PASSPORT_MIN_LENGTH and
+           value.length <= PASSPORT_MAX_LENGTH)
           return true
         else
           return false
@@ -315,10 +461,12 @@ module PRgov
         !!(value =~ /\A[-+]?[0-9]+\z/)
       end
 
-      # Validates a DTOP id
+      # Validates a DTOP id.
       def validate_dtop_id(value)
+        return false if value.to_s.length == 0
         return false if(!validate_str_is_integer(value) or
-                  value.to_s.length >= DTOP_ID_MAX_LENGTH )
+                  value.to_s.length >= DTOP_ID_MAX_LENGTH or
+                  value.to_s.length <  DTOP_ID_MIN_LENGTH)
         return true
       end
 

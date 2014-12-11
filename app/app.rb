@@ -1,6 +1,5 @@
 module PRgovCAPWebApp
   class App < Padrino::Application
-    register Padrino::Mailer
     register Padrino::Helpers
     # register Pendragon::Padrino
     helpers Rack::Recaptcha::Helpers

@@ -35,7 +35,7 @@ $(document).ready(function() {
           }
         }
       },
-      name_lastname_first: {
+      last_name: {
         validators: {
           notEmpty: {
             message: 'Debe escribir su apellido paterno'
@@ -46,7 +46,7 @@ $(document).ready(function() {
           }
         }
       },
-      name_lastname_second: {
+      mother_last_name: {
         validators: {
           stringLength: {
             max: 50,
@@ -60,7 +60,7 @@ $(document).ready(function() {
             message: 'Debe escribir su fecha de nacimiento'
           },
           date: {
-            format: 'MM/DD/YYYY',
+            format: 'DD/MM/YYYY',
             message: 'El contenido no es una fecha valida'
           }
         }

@@ -109,3 +109,12 @@ body {
     border-color: red;
     cursor: pointer;
 }
+
+.app_status {
+  /* color: green; */
+  padding-left: 8px;
+  padding-bottom: 3px;
+  font-style: italic;
+  vertical-align: 35%;
+  font-size: 12px;
+}

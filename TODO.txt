@@ -24,6 +24,11 @@ Pending:
 17. Update ENV Redis variables to point to HAProxy on production.
 18. update email_sent to check if a long time has transcurred since last email to resend
 19. Performs postman tests against backend validation especially email
+20. Check length of data from user input before storing it in session. Set a limit to something like 255 characters.
+21. update passport validation to validate numbers and integers
+Done:
+1. Añadir seguridad para detectar ataques a las sesiones mediante concurrent requests.
+2. Remove boostrapValidator - has bugs and internationalization is needed while errors are hardcoded in spanish on it
 
 ---
 Auto-generated using: github.com/mindware/todo

@@ -31,9 +31,17 @@ class Email < PRgov::Base
                   :updated_at,          # Last update/lookup.
                   :sent_at,             # Time the email was requested
                                         # by the webapp to be sent.
-                  :IP,                  # IP of the requestor
+                  :IP,                  # IP of the requestor at time of email
+                                        # confirmation
                   :requests             # Counter that determines how many
                                         # requests this email has performed.
+
+    # TODO, we need to store language here
+    # this should become a Profile class.
+    # we should have a state where we define in
+    # what Stage we're in (state) First stage or Second etc.
+    # we should save some information regarding the
+    # request here as well. Remember to save statistics later.
 
     # What it is:
     # This value is used both as a limiter and also as a
