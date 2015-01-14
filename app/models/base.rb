@@ -8,7 +8,7 @@ require PADRINO_ROOT + "/app/helpers/validations"
 module PRgov
   class Base
     include PRgov::Validations
-    extend PRgov::Validations
+    extend  PRgov::Validations
 
     attr_accessor :id
 
