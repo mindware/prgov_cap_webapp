@@ -15,6 +15,9 @@ en:
         cancel: "Cancel"
       modal:
         title: "Terms of Use"
+  language:
+        spanish: "Español"
+        english: "English"
   email:
     header: "Let's get started"
     title: "Email Validation"
