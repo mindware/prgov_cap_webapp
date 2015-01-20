@@ -15,6 +15,9 @@ es:
         cancel: "Cancelar"
       modal:
         title: "Condiciones de Uso"
+  language:
+        spanish: "Español"
+        english: "English"        
   email:
     header: "Comencemos"
     title: "Validemos su Email"
