@@ -276,14 +276,15 @@ class Email < PRgov::Base
        end
     end
 
+    # Generates the confirmation path for
+    # this email. It includes confirmation code and the
+    # email address base64 encoded.
     def generate_confirmation_path()
       "/confirm?code=#{self.confirmation_code}&"+
       "address=#{Email.encode(self.address)}"
     end
 
-    # Generates a URL for confirmation.
-    # includes confirmation code and the
-    # email address base64 encoded.
+    # Generates an html link for confirmation.
     def get_link(url)
       puts "value of variable is #{url}"
       link_to('confirm email',
