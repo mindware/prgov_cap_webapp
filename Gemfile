@@ -33,5 +33,3 @@ gem 'padrino', '0.12.3'
 gem 'rest_client', '1.7.3'
 
 gem 'shotgun', '0.9'
-
-gem 'padrino-contrib', '0.2.0'
