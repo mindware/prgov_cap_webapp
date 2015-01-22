@@ -27,7 +27,8 @@
 #
 Padrino.configure_apps do
   # Padrino's built-in session functionality must be disabled in order to
-  # eliminate cookie based sessions and use proper backend.
+  # eliminate cookie based sessions and use proper backend. Leave next line
+  # commented:
   # enable :sessions
   # set :protection, :except => :path_traversal
   set :protection, true

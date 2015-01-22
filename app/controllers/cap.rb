@@ -115,6 +115,28 @@ PRgovCAPWebApp::App.controllers :cap do
   #         Filters          #
   ############################
 
+  # Global 'before' check, applies to all resources.
+  # Here we check and set a language cookie. Our cookie is
+  # completely seperate to our 'sessions' (which are only stored
+  # on the server side). These cookies survives
+  # 'session.clear'. We only allow specific pre-approved
+  # language values in the cookie [en, es]
+  before do
+      # If the user has his cookie locale set to english
+      # apply it for this request.
+      if (request.cookies['locale'] == "en")
+          I18n.locale = :en
+      elsif(request.cookies['locale'] == "es")
+          I18n.locale = :es
+      else
+          # if the user is missing the cookie,
+          # give him a spanish cookie.
+          request.cookies['locale'] = "es"
+          # apply the local language
+          I18n.locale = :es
+      end
+  end
+
   # Our before filter makes sure we
   # perform certain checks before the action is
   # evaluated. We can exclude specific actions from

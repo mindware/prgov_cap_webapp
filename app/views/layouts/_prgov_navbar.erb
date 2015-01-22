@@ -36,20 +36,70 @@
           <li><a href="http://www2.pr.gov/Pages/empleos.aspx">Empleos</a></li>
 
       <!-- Language -->
-      <!-- Necesitamos un language dropdown en algún sitio -->
-      <!-- <li>
-            <div class="dropdown dropdown-menu-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle navbar-right" data-toggle="dropdown" style="color: #e0dfba">
+              <% if I18n.locale == :en %>
+                <%= i18n_t("language.english") %><b class="caret"></b></a>
+              <% else %>
+                <%= i18n_t("language.spanish") %><b class="caret"></b></a>
+              <% end %>
+            <ul class="dropdown-menu">
+              <!-- Spanish -->
+              <li><a onClick='switchLanguage("es")' href='#'>
+                <% if request.cookies['locale'] == "es" %>
+                    <strong><%= i18n_t("language.spanish") %></strong>
+                <% else %>
+                    <%= i18n_t("language.spanish") %>
+                <% end %>
+              </a></li>
+              <!-- English -->
+              <!-- Spanish -->
+              <li><a onClick='switchLanguage("en")' href='#'>
+                  <% # put language name in bold if it is selected %>
+                  <% if request.cookies['locale'] == "en" %>
+                    <strong><%= i18n_t("language.english") %></strong>
+                  <% else %>
+                    <%= i18n_t("language.english") %>
+                  <% end %>
+              </a></li>
+            </ul>
+          </li>
+            <!-- <div class="dropdown dropdown-menu-right">
               <button class="btn btn-default dropdown-toggle" type="button" id="language" data-toggle="dropdown">
-                <%= i18n_t("language.spanish") %>
+                <% if request.cookies['locale'] == "es" %>
+                    <strong><%= i18n_t("language.spanish") %></strong>
+                <% else %>
+                    <%= i18n_t("language.spanish") %>
+                <% end %>
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="language"><a role="menuitem" tabindex="-1" href="#">Español</a></li>
-                <li role="language"><a role="menuitem" tabindex="-1" href="#">English</a></li>
-              </ul>
+                <li role="language">
+                  <!-- Spanish
+                  <a role="menuitem" tabindex="-1" href="#" onClick='switchLanguage("es")'>
+                    <% # put language name in bold if it is selected %>
+                    <% if request.cookies['locale'] == "es" %>
+                      <strong><%= i18n_t("language.spanish") %></strong>
+                    <% else %>
+                      <%= i18n_t("language.spanish") %>
+                    <% end %>
+                  </a>
+                </li>
+                <!-- English
+                <li role="language">
+                  <a role="menuitem" tabindex="-1" href="#" onClick='switchLanguage("en")'>
+                    <% # put language name in bold if it is selected %>
+                    <% if request.cookies['locale'] == "en" %>
+                      <strong><%= i18n_t("language.english") %></strong>
+                    <% else %>
+                      <%= i18n_t("language.english") %>
+                    <% end %>
+                  </a>
+                </li>
+              </ul> -->
             </div>
       </li>
-    -->
+
           <!-- Language -->
     </ul>
 
