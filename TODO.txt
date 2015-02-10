@@ -27,6 +27,9 @@ Pending:
 20. Check length of data from user input before storing it in session. Set a limit to something like 255 characters.
 21. update passport validation to validate numbers and integers
 22. Idea: survey monkey al final del envio del certificado al terminar el proceso.
+23. make sure sessions are being destroyed after a while.
+24. dont expire form link until the person finishes the form - then expire it completely - make it unaccessible
+25. Dont require accepting terms when filing the form
 Done:
 1. Añadir seguridad para detectar ataques a las sesiones mediante concurrent requests.
 2. Remove boostrapValidator - has bugs and internationalization is needed while errors are hardcoded in spanish on it
