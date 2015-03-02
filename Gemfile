@@ -21,6 +21,7 @@ gem 'rack-recaptcha', '~> 0.6.6', :require => 'rack/recaptcha'
 gem 'redis', '3.1.0'
 # Rack-based session storage in redis:
 gem 'redis-rack'
+gem 'redis-store'
 
 # Test requirements
 gem 'rr', :require => false, :group => 'test'
