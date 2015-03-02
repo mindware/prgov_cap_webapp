@@ -28,12 +28,13 @@ en:
     message: >
       Please enter the email where you'd like us to send the certificate.
     captcha:
-      message: "Let's confirm your're human"
+      message: "(Why do I need to solve a Captcha?)"
       modal:
         title: "Why do we need a Captcha?"
         text: >
           The captcha let us confirm you're a human and deters software
-          from automating attacks against our system.
+          from automating attacks against our system. Our captcha is available
+          in both visual and audio form.
         close: "Close"
     button:
       continue: "Submit"
@@ -41,8 +42,12 @@ en:
   email_sent:
     title: "Email Sent"
     message: >
-      We've sent an email to %{email}, with a link to the form so that we may
-      validate the address. The email should arrive in less than %{time} minutes.
+      We're sending an email to %{email}, in order to validate the email address.
+      That email contains a link to the Goodstanding Certificate online form.
+      In order to continue, simply check the %{email} email account, identify our
+      pr.gov mail, open it and read the instructions.
+
+      The email should arrive in less than *%{time}*.
     resend_message: >
       If you don't receive it in this timeframe, you may request we resend the email by
       simply reloading this page.
@@ -56,15 +61,19 @@ en:
     already: >
       We've already sent you the email to %{email} and it should arrive in the next few minutes.
       If you haven't received it, you may try again by reloading this page after
-      %{time}. Thank you for your patience.
+      *%{time}*. Thank you for your patience.
     minute: "minute"
     reload_button: "Resend"
   confirmation:
       header: "Successful Email Confirmation"
       body: >
-        Good news. Now that your email has been validated, you won't
-        have to validate it again next time you want a copy of your
-        certificate, for several months.
+        Good news. Now that you've confirmed %{email} receives emails from
+        pr.gov, should you need to request another Goodstanding Certificate in
+        the coming months, we won't ask you to validate it again for your
+        benefit.
+
+        Your form is ready, you may proceed by clicking the button below.
+      button: "Proceed to the Form"
   form:
       header: "Penal Record Certificate"
       message: >
@@ -97,32 +106,74 @@ en:
             female: "Female"
           residence:
             label: "Country of Residence:"
+            labels:
+                state: "State"
+                municipality: "Municipality"
         id:
-          title: "Identification"
+          title: "Identification Method"
+          label: "Select your preferred identification method"
           passport:
-            label: "Pasaporte"
+            title: "Passport"
+            label: "Passport:"
+            placeholder: "Please enter your passport number"
+            help: >
+              All requests that require passport identification
+              method will receive a thorough and manual validation,
+              which includes searching federal government databases.
+
+              Goodstanding Certificates issued through
+              this online service for which the passport identification
+              method is used are limited to specific use cases.
+
+              If you have an official driver license from Puerto Rico
+              or a valid Department of Transportation and Public Works
+              (DTOP) ID, to use those identification
+              methods.
           dtop:
-            label: "ID from DTOP:"
-            placeholder: "Drivers License or Digital ID"
+            id:
+              title: "DTOP Identification:"
+              label: "DTOP Identification:"
+              placeholder: "Enter the ID number"
+            license:
+              title: "Valid Puerto Rico Driver's License"
+              label: "Valid Puerto Rico Driver's License:"
+              placeholder: "Enter your driver license number"
           ssn:
+            title: "Social Security"
             label: "Social Security:"
             placeholder: "xxx-xx-xxxx (dashes are optional)"
+            help: >
+              The use of social security number is permitted by law for Law
+              and Order purposes. Providing the social
+              security number is required for this identification
+              method.
         purpose:
           title: "Certificate Purpose"
           certificate_purpose:
             label: "Certificate Purpose:"
           placeholder: "--"
           options:
-            "1": "Clemencia Ejecutiva"
-            "2": "Empleo"
-            "3": "Estudios"
-            "4": "Licencia de Armas"
-            "5": "Pasaporte o Visa"
-            "6": "Patentes o Franquicias"
-            "7": "Residencia"
-            "8": "Vivienda"
-            "9": "Cambio de Nombre"
-            "10": "Otros..."
+            "1": "Executive Clemency"
+            "2": "Employement"
+            "3": "Education"
+            "4": "Arms License"
+            "5": "Passport or Visa"
+            "6": "Patents or Franchises"
+            "7": "Residency"
+            "8": "Housing"
+            "9": "Name change"
+            "10": "Other..."
+          options_allowed_for_ncic_passport_checks:
+            "1": "Executive Clemency"
+            "2": "Employement"
+            "3": "Education"
+            "4": "Arms License"
+            "5": "Passport or Visa"
+            "6": "Patents or Franchises"
+            "7": "Residency"
+            "8": "Housing"
+            "9": "Name change"
+            "10": "Other..."
         delivery:
           title: "Delivery Method"
           email:

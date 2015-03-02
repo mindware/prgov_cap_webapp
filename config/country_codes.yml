@@ -1,5 +1,6 @@
 ---
 country:
+  "PR": "Puerto Rico"
   "AD": "Andorra"
   "AE": "United Arab Emirates"
   "AF": "Afghanistan"
@@ -181,7 +182,6 @@ country:
   "PL": "Poland"
   "PM": "Saint Pierre and Miquelon"
   "PN": "Pitcairn"
-  "PR": "Puerto Rico"
   "PS": "Palestine, State of"
   "PT": "Portugal"
   "PW": "Palau"

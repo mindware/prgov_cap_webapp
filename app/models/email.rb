@@ -20,7 +20,7 @@ class Email < PRgov::Base
     include Padrino::Helpers::TagHelpers
     include Padrino::Helpers::OutputHelpers
 
-    attr_reader :from, :MAX_MINUTES, :MAX_MINUTES_IN_SECONDS
+    # attr_reader :from, :MAX_MINUTES, :MAX_MINUTES_IN_SECONDS
 
     attr_accessor :address,             # The user's email address
                   :confirmation_code,   # The generated confirmation code

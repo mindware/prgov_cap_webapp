@@ -116,7 +116,7 @@ def validate_form1
   # perform server side validation of form1 data.
   # If the user selected to identify
   # using a dtop id or driver license:
-  if(params[:form] == "dtop" or params[:form] == "license")
+  if(params[:form].to_s == "dtop" or params[:form].to_s == "license")
     if(params[:dtop_id].to_s.length == 0 or
       !validate_dtop_id(params[:dtop_id]))
         errors += "&license=false"
@@ -176,20 +176,48 @@ def validate_form2
   session[:residency_city_state] = params[:residency_city_state]
 
   # Now let's start validation
-  # if(params[:dtop_id].to_s.length == 0 or
-  #     !validate_dtop_id(params[:dtop_id]))
-  #       errors += "&license=false"
-  # end
-  # if(params[:ssn].to_s.length == 0 or
-  #      !validate_ssn(params[:ssn]))
-  #       errors += "&ssn=false"
-  # end
+  if(params[:name].to_s.length == 0 or
+     !validate_name(params["name"]))
+        errors += "&name=false"
+  end
+  if(params[:name_initial].to_s.length > 0 and
+     !validate_name(params["name_initial"]))
+        errors += "&name_initial=false"
+  end
+  if(params[:last_name].to_s.length == 0 or
+     !validate_name(params["last_name"]))
+        errors += "&last_name=false"
+  end
+  if(params[:mother_last_name].to_s.length == 0 or
+     !validate_name(params["mother_last_name"]))
+        errors += "&mother_last_name=false"
+  end
+  if(params[:purpose].to_s.length == 0 or
+     !validate_reason(params["purpose"]))
+        puts "Found an error in purpose."
+        errors += "&purpose=false"
+  end
+  if(params[:birthdate].to_s.length == 0 or
+     !validate_birthdate(params["birthdate"]))
+        errors += "&birthdate=false"
+  end
+  if(params[:residency_country].to_s.length == 0 or
+     !validate_residency(params["residency_country"]))
+        errors += "&residency_country=false"
+  end
+  if(params[:residency_city_state].to_s.length == 0 or
+     !validate_residency(params["residency_city_state"]))
+        errors += "&residency_city_state=false"
+  end
 
   # If any errors ocurred, do a redirect:
   redirect to ("/form2?errors=true#{errors}") if errors.length > 0
   # otherwise, we're good to go on.
 end
 
+# Tells us if this session has been marked as completed.
+# You only get the done flag after you've completed all the steps
+# related to the CAP form and its validations.
 def done?
      return true if session[:done]
      return false
@@ -202,6 +230,8 @@ end
 
 ##############################################################
 # The following are data validations inherited from the GMQ  #
+# changes here should reflect changes in the GMQ, otherwise  #
+# we'd have inconsistent validators.                         #
 ##############################################################
 
 # A module for methods used to validate data, such as valid
@@ -233,6 +263,41 @@ module PRgov
       ########################################
       ##            Validations:             #
       ########################################
+
+      def validate_reason(str)
+        # raise Exception, "TODO: havent coded this method yet in the GMQ or here"
+        reasons = []
+        # We'll now compare the reason (purpose) given by the user to the
+        # allowed list. While there are a total of 10 purposes defined at
+        # this time, we have to make room for the possibility that new reasons
+        # might be added in the future. Since it is likely that such an addition
+        # would be done at the view and locale files, we'll make this method
+        # somewhat flexible so that it simply checks against the locale file
+        # and allows for atleast X new purposes before having to be rewritten,
+        # removing the barrier for a general developer to come in and add
+        # new reasons without having to touch the validations. We could later
+        # rewrite this so that we simply iterate through the yaml purpose.options
+        # children, and use those ids for the iteration.
+
+        (1..20).each do |number|
+            # check if this translation exists. If we've exceeded the number
+            # of consecutively defined purposes (1..10 for example), we simply
+            # break out of the loop. This way, we don't really loop up to the
+            # specified maximum of numbers of this loop, unless all of them
+            # actually exist. This allows us to offer some flexibility for
+            # future changes without sacrificing computation by unecessary
+            # iterations.
+            break if i18n_t("form.panel.purpose.options.#{number}").include? "translation missing:"
+            # puts "looking at reason #{number} - #{i18n_t("form.panel.purpose.options.#{number}")}"
+            # if it exists, compare it with str
+            if (str == i18n_t("form.panel.purpose.options.#{number}"))
+              # if str matches our defined purposes
+              return true
+            end
+        end
+        # if none found for this locale
+        return false
+      end
 
       # used when SIJC specifies the certificate is ready
       def validate_certificate_ready_parameters(params)
@@ -486,7 +551,12 @@ module PRgov
         return true
       end
 
+      # update this later to check against the database of countries.
       def validate_residency(value)
+        # puts Padrino.apps_configuration #["country_codes"]
+        # puts PRgovCAPWebApp::App.settings.country_codes
+        # raise Exception, "TODO: havent coded this properly yet"
+        puts "TODO: havent validate_residency validation properly yet"
         return false if(value.to_s.length >= MAX_RESIDENCY_LENGTH)
         return true
       end

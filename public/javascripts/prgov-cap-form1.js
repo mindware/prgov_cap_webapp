@@ -1,3 +1,12 @@
+$(document).ready(function() {
+  // early checks are used to add
+  // on change event monitoring
+  early_checks();
+    $('#birthdate-datetimepicker').datetimepicker({
+      pickTime: false
+    });
+});
+
 // Useful JS methods for form1 - Andrés
 // This method adds on change events to the document
 // ready defined in our main forms javascript file.

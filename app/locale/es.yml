@@ -17,7 +17,7 @@ es:
         title: "Condiciones de Uso"
   language:
         spanish: "Español"
-        english: "English"        
+        english: "English"
   email:
     header: "Comencemos"
     title: "Validemos su Email"
@@ -33,17 +33,20 @@ es:
       validada recientemente, le permitiremos acceder directamente
       al formulario.
     captcha:
-      message: "(¿Porqué un captcha?)"
+      message: "(¿Por qué un captcha?)"
       modal:
         title: "¿Qué es el Captcha?"
         text: >
           El captcha nos permite confirmar con un grado de certeza
-          que el usuario que lo resuelve tiene inteligencia humana. Debido
+          que el usuario que lo resuelve es un ser humano. Debido
           a la dificultad que actualmente representa para la inteligencia
           artificial resolver el mismo, esta tecnología nos permite
           detener ataques automatizados y ofrece grados de seguridad
           para nuestros sistemas. Nuestro captcha está disponible en dos
           formatos: visual y de forma auditiva.
+
+          Para resolver el mismo, observe la imagen y entre los simbolos
+          que identifique en el mismo en el recuadro provisto.
         close: "Close"
     button:
       continue: "Continuar"
@@ -83,9 +86,13 @@ es:
   confirmation:
       header: "Su dirección de email ha sido confirmada"
       body: >
-        Gracias por confirmar que la dirección %{email}
-        recibe correos de pr.gov. Su formulario está listo,
-        puede proceder pulsando el botón a continuación.
+        Buenas noticias. Ahora que nos ha confirmado que la dirección %{email}
+        recibe correos de pr.gov, si en los próximos meses necesita otra copia
+        de un certificado de antecedente penal, para su beneficio no tendrá
+        que volver a validar esta dirección, agilizando el proceso.
+
+        Su formulario está listo, puede proceder pulsando el botón a
+        continuación.
       button: "Proceder al Formulario"
   form:
       header: "Certificado de Antecedentes Penales » Formulario"
@@ -121,6 +128,9 @@ es:
             female: "Femenino"
           residence:
             label: "País de Residencia:"
+            labels:
+              state: "Estado"
+              municipality: "Municipio"
         id:
           title: "Metodo de Identificación"
           label: "Seleccione El Metodo de Identificación"
@@ -161,6 +171,17 @@ es:
             label: "Propósito del Certificado:"
           placeholder: "--"
           options:
+            "1": "Clemencia Ejecutiva"
+            "2": "Empleo"
+            "3": "Estudios"
+            "4": "Licencia de Armas"
+            "5": "Pasaporte o Visa"
+            "6": "Patentes o Franquicias"
+            "7": "Residencia"
+            "8": "Vivienda"
+            "9": "Cambio de Nombre"
+            "10": "Otros..."
+          options_allowed_for_ncic_passport_checks:
             "1": "Clemencia Ejecutiva"
             "2": "Empleo"
             "3": "Estudios"

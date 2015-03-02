@@ -1,8 +1,5 @@
 
-  <% content_for :prgov_cap_js do %>
-    <%= javascript_include_tag 'prgov-cap-form' %>
     <%= javascript_include_tag 'prgov-cap-form1' %>
-  <% end %>
 
     <div class="container">
       <h3><center><%= i18n_t("header.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
@@ -46,7 +43,10 @@
               <!-- IDENTIFICATION PANEL -->
               <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                  <h3 class="panel-title"><%= i18n_t("form.panel.id.title") %></h3>
+                  <h3 class="panel-title">
+                    <i class="glyphicon glyphicon-lock icon-4x"></i>
+                    <%= i18n_t("form.panel.id.title") %>
+                  </h3>
                 </div><!-- /.panel-heading -->
                 <div class="panel-body">
                   <div class="row">
