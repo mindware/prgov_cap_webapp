@@ -82,7 +82,7 @@
                     <!-- end captcha modal activation -->
                   </label>
                   <div class="col-md-6">
-                      <%= recaptcha_tag(:challenge, :display => {:theme => 'white'}).html_safe %>
+                      <%= recaptcha_tag(:challenge, :display => {:theme => 'white'}, :ssl => true).html_safe %>
                   </div>
                 </div>
                 <!-- End of Captcha -->
