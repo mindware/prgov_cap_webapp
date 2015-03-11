@@ -113,10 +113,10 @@
                         </span>
                       </div>
                     </div><!-- /.form-group -->
-                    <div class="form-group col-sm-9 <% if(params[:residency_country] == "false")%> has-error <% end %>">
+                    <div class="form-group col-sm-9">
                       <label for="residence_country" class="control-label"><%= i18n_t("form.panel.citizen.residence.label") %></label>
                       <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 <% if(params[:residency_country] == "false")%> has-error <% end %>">
                           <select class="form-control" id="residence_country" name="residency_country">
                             <option value="" disabled>País</option>
                             <!-- <option value="00000">UNKNOWN</option> -->
@@ -131,7 +131,7 @@
                             <% end %>
                           </select>
                         </div><!-- /.col-sm -->
-                        <div class="col-sm-6" id="residence_state">
+                        <div class="col-sm-6 <% if(params[:residency_state] == "false" or params[:residency_city] == "false") %> has-error <% end %>" id="residence_state">
 
                           <select class="form-control <% if session[:residency_country].to_s != "PR" %> hidden <% end %>" id="residence_city_select" name="residency_city">
                             <option value="" disabled selected><%= i18n_t("form.panel.citizen.residence.labels.municipality") %></option>
@@ -144,7 +144,7 @@
                               <% end %>
                           </select>
 
-                          <select class="form-control <% if session[:residency_country].to_s != "US" %> hidden <% end %>" id="residence_state_select" name="residency_state">
+                          <select class="form-control <% if session[:residency_country].to_s != "US" %> hidden <% end %> " id="residence_state_select" name="residency_state">
                             <option value="" disabled selected><%= i18n_t("form.panel.citizen.residence.labels.state") %></option>
                               <% PRgovCAPWebApp::App.settings.usa_states.each do |code, name| %>
                                   <% if session[:residency_state].to_s == code  %>

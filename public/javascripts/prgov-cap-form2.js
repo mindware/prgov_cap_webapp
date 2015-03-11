@@ -16,6 +16,13 @@ $(document).ready(function() {
     language: 'es'
   });
 
+  // On page load, make the city option visible
+  var selected = $("#residence_country :selected").val();
+  if(selected == "PR") {
+    $("#residence_city_select").removeClass("hidden");
+  } 
+
+  // watch for changes
   $("#residence_country").change(function () {
       var country = $('#residence_country :selected').val();
       if(country == "US") {
