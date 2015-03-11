@@ -236,7 +236,7 @@ def validate_form2
      session[:residency_state] = ""
   else
      # otherwise clear it for everything else
-     session[:residnecy_state] = ""
+     session[:residency_state] = ""
      session[:residency_city] = ""
   end
 
@@ -246,9 +246,9 @@ def validate_form2
   else
     # otherwise, we're good to go on.
     territory = ""
-    territory += "#{session[:residence_city]}, " if session[:residence_city].to_s.length > 0
-    territory += "#{session[:residence_state]}, " if session[:residence_state].to_s.length > 0
-    session[:residence] = "#{territory}#{session[:residence_country]}"
+    territory += "#{session[:residency_city]}, " if session[:residency_city].to_s.length > 0
+    territory += "#{session[:residency_state]}, " if session[:residency_state].to_s.length > 0
+    session[:residence] = "#{territory}#{session[:residency_country]}"
   end
 end
 
