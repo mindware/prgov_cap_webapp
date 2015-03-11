@@ -522,8 +522,7 @@ PRgovCAPWebApp::App.controllers :cap do
       		:ssn	=> session[:ssn].to_s,
       		:license_number => session[:dtop_id].to_s,
       		:birth_date => session[:birthdate].to_s,
-      		:residency  => "#{session[:residency_city_state]}, "+
-                         "#{session[:residency_country]}",
+      		:residency  => "#{session[:residence]}",
       		:IP   	    => request.ip.to_s,
       		:reason	    => session[:purpose].to_s,
       		:birth_place=> "not specified",
