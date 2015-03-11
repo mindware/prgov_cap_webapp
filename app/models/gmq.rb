@@ -68,32 +68,39 @@ class GMQ
       puts "End of request."
 
       result = JSON.parse(response)
+      return result
     rescue Errno::ECONNREFUSED => e
       # connection error - server offline or network failure
       puts "We got a connection refused, everybody."
       puts e.inspect.to_s
+      raise GMQ_ERROR, e
     rescue RestClient::Unauthorized => e
       # 401
       puts "Bad username or password. Cannot login to the GMQ"
       puts e.inspect.to_s
+      raise GMQ_ERROR, e
     rescue RestClient::BadRequest => e
       # 400
       puts "Bad Request"
       puts e.inspect.to_s
+      raise GMQ_ERROR, e
     rescue RestClient::Forbidden => e
       # 403
       puts "User has no authorization to access that resource."
+      raise GMQ_ERROR, e
     rescue RestClient::ResourceNotFound => e
       # 404
       puts "404"
+      raise GMQ_ERROR, e
     rescue RestClient::InternalServerError => e
       # 500
       puts "500"
+      raise GMQ_ERROR, e
     rescue RestClient::ServiceUnavailable => e
       # 503 Service unavailable - maintenance
       puts "We're in maintenance mode."
       puts e.inspect.to_s
-
+      raise GMQ_ERROR, e
     rescue Exception => e
       # When unexpected errors ocurr:
       puts "Error class is #{e.class}"
@@ -161,4 +168,12 @@ class GMQ
     "#{ENV["GMQ_CAP_HOST"]}:#{ENV["GMQ_CAP_PORT"]}#{ENV["GMQ_CAP_API"]}"
   end
 
+end
+
+
+################################################################
+########                   Errors                       ########
+################################################################
+
+class GMQ_ERROR < RuntimeError
 end

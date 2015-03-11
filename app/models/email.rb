@@ -20,7 +20,7 @@ class Email < PRgov::Base
     include Padrino::Helpers::TagHelpers
     include Padrino::Helpers::OutputHelpers
 
-    attr_reader :from, :MAX_MINUTES, :MAX_MINUTES_IN_SECONDS
+    # attr_reader :from, :MAX_MINUTES, :MAX_MINUTES_IN_SECONDS
 
     attr_accessor :address,             # The user's email address
                   :confirmation_code,   # The generated confirmation code
@@ -276,14 +276,19 @@ class Email < PRgov::Base
        end
     end
 
-    # Generates a URL for confirmation.
-    # includes confirmation code and the
+    # Generates the confirmation path for
+    # this email. It includes confirmation code and the
     # email address base64 encoded.
+    def generate_confirmation_path()
+      "/confirm?code=#{self.confirmation_code}&"+
+      "address=#{Email.encode(self.address)}"
+    end
+
+    # Generates an html link for confirmation.
     def get_link(url)
       puts "value of variable is #{url}"
       link_to('confirm email',
-      "#{url}/confirm?code=#{self.confirmation_code}&"+
-      "address=#{Email.encode(self.address)}")
+      "#{url}/#{generate_confirmation_path()}")
       # link_to('confirm email', '/confirm?123')
     end
 

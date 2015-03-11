@@ -64,19 +64,23 @@ module PRgovCAPWebApp
     # end
     #
     error 404 do
-      render 'errors/400'
+      render 'errors/400', :layout => :prgov
     end
 
-    # error 500 do
-    #   render 'errors/505.html'
-    # end
+    error 500 do
+      # render 'errors/505.html'
+      # "A 500 error ocurred."
+      render 'errors/500'
+    end
+
+    not_found do
+      # "oops"
+      render 'errors/400'
+    end
     #
     # error 505 do
     #   render 'errors/505.html'
     # end
 
-    # Enable Pendragon compiler mode and lock.
-    # set :pendragon, enable_compiler: true
-    # set :pendragon, lock: true
   end
 end

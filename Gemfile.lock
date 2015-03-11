@@ -124,6 +124,7 @@ DEPENDENCIES
   rake
   redis (= 3.1.0)
   redis-rack
+  redis-store
   rest_client (= 1.7.3)
   rr
   rspec

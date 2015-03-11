@@ -27,13 +27,16 @@
 #
 Padrino.configure_apps do
   # Padrino's built-in session functionality must be disabled in order to
-  # eliminate cookie based sessions and use proper backend.
+  # eliminate cookie based sessions and use proper backend. Leave next line
+  # commented:
   # enable :sessions
   # set :protection, :except => :path_traversal
   set :protection, true
   # set :protect_from_csrf, true
   set :country_codes, YAML::load(File.open(File.join(Padrino.root, "config", "country_codes.yml")))["country"]
   set :genders, YAML::load(File.open(File.join(Padrino.root, "config", "genders.yml")))["gender"]
+  set :pr_municipalities, YAML::load(File.open(File.join(Padrino.root, "config", "pr_municipalities.yml")))["pr_municipality"]
+  set :usa_states, YAML::load(File.open(File.join(Padrino.root, "config", "usa_states.yml")))["usa_state"]
 end
 
 # Mounts the core application for this project

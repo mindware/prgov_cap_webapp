@@ -3,8 +3,9 @@ $(document).ready(function() {
   // on change event monitoring
   early_checks();
     $('#birthdate-datetimepicker').datetimepicker({
-      pickTime: false
+      pickTime: true
     });
+
 });
 
 // Useful JS methods for form1 - Andrés

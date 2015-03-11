@@ -22,11 +22,13 @@ $redis = Redis.new(:host => ENV['REDIS_SERVER'],
                    :db   => ENV['REDIS_DB'],
                    :password => ENV['REDIS_SECRET'])
 
+# Decide the amount of minutes that a session will live before expiring
+# after becoming inactive (no changes).
+redis_session_ttl = 60 
 
 # Enable secondary Redis connection for temporary session handling
 # using Redis via Redis-rack sessions library.
-use Rack::Session::Redis, :redis_server => "redis://:#{ENV['REDIS_SECRET']}@#{ENV['REDIS_SERVER']}:#{ENV['REDIS_PORT']}/#{ENV['REDIS_SESSION_DB']}/#{ENV['REDIS_NAMESPACE']}:session"
-
+use Rack::Session::Redis, :redis_server => "redis://:#{ENV['REDIS_SECRET']}@#{ENV['REDIS_SERVER']}:#{ENV['REDIS_PORT']}/#{ENV['REDIS_SESSION_DB']}/#{ENV['REDIS_NAMESPACE']}:session", :expires_in => (redis_session_ttl * 60) 
 
 # Enable reCAPTCHA middleware.
 use Rack::Recaptcha, :public_key => ENV['RECAPTCHA_PUBLIC_KEY'], :private_key => ENV['RECAPTCHA_PRIVATE_KEY']

@@ -115,11 +115,33 @@ PRgovCAPWebApp::App.controllers :cap do
   #         Filters          #
   ############################
 
+  # Global 'before' check, applies to all resources.
+  # Here we check and set a language cookie. Our cookie is
+  # completely seperate to our 'sessions' (which are only stored
+  # on the server side). These cookies survives
+  # 'session.clear'. We only allow specific pre-approved
+  # language values in the cookie [en, es]
+  before do
+      # If the user has his cookie locale set to english
+      # apply it for this request.
+      if (request.cookies['locale'] == "en")
+          I18n.locale = :en
+      elsif(request.cookies['locale'] == "es")
+          I18n.locale = :es
+      else
+          # if the user is missing the cookie,
+          # give him a spanish cookie.
+          request.cookies['locale'] = "es"
+          # apply the local language
+          I18n.locale = :es
+      end
+  end
+
   # Our before filter makes sure we
   # perform certain checks before the action is
   # evaluated. We can exclude specific actions from
   # the check.
-  before :except => [:index, :disclaimer, :confirm, :form, :form2,
+  before :except => [:index, :disclaimer, :confirm, :form, :form2, :form2_get,
                      :validate_request, :done] do
     # check if terms have been accepted
     validate_terms()
@@ -137,14 +159,16 @@ PRgovCAPWebApp::App.controllers :cap do
 
   # For all resources that are accessible once the email
   # has been confirmed, we need to check for email validation:
-  before :form, :form2, :form2_validation do
-    # Before showing the second stage form, confirm that the user
-    # has completed the first stage and has confirmed their
-    # email.
+  before :form, :form2, :form2_get, :form2_validation,
+         :validate_request, :done do
+    # Before proceeding to any page in the second stage form,
+    # confirm that the user has completed the first stage by
+    # confirming their email. This checks if the email
+    # session is active.
     email_confirmed?
   end
 
-  # Before proceeding to form2, validate form 1.
+  # Before proceeding to form2 (via POST), validate form 1.
   before :form2 do
     # Before showing the second form,
     # check the data from the first one to make sure
@@ -152,11 +176,35 @@ PRgovCAPWebApp::App.controllers :cap do
     validate_form1
   end
 
+  # used for error handling for form2 GET access.
+  before :form2_get do
+    # If our session is marked as form2 ready, redirect us to form1.
+    if session["form1_complete"] != true
+      # make them fill out form1 before attempting form2.
+      redirect to ("/form")
+    end
+  end
+
   # Before proceeding to complete, validate form 2.
   before :validate_request do
     # Validate the final form before completing the
     # online service
     validate_form2
+  end
+
+  # Check if the user has been marked as completing the
+  # submission process, only then do they arrive to done.
+  # If a user no longer has a session or their session isn't marked as
+  # done, or it tries to skip a process in order to jump to the end,
+  # they'll get caught, and redirected to the beginning, where
+  # their session is destroyed and they will have to start
+  # again as a security measure. This also catches users that hit the
+  # back button after completing a submission, and attempt to request
+  # once again.
+  before :done do
+     if !done?
+       redirect to ('/?expired=true')
+     end
   end
 
 
@@ -437,27 +485,52 @@ PRgovCAPWebApp::App.controllers :cap do
   end
 
   post :form2, :map => '/form2' do
+    session["form1_complete"] = true
     render 'form_step2', :layout => :prgov
   end
 
   post :validate_request, :map => '/complete' do
+    # Our before method must validate all params before
+    # arriving here.
 
-    payload = {
-    		:first_name => session[:name].to_s,
-        :middle_name => session[:name_initial].to_s,
-    		:last_name  => session[:last_name].to_s,
-    		:mother_last_name => session[:mother_last_name].to_s,
-    		:ssn	=> session[:ssn].to_s,
-    		:license_number => session[:dtop_id].to_s,
-    		:birth_date => session[:birthdate].to_s,
-    		:residency  => "#{session[:residency_city_state]}, "+
-                       "#{session[:residency_country]}",
-    		:IP   	    => request.ip.to_s,
-    		:reason	    => session[:purpose].to_s,
-    		:birth_place=> "not specified",
-    		:email	    => session[:email].to_s,
-    		:language   => "spanish"
-	 }
+    # If a passport is used for identity validation,
+    # we will not require the license number nor ssn.
+    if(session[:passport].to_s.length > 0)
+      payload = {
+      		:first_name => session[:name].to_s,
+          :middle_name => session[:name_initial].to_s,
+      		:last_name  => session[:last_name].to_s,
+      		:mother_last_name => session[:mother_last_name].to_s,
+      		:passport	=> session[:passport].to_s,
+      		:birth_date => session[:birthdate].to_s,
+      		:residency  => "#{session[:residency_city_state]}, "+
+                         "#{session[:residency_country]}",
+      		:IP   	    => request.ip.to_s,
+      		:reason	    => session[:purpose].to_s,
+      		:birth_place=> "not specified",
+      		:email	    => session[:email].to_s,
+      		:language   => (I18n.locale == :en ? "english" : "spanish")
+  	 }
+   end
+   # always favor the ssn, if available
+   if(session[:ssn].to_s.length > 0)
+      payload = {
+      		:first_name => session[:name].to_s,
+          :middle_name => session[:name_initial].to_s,
+      		:last_name  => session[:last_name].to_s,
+      		:mother_last_name => session[:mother_last_name].to_s,
+      		:ssn	=> session[:ssn].to_s,
+      		:license_number => session[:dtop_id].to_s,
+      		:birth_date => session[:birthdate].to_s,
+      		:residency  => "#{session[:residency_city_state]}, "+
+                         "#{session[:residency_country]}",
+      		:IP   	    => request.ip.to_s,
+      		:reason	    => session[:purpose].to_s,
+      		:birth_place=> "not specified",
+      		:email	    => session[:email].to_s,
+      		:language   => (I18n.locale == :en ? "english" : "spanish")
+  	 }
+   end
 
    result = GMQ.enqueue_cap_transaction(payload)
   #  if(result["error"])
@@ -492,10 +565,16 @@ PRgovCAPWebApp::App.controllers :cap do
 
   # Present the final page.
   get :done, :map => '/done' do
-       done?
+       tx_id = session[:tx_id]
+       email = session[:email]
+       # user is done. delete the session immediately.
+       # by destroying the session, we do not let them hit
+       # the back button to resubmit again.
+       session.clear
+       # Now proceed to show them the results:
        render 'complete', :layout => :prgov,
-                          :locals => { :id    => session[:tx_id],
-                                       :email => session[:email] }
+                          :locals => { :id    => tx_id,
+                                       :email => email }
   end
 
   ###########################
@@ -526,8 +605,13 @@ PRgovCAPWebApp::App.controllers :cap do
   # is simply a redirect that doesn't require before
   # validations directly. The before validations are
   # done on the redirected page.
-  get :form2_redirect, :map => '/form2' do
-    redirect to('/form')
+  # get :form2_redirect, :map => '/form2' do
+  #   redirect to('/form')
+  # end
+
+  # used when someone needs to redirect to us
+  get :form2_get, :map => '/form2' do
+    render 'form_step2', :layout => :prgov
   end
 
   # private
