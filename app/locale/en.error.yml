@@ -32,18 +32,18 @@ en:
         The passport number is incorrect.
       name: >
         You must enter a proper name.
-      father: >
+      last_name: >
         You must enter a proper last name.
-      mother: >
+      mother_last_name: >
         You can enter a proper mother last name.
       birthdate: >
         You must pick or enter your birthdate in the format DD/MM/YYYY.
       purpose: >
         You must specify the purpose behind the certificate request.
-      country: >
-        You must specify a country of residence.
-      city: >
-        You must specify a city of residence.
-      state: >
-        You must specify a state of residence.
+      residency_country: >
+        You must select a country of residence.
+      residency_state: >
+        You must select a state of residence.
+      residency_city: >
+        You must select a municipality of residence.
 ...

@@ -36,19 +36,19 @@ es:
       passport: >
         El número de pasaporte no es correcto.
       name: >
-        Debe escribir el nombre correctamente.
-      father: >
-        Debe escribir el apellido materno correctamente.
-      mother: >
-        Debe escribir el apellido materno correctamente.
+        Debe escribir el nombre.
+      last_name: >
+        Debe escribir el apellido paterno.
+      mother_last_name: >
+        Debe escribir el apellido materno.
       birthdate: >
         Debe escribir la fecha de nacimiento correctamente.
       purpose: >
         Debe especificar el propósito para el cual solicita el certificado.
-      country: >
-        Debe especificar un pais de residencia.
-      city: >
-        Debe espeificar un pueblo de residencia.
-      state: >
+      residency_country: >
+        Debe seleccionar un pais de residencia.
+      residency_state: >
         Debe especificar un estado de residencia.
+      residency_city: >
+        Debe seleccionar un pueblo de residencia.
 ...

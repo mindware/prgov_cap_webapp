@@ -151,8 +151,9 @@ end
 # redirects if any errors ocurred.
 def validate_form2
   errors = ""
+  residency_valid = true
 
-  puts "WE BE VALIDATING #{params[:name]}"
+  # puts "WE BE VALIDATING #{params[:name]}"
   # First, clean up any malicious code.
   params[:name] = escape_html(params[:name])
   params[:name_initial] = escape_html(params[:name_initial])
@@ -173,7 +174,8 @@ def validate_form2
   session[:purpose] = params[:purpose]
   session[:birthdate] = params[:birthdate]
   session[:residency_country] = params[:residency_country]
-  session[:residency_city_state] = params[:residency_city_state]
+  session[:residency_city] = params[:residency_city]
+  session[:residency_state] = params[:residency_state]
 
   # Now let's start validation
   if(params[:name].to_s.length == 0 or
@@ -188,13 +190,16 @@ def validate_form2
      !validate_name(params["last_name"]))
         errors += "&last_name=false"
   end
-  if(params[:mother_last_name].to_s.length == 0 or
-     !validate_name(params["mother_last_name"]))
+  # if(params[:mother_last_name].to_s.length == 0 or
+  #    !validate_name(params["mother_last_name"]))
+  #       errors += "&mother_last_name=false"
+  # end
+  # maiden name is optional
+  if(!validate_name(params["mother_last_name"]))
         errors += "&mother_last_name=false"
   end
   if(params[:purpose].to_s.length == 0 or
      !validate_reason(params["purpose"]))
-        puts "Found an error in purpose."
         errors += "&purpose=false"
   end
   if(params[:birthdate].to_s.length == 0 or
@@ -202,17 +207,49 @@ def validate_form2
         errors += "&birthdate=false"
   end
   if(params[:residency_country].to_s.length == 0 or
-     !validate_residency(params["residency_country"]))
+     !validate_country(params["residency_country"]))
+        residency_valid = false
         errors += "&residency_country=false"
   end
-  if(params[:residency_city_state].to_s.length == 0 or
-     !validate_residency(params["residency_city_state"]))
-        errors += "&residency_city_state=false"
+
+  # if a PR is the country set we proceed
+  # to check if we have a municipality set.
+  if(residency_valid and params[:residency_country] == "PR" and
+     !validate_territory(params[:residency_country], params[:residency_city]))
+        errors += "&residency_city=false"
+  end
+
+  # if a US is the country set we proceed
+  # to check if we have a state set.
+  if(residency_valid and params[:residency_country] == "US" and
+     !validate_territory(params[:residency_country], params[:residency_state]))
+        errors += "&residency_state=false"
+  end
+
+  # make sure we deal with any intentional
+  # misconfigurations, such as someone playing with
+  # html/javascript to submit US as country with PR municipalities
+  # etc.
+  if(params[:residency_country] == "US")
+     session[:residency_city] == ""
+  elsif(params[:residency_country] == "PR")
+     session[:residency_state] = ""
+  else
+     # otherwise clear it for everything else
+     session[:residnecy_state] = ""
+     session[:residency_city] = ""
   end
 
   # If any errors ocurred, do a redirect:
-  redirect to ("/form2?errors=true#{errors}") if errors.length > 0
-  # otherwise, we're good to go on.
+  if errors.length > 0
+    redirect to ("/form2?errors=true#{errors}")
+  else
+    # otherwise, we're good to go on.
+    territory = ""
+    territory += "#{session[:residence_city]}, " if session[:residence_city].to_s.length > 0
+    territory += "#{session[:residence_state]}, " if session[:residence_state].to_s.length > 0
+    session[:residence] = "#{territory}#{session[:residence_country]}"
+  end
 end
 
 # Tells us if this session has been marked as completed.
@@ -230,8 +267,10 @@ end
 
 ##############################################################
 # The following are data validations inherited from the GMQ  #
-# changes here should reflect changes in the GMQ, otherwise  #
-# we'd have inconsistent validators.                         #
+# and modified for our use. Adding methods is ok, but        #
+# beware of modifying methods, as inconsistencies could lead #
+# to the API and web app disagreeing on a validation         #
+# and could lead to errors from the API not allowing data.   #
 ##############################################################
 
 # A module for methods used to validate data, such as valid
@@ -551,14 +590,38 @@ module PRgov
         return true
       end
 
-      # update this later to check against the database of countries.
+      # checks the length
       def validate_residency(value)
-        # puts Padrino.apps_configuration #["country_codes"]
-        # puts PRgovCAPWebApp::App.settings.country_codes
-        # raise Exception, "TODO: havent coded this properly yet"
-        puts "TODO: havent validate_residency validation properly yet"
         return false if(value.to_s.length >= MAX_RESIDENCY_LENGTH)
         return true
+      end
+
+      # check against the list of countries.
+      def validate_country(country)
+        return false if country.to_s.length == 0
+        return false if !validate_residency(country)
+        if(PRgovCAPWebApp::App.settings.country_codes.has_key? country)
+          return true
+        else
+          return false
+        end
+      end
+
+      # check against the list of countries for their territories
+      # (states / municipalities)
+      def validate_territory(country, territory)
+        return false if country.to_s.length == 0 or territory.to_s.length == 0
+        return false if !validate_residency(territory)
+        if(PRgovCAPWebApp::App.settings.country_codes.has_key? country)
+          if(country == "PR" and
+             PRgovCAPWebApp::App.settings.pr_municipalities.has_key? territory)
+              return true
+          elsif(country == "US" and
+              PRgovCAPWebApp::App.settings.usa_states.has_key? territory)
+            return true
+          end
+        end
+        return false
       end
 
       def validate_birthdate(value, check_age=false)

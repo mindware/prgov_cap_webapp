@@ -1,10 +1,36 @@
+// Reading code? Curious aren't you? Good!
 $(document).ready(function() {
   // early checks are used to add
   // on change event monitoring
   early_checks();
-    $('#birthdate-datetimepicker').datetimepicker({
-      pickTime: true
-    });
+	// $.datepicker.dates['es'] = {
+	// 	days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+	// 	daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+	// 	daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+	// 	months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+	// 	monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+	// 	today: "Hoy"
+	// };
+  $('#birthdate-datetimepicker').datetimepicker({
+    pickTime: false,
+    language: 'es'
+  });
+
+  $("#residence_country").change(function () {
+      var country = $('#residence_country :selected').val();
+      if(country == "US") {
+        $("#residence_state_select").removeClass("hidden");
+        $("#residence_city_select").addClass("hidden");
+      }
+      else if (country == "PR") {
+        $("#residence_city_select").removeClass("hidden");
+        $("#residence_state_select").addClass("hidden");
+      }
+      else {
+        $("#residence_city_select").addClass("hidden");
+        $("#residence_state_select").addClass("hidden");
+      }
+  });
 
 });
 
@@ -13,7 +39,7 @@ $(document).ready(function() {
 // ready defined in our main forms javascript file.
 function early_checks() {
   // monitor any changes to the options menu
-  option_check();
+  // option_check();
   // monitor if a user clicks on the continue button
   continue_check();
   // on this multi-form page, lets allow users to

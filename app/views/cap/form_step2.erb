@@ -9,8 +9,8 @@
   <% end %>
 
   <% content_for :prgov_cap_js do %>
-    <%= javascript_include_tag 'prgov-cap-form' %>
-    <%= javascript_include_tag 'prgov-cap-form-2' %>
+    <% # javascript_include_tag 'prgov-cap-form' %>
+    <%= javascript_include_tag 'prgov-cap-form2' %>
   <% end %>
 
     <div class="container">
@@ -30,6 +30,46 @@
           <!-- CITIZEN INFORMATION-->
           <div class="row">
             <div class="col-sm-12">
+
+
+             <!-- Display any potential Errors -->
+              <% if params[:errors] == "true"  %>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                      <ul>
+                      <% if params[:name] == "false" %>
+                        <li><strong><%= i18n_t("error.form.name") %></strong></li>
+                      <% end %>
+                      <% if params[:last_name] == "false" %>
+                        <li><strong><%= i18n_t("error.form.last_name") %></strong></li>
+                      <% end %>
+                      <% if params[:mother_last_name] == "false" %>
+                        <li><strong><%= i18n_t("error.form.mother_last_name") %></strong></li>
+                      <% end %>
+                      <% if params[:birthdate] == "false" %>
+                        <li><strong><%= i18n_t("error.form.birthdate") %></strong></li>
+                      <% end %>
+                      <% if params[:residency_country] == "false" %>
+                        <li><strong><%= i18n_t("error.form.residency_country") %></strong></li>
+                      <% end %>
+                      <% if params[:residency_city] == "false" %>
+                        <li><strong><%= i18n_t("error.form.residency_city") %></strong></li>
+                      <% end %>
+                      <% if params[:residency_state] == "false" %>
+                        <li><strong><%= i18n_t("error.form.residency_state") %></strong></li>
+                      <% end %>
+                      <% if params[:purpose] == "false" %>
+                        <li><strong><%= i18n_t("error.form.purpose") %></strong></li>
+                      <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <!-- End of Errors -->
+
               <!-- CITIZEN INFORMATION PANEL -->
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -37,7 +77,7 @@
                 </div><!-- /.panel-heading -->
                 <div class="panel-body">
                   <div class="row">
-                    <div class="form-group col-sm-3">
+                    <div class="form-group <% if(params[:name] == "false")%> has-error <% end %> col-sm-3">
                       <label for="name" class="control-label"><%= i18n_t("form.panel.citizen.name.label") %></label>
                       <input type="text" class="form-control" id="name" name="name" maxlength="50" value="<%= session[:name].to_s %>" placeholder="<%= i18n_t("form.panel.citizen.name.placeholder") %>">
                     </div><!-- /.form-group -->
@@ -45,60 +85,78 @@
                       <label for="name_initial" class="control-label"><%= i18n_t("form.panel.citizen.name_initial.label") %></label>
                       <input type="text" class="form-control" id="name_initial" name="name_initial" maxlength="1" value="<%= session[:name_initial].to_s %>" placeholder="<%= i18n_t("form.panel.citizen.name_initial.placeholder") %>">
                     </div><!-- /.form-group -->
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-3 <% if(params[:last_name] == "false")%> has-error <% end %>">
                       <label for="last_name" class="control-label"><%= i18n_t("form.panel.citizen.lastname_first.label") %></label>
                       <input type="text" class="form-control" id="last_name" name="last_name" maxlength="50" value="<%= session[:last_name].to_s %>" placeholder="<%= i18n_t("form.panel.citizen.lastname_first.placeholder") %>">
                     </div><!-- /.form-group -->
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-3 <% if(params[:mother_last_name] == "false")%> has-error <% end %>">
                       <label for="mother_last_name" class="control-label"><%= i18n_t("form.panel.citizen.lastname_second.label") %></label>
                       <input type="text" class="form-control" id="mother_last_name" name="mother_last_name" maxlength="50" value="<%= session[:mother_last_name].to_s %>" placeholder="<%= i18n_t("form.panel.citizen.lastname_second.placeholder") %>">
                     </div><!-- /.form-group -->
                   </div><!-- /.row -->
                   <div class="row">
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-sm-3 <% if(params[:birthdate] == "false")%> has-error <% end %>">
                       <label for="birthdate" class="control-label"><%= i18n_t("form.panel.citizen.birthdate.label") %></label>
                       <div class="input-group date" id="birthdate-datetimepicker">
-                        <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10" value="<%= session[:birthdate].to_s.html_safe %>" data-date-format="<%= i18n_t("form.panel.citizen.birthdate.format") %>" placeholder="<%= i18n_t("form.panel.citizen.birthdate.placeholder") %>"/>
+                        <!-- <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10" value="<%= session[:birthdate].to_s.html_safe %>" data-date-format="<%= i18n_t("form.panel.citizen.birthdate.format") %>" placeholder="<%= i18n_t("form.panel.citizen.birthdate.placeholder") %>"/> -->
+                        <!--
+                            We know the date in english is generally formatted in mm/dd/yyyy except mostly in the military
+                            but we chose to use dd/mm/yyyy to quicken development time and validations by using the same algorithm
+                            for both spanish and enligsh. We noticed most users simply used the date-picker
+                            rather than type the date, which made this mostly a non-issue. We could revisit this in the future.
+                        -->
+                        <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10"
+                               value="<%= session[:birthdate].to_s.html_safe %>" data-date-format="DD/MM/YYYY"
+                               placeholder="DD/MM/YYYY" data-date-language="<%= I18n.locale.to_s%>"/>
                         <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                       </div>
                     </div><!-- /.form-group -->
-                    <div class="form-group col-sm-9">
+                    <div class="form-group col-sm-9 <% if(params[:residency_country] == "false")%> has-error <% end %>">
                       <label for="residence_country" class="control-label"><%= i18n_t("form.panel.citizen.residence.label") %></label>
                       <div class="row">
                         <div class="col-sm-6">
                           <select class="form-control" id="residence_country" name="residency_country">
-                            <option value="" disabled selected>País</option>
+                            <option value="" disabled>País</option>
                             <!-- <option value="00000">UNKNOWN</option> -->
                             <!-- <option value="00179" selected>PUERTO RICO</option>e
                             <option value="00003" >AFGHANISTAN</option> -->
                             <% PRgovCAPWebApp::App.settings.country_codes.each do |code, name| %>
+                              <% if session[:residency_country].to_s == code  %>
+                                <option value="<%= code %>" selected><%= name %></option>
+                              <% else %>
                                 <option value="<%= code %>"><%= name %></option>
+                              <% end %>
                             <% end %>
                           </select>
                         </div><!-- /.col-sm -->
-                        <div class="col-sm-6" id="residence_state" hidden>
-                          <select class="form-control" id="residence_state_select" name="residency_city_state">
-                            <option value="" disabled selected><%= i18n_t("form.panel.citizen.residence.labels.state") %></option>
-                            <!-- <option value="San Juan">San Juan</option>
-                            <option value="Guaynabo">Guaynabo</option>
-                            <option value="Ponce">Ponce</option> -->
-                              <% PRgovCAPWebApp::App.settings.pr_municipalities.each do |code, name| %>
-                                  <option value="<%= code %>"><%= name %></option>
-                              <% end %>
-                          </select>
-                        </div><!-- /.col-sm -->
-                        <div class="col-sm-6" id="residence_city">
-                          <select class="form-control" id="residence_city_select" name="residency_city_state" hidden>
+                        <div class="col-sm-6" id="residence_state">
+
+                          <select class="form-control <% if session[:residency_country].to_s != "PR" %> hidden <% end %>" id="residence_city_select" name="residency_city">
                             <option value="" disabled selected><%= i18n_t("form.panel.citizen.residence.labels.municipality") %></option>
-                            <!-- <option value="San Juan">San Juan</option>
-                            <option value="Guaynabo">Guaynabo</option>
-                            <option value="Ponce">Ponce</option> -->
                               <% PRgovCAPWebApp::App.settings.pr_municipalities.each do |code, name| %>
-                                  <option value="<%= code %>"><%= name %></option>
+                                  <% if session[:residency_city].to_s == code  %>
+                                    <option value="<%= code %>" selected><%= name %></option>
+                                  <% else %>
+                                    <option value="<%= code %>"><%= name %></option>
+                                  <% end %>
                               <% end %>
                           </select>
+
+                          <select class="form-control <% if session[:residency_country].to_s != "US" %> hidden <% end %>" id="residence_state_select" name="residency_state">
+                            <option value="" disabled selected><%= i18n_t("form.panel.citizen.residence.labels.state") %></option>
+                              <% PRgovCAPWebApp::App.settings.usa_states.each do |code, name| %>
+                                  <% if session[:residency_state].to_s == code  %>
+                                    <option value="<%= code %>" selected><%= name %></option>
+                                  <% else %>
+                                    <option value="<%= code %>"><%= name %></option>
+                                  <% end %>
+                              <% end %>
+                          </select>
+
+                        </div><!-- /.col-sm -->
+
                         </div><!-- /.col-sm -->
                       </div><!-- /.row -->
                     </div><!-- /.form-group -->
@@ -120,7 +178,7 @@
                 </div><!-- /.panel-heading -->
                 <div class="panel-body">
                   <div class="row">
-                    <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-12 <% if(params[:purpose] == "false")%> has-error <% end %>">
                       <label for="purpose" class="control-label"><%= i18n_t("form.panel.purpose.certificate_purpose.label") %></label>
                       <select class="form-control" id="purpose" name="purpose">
                         <option value="" disabled selected><%= i18n_t("form.panel.purpose.placeholder") %></option>
