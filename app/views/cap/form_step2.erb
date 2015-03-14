@@ -107,7 +107,7 @@
                         -->
                         <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10"
                                value="<%= session[:birthdate].to_s.html_safe %>" data-date-format="DD/MM/YYYY"
-                               placeholder="DD/MM/YYYY" data-date-language="<%= I18n.locale.to_s%>"/>
+                               placeholder="DD/MM/YYYY" data-date-language="<%= I18n.locale.to_s%>" readonly/>
                         <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                         </span>
