@@ -160,7 +160,7 @@
                       <!-- Passport input -->
                       <div class="form-group col-sm-12 <% if(params[:passport] == "false")%> has-error <% end %>">
                         <label for="passport" class="control-label"><%= i18n_t("form.panel.id.passport.label") %></label>
-                        <input type="text" class="form-control" id="passport" value="<%= session[:passport].to_s %>" name="passport" maxlength="20" placeholder="<%= i18n_t("form.panel.id.passport.placeholder") %>">
+                        <input type="text" class="form-control" id="passport" value="<%= session[:passport].to_s %>" name="passport" maxlength="20" placeholder="<%= i18n_t("form.panel.id.passport.placeholder") %>" readonly/>
                         <span id="helpBlock" class="help-block"><%= i18n_t("form.panel.id.passport.help") %></span>
                         <input type="hidden" name="form" value="passport">
                       </div><!-- /.form-group -->
