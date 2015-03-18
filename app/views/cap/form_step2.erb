@@ -51,6 +51,9 @@
                       <% if params[:birthdate] == "false" %>
                         <li><strong><%= i18n_t("error.form.birthdate") %></strong></li>
                       <% end %>
+                      <% if params[:age] == "false" %>
+                        <li><strong><%= i18n_t("error.form.age") %></strong></li>
+                      <% end %>
                       <% if params[:residency_country] == "false" %>
                         <li><strong><%= i18n_t("error.form.residency_country") %></strong></li>
                       <% end %>
@@ -182,16 +185,16 @@
                       <label for="purpose" class="control-label"><%= i18n_t("form.panel.purpose.certificate_purpose.label") %></label>
                       <select class="form-control" id="purpose" name="purpose">
                         <option value="" disabled selected><%= i18n_t("form.panel.purpose.placeholder") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.1") %>"><%= i18n_t("form.panel.purpose.options.1") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.2") %>"><%= i18n_t("form.panel.purpose.options.2") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.3") %>"><%= i18n_t("form.panel.purpose.options.3") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.4") %>"><%= i18n_t("form.panel.purpose.options.4") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.5") %>"><%= i18n_t("form.panel.purpose.options.5") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.6") %>"><%= i18n_t("form.panel.purpose.options.6") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.7") %>"><%= i18n_t("form.panel.purpose.options.7") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.8") %>"><%= i18n_t("form.panel.purpose.options.8") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.9") %>"><%= i18n_t("form.panel.purpose.options.9") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.10") %>"><%= i18n_t("form.panel.purpose.options.10") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.1") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.1") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.1") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.2") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.2") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.2") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.3") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.3") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.3") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.4") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.4") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.4") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.5") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.5") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.5") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.6") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.6") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.6") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.7") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.7") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.7") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.8") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.8") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.8") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.9") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.9") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.9") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.10") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.10") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.10") %></option>
                       </select>
                     </div><!-- /.form-group -->
                   </div><!-- /.row -->
