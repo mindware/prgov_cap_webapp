@@ -206,6 +206,13 @@ def validate_form2
      !validate_birthdate(params["birthdate"]))
         errors += "&birthdate=false"
   end
+
+  # check minimum age
+  if(params[:birthdate].to_s.length == 0 or
+     !validate_birthdate(params["birthdate"], true))
+        errors += "&age=false"
+  end
+
   if(params[:residency_country].to_s.length == 0 or
      !validate_country(params["residency_country"]))
         residency_valid = false

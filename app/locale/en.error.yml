@@ -38,6 +38,16 @@ en:
         You can enter a proper mother last name.
       birthdate: >
         You must pick or enter your birthdate in the format DD/MM/YYYY.
+      age: >
+        The date of birth selected suggests this request is related to a
+        minor.
+        According to the Law of Minors, Law 88 ammended july 9 of 1986,
+        minors cannot commit crime only offenses. Because of this, we cannot
+        expedite a certificate until the minor has reached the age of
+        eighteen (18) years old. You may request the Police Department to
+        provide you with a written certification of this regard. For information
+        on how to contact your closest department, please see the official
+        website: http://policia.pr.gov
       purpose: >
         You must specify the purpose behind the certificate request.
       residency_country: >

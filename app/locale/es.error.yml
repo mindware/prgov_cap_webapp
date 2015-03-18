@@ -43,6 +43,17 @@ es:
         Debe escribir el apellido materno.
       birthdate: >
         Debe escribir la fecha de nacimiento correctamente.
+      age: >
+        La fecha de nacimiento seleccionada sugiere su solicitud se relaciona
+        a un menor de edad. Según establece la
+        Ley de Menores, Ley 88 en el Art. 37 enmendada el 9 de julio
+        de 1986, los menores de edad no cometen delito sino
+        faltas, por lo cual no se puede expedir un certificado hasta que el
+        menor cumpla dieciocho (18) años de edad. Usted puede solicitar
+        que la Policia de Puerto Rico le provea una documento oficial sobre
+        este particular. Para información en como contactar el cuartel de
+        Policia más cercano, por favor refierase a la página oficial de la
+        Policia: http://policia.pr.gov
       purpose: >
         Debe especificar el propósito para el cual solicita el certificado.
       residency_country: >
