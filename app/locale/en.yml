@@ -90,11 +90,11 @@ en:
             label: "Initial:"
             placeholder: "Initial"
           lastname_first:
-            label: "Father's Surname:"
-            placeholder: "Father's Surname"
+            label: "Father's Lastname:"
+            placeholder: "Father's Lastname"
           lastname_second:
-            label: "Mother's Surname:"
-            placeholder: "Mother's Surname"
+            label: "Mother's Lastname:"
+            placeholder: "Mother's Lastname"
           birthdate:
             label: "Birth date:"
             placeholder: "MM/DD/YYYY"
