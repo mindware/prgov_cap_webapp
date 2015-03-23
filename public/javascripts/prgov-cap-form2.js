@@ -1,26 +1,42 @@
-// Reading code? Curious aren't you? Good!
+// Reading code? Curious aren't you? Good! #porPR
 $(document).ready(function() {
   // early checks are used to add
   // on change event monitoring
   early_checks();
-	// $.datepicker.dates['es'] = {
-	// 	days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-	// 	daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-	// 	daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-	// 	months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-	// 	monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-	// 	today: "Hoy"
-	// };
-  $('#birthdate-datetimepicker').datetimepicker({
-    pickTime: false,
-    language: 'es'
-  });
+
+  // let's check our language
+  // if english:
+  if($.cookie("locale") == "en")
+  {
+    $('#birthdate-datetimepicker').datetimepicker({
+      locale: 'en',
+      // dont change the format to english
+      // unless you're going to manually transform
+      // them on the backend. We're not, so skip it.
+      format: 'DD/MM/YYYY',
+      viewMode: 'years',
+      defaultDate: '03/14/1980',
+      minDate: '01/01/1885',
+      ignoreReadonly: true
+    });
+  }
+  // else in spanish:
+  else {
+    $('#birthdate-datetimepicker').datetimepicker({
+      locale: 'es',
+      format: 'DD/MM/YYYY',
+      viewMode: 'years',
+      defaultDate: '03/14/1980',
+      minDate: '01/01/1885',
+      ignoreReadonly: true
+    });
+  }
 
   // On page load, make the city option visible
   var selected = $("#residence_country :selected").val();
   if(selected == "PR") {
     $("#residence_city_select").removeClass("hidden");
-  } 
+  }
 
   // watch for changes
   $("#residence_country").change(function () {
@@ -40,6 +56,13 @@ $(document).ready(function() {
   });
 
 });
+
+// Our simple calendar hack. This method shows the calendar widget as soon
+// as our citizens click the birthdate field. Hides it if they
+// click it again.
+function showCalendar() {
+  $('#calendar_icon').trigger('click');
+}
 
 // Useful JS methods for form1 - Andrés
 // This method adds on change events to the document

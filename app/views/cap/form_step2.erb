@@ -4,7 +4,7 @@
   <% end %>
 
   <% content_for :bootstrap_js_extras do %>
-    <%= javascript_include_tag 'moment.min' %>
+    <%= javascript_include_tag 'moment-with-locales.min' %>
     <%= javascript_include_tag 'bootstrap-datetimepicker.min' %>
   <% end %>
 
@@ -98,20 +98,20 @@
                     </div><!-- /.form-group -->
                   </div><!-- /.row -->
                   <div class="row">
-                    <div class="form-group col-sm-3 <% if(params[:birthdate] == "false")%> has-error <% end %>">
+                    <div class="form-group col-sm-3 <% if(params[:birthdate] == "false" or params[:age] == "false")%> has-error <% end %>">
                       <label for="birthdate" class="control-label"><%= i18n_t("form.panel.citizen.birthdate.label") %></label>
                       <div class="input-group date" id="birthdate-datetimepicker">
                         <!-- <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10" value="<%= session[:birthdate].to_s.html_safe %>" data-date-format="<%= i18n_t("form.panel.citizen.birthdate.format") %>" placeholder="<%= i18n_t("form.panel.citizen.birthdate.placeholder") %>"/> -->
                         <!--
                             We know the date in english is generally formatted in mm/dd/yyyy except mostly in the military
                             but we chose to use dd/mm/yyyy to quicken development time and validations by using the same algorithm
-                            for both spanish and enligsh. We noticed most users simply used the date-picker
+                            for both spanish and english. We noticed most users simply used the date-picker
                             rather than type the date, which made this mostly a non-issue. We could revisit this in the future.
                         -->
                         <input type="text" class="form-control" id="birthdate" name="birthdate" maxlength="10"
-                               value="<%= session[:birthdate].to_s.html_safe %>" data-date-format="DD/MM/YYYY"
-                               placeholder="DD/MM/YYYY" data-date-language="<%= I18n.locale.to_s%>" readonly/>
-                        <span class="input-group-addon">
+                               value="<%= session[:birthdate].to_s.html_safe %>"
+                               placeholder="DD/MM/YYYY" onclick="showCalendar()" readonly/>
+                        <span class="input-group-addon" id="calendar_icon">
                           <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                       </div>
@@ -122,9 +122,6 @@
                         <div class="col-sm-6 <% if(params[:residency_country] == "false")%> has-error <% end %>">
                           <select class="form-control" id="residence_country" name="residency_country">
                             <option value="" disabled>País</option>
-                            <!-- <option value="00000">UNKNOWN</option> -->
-                            <!-- <option value="00179" selected>PUERTO RICO</option>e
-                            <option value="00003" >AFGHANISTAN</option> -->
                             <% PRgovCAPWebApp::App.settings.country_codes.each do |code, name| %>
                               <% if session[:residency_country].to_s == code  %>
                                 <option value="<%= code %>" selected><%= name %></option>
@@ -184,9 +181,9 @@
                     <div class="form-group col-sm-12 <% if(params[:purpose] == "false")%> has-error <% end %>">
                       <label for="purpose" class="control-label"><%= i18n_t("form.panel.purpose.certificate_purpose.label") %></label>
                       <select class="form-control" id="purpose" name="purpose">
-                        <option value="" disabled selected><%= i18n_t("form.panel.purpose.placeholder") %></option>
+                        <option value="" disabled><%= i18n_t("form.panel.purpose.placeholder") %></option>
                         <option value="<%= i18n_t("form.panel.purpose.options.1") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.1") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.1") %></option>
-                        <option value="<%= i18n_t("form.panel.purpose.options.2") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.2") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.2") %></option>
+                        <option value="<%= i18n_t("form.panel.purpose.options.2") %>" <% if session[:purpose].to_s == "" or session[:purpose].to_s == i18n_t("form.panel.purpose.options.2") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.2") %></option>
                         <option value="<%= i18n_t("form.panel.purpose.options.3") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.3") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.3") %></option>
                         <option value="<%= i18n_t("form.panel.purpose.options.4") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.4") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.4") %></option>
                         <option value="<%= i18n_t("form.panel.purpose.options.5") %>" <% if session[:purpose].to_s == i18n_t("form.panel.purpose.options.5") %> selected <% end %>><%= i18n_t("form.panel.purpose.options.5") %></option>
