@@ -4,33 +4,21 @@ $(document).ready(function() {
   // on change event monitoring
   early_checks();
 
-  // let's check our language
-  // if english:
-  if($.cookie("locale") == "en")
-  {
-    $('#birthdate-datetimepicker').datetimepicker({
-      locale: 'en',
-      // dont change the format to english
-      // unless you're going to manually transform
-      // them on the backend. We're not, so skip it.
+  // language settings for our calendar are determined
+  // by the language cookie.
+  var locale = (($.cookie("locale") == "en") ? "en" : "es");
+
+  // A single setting for both spanish and english
+  // We use the dateformat that the webapp as well as
+  // API expects, regardless of language.
+  $('#birthdate-datetimepicker').datetimepicker({
+      locale: locale,
       format: 'DD/MM/YYYY',
       viewMode: 'years',
       defaultDate: '03/14/1980',
       minDate: '01/01/1885',
       ignoreReadonly: true
-    });
-  }
-  // else in spanish:
-  else {
-    $('#birthdate-datetimepicker').datetimepicker({
-      locale: 'es',
-      format: 'DD/MM/YYYY',
-      viewMode: 'years',
-      defaultDate: '03/14/1980',
-      minDate: '01/01/1885',
-      ignoreReadonly: true
-    });
-  }
+  });
 
   // On page load, make the city option visible
   var selected = $("#residence_country :selected").val();
