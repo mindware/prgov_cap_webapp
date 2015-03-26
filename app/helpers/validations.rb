@@ -387,7 +387,7 @@ module PRgov
         raise MissingClientIP        if params["IP"].to_s.length == 0
         # raise MissingLanguage        if params["language"].to_s.length == 0
         # Validate the Email
-        raise InvalidEmail           if validate_email(params["address"])
+        raise InvalidEmail           if !validate_email(params["address"])
         raise InvalidClientIP        if !validate_ip(params["IP"])
         # raise InvalidLanguage        if !validate_language(params["language"])
         return params
@@ -414,7 +414,7 @@ module PRgov
         raise MissingLanguage        if params["language"].to_s.length == 0
 
         # Validate the Email
-        raise InvalidEmail           if validate_email(params["email"])
+        raise InvalidEmail           if !validate_email(params["email"])
 
         raise InvalidSSN             if !validate_ssn(params["ssn"])
 
@@ -550,8 +550,6 @@ module PRgov
       end
 
       # Check the email address
-      # true if incorrect
-      # false if its ok
       def validate_email(value)
         # For email length, the source was:
         # http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
@@ -563,8 +561,8 @@ module PRgov
         # independently, so for now simply check against the RFC 2822,
         # RFC 3696 and the filters in the gem.
         return true if (ValidatesEmailFormatOf::validate_email_format(value).nil? and
-                 value.to_s.length > MAX_EMAIL_LENGTH )
-        return false
+                 value.to_s.length < MAX_EMAIL_LENGTH ) #ok
+        return false #fail
       end
 
       # validates if a string is an integer
