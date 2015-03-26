@@ -45,12 +45,12 @@ en:
       We're sending an email to %{email}, in order to validate the email address.
       That email contains a link to the Goodstanding Certificate online form.
       In order to continue, simply check the %{email} email account, identify our
-      pr.gov mail, open it and read the instructions.
+      pr.gov mail, proceed to open it and follow the instructions.
 
-      The email should arrive in less than *%{time}*.
+      The email should arrive in less than *%{time} minutes*.
     resend_message: >
       If you don't receive it in this timeframe, you may request we resend the email by
-      simply reloading this page.
+      simply reloading this page or clicking the 'Resend' button after *%{time} minutes*.
     help:
       text: "Need some help? For additional information and options click here."
     modal:
@@ -68,9 +68,8 @@ en:
       header: "Successful Email Confirmation"
       body: >
         Good news. Now that you've confirmed %{email} receives emails from
-        pr.gov, should you need to request another Goodstanding Certificate in
-        the coming months, we won't ask you to validate it again for your
-        benefit.
+        pr.gov, we won't ask you to validate it again, should you need to
+        request another Goodstanding Certificate in the coming months.
 
         Your form is ready, you may proceed by clicking the button below.
       button: "Proceed to the Form"

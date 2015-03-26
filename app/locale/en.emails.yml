@@ -2,11 +2,25 @@
 en:
   email:
     confirmation:
-      subject: "Access the Good Standing Certificate Form"
+      subject: "Please confirm your email to access the new Good Standing Certificate Forms"
       body: >
-        This is the body of the message. This will be sent as both text
-        and converted HTML.
-        We received a request to fill out the form for  Good Standing Certificate
-        validation. In order to validate your email, click here: %{link}.
-        If you did not request this email, you may delete it.
+        Hello,
+
+        We've received an online petition so this email address can
+        access the new Good Standing Certificate Request of the Puerto Rico Police
+        Department.
+
+        Assisting you through this process is important to us. First
+        we will guide you through completing your request. Afterwards we
+        will proceed to verify the submission information against
+        multiple law & orden government systems to validate any existing
+        criminal records. We will keep you duly informed during this process.
+
+        To confirm your email and proceed to the form, please click the following
+        link or visit the following address:
+
+        %{link}
+
+        If you believe you've received this mail in error, we apologize and
+        request you delete and ignore it. 
 ...

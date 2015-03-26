@@ -2,15 +2,26 @@
 es:
   email:
     confirmation:
-      subject: "Enlace para la solicitud del Certificado de Antecedentes Penales"
+      subject: "Enlace para acceder al nuevo Sistema del Certificado de Antecedentes Penales"
       body: >
-        This is an automated message. We received a request to fill out the
-        form for  Good Standing Certificate validation. In order to
-        validate your email we'll send you a link. If you did not request
-        this email, you may delete it.
+        Hola,
 
-        This the link we'd have to click: %{link}
+        Hemos recibido una petición para asistirle en gestionar
+        una solicitud para el nuevo Certificado de Antecedentes Penales de la
+        Policia de Puerto Rico.
 
-        Este es un email enviado por un sistema automatizado, favor de no
-        responder. De tener dudas, favor de referirlas a webmaster@pr.gov.
+        Asistirle en su proceso de solicitud es importante para nosotros.
+        Le informamos que una vez usted complete todo el proceso,
+        la información que nos provea será verificada en diversos sistemas
+        gubernamentales de ley y orden para efectos de validación y revisión
+        de cualquier posible registro criminal. Le mantendremos informado
+        en todo momento.
+
+        Para proceder al formulario, pulse sobre el enlace a continuación o
+        visite la siguiente dirección:
+
+        %{link}        
+
+        Si entiende que este correo le fue enviado en error, puede ignorar
+        y eliminar el mismo.
 ...
