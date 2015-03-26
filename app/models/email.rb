@@ -230,8 +230,8 @@ class Email < PRgov::Base
                   "text"    => i18n_raw("email.confirmation.body",
                                   :link => get_link(url)
                                ),
-                  "html"    => i18n_raw("email.confirmation.body",
-                                  :link => get_link(url)
+                  "html"    => i18n_asciidoc("email.confirmation.body",
+                                  :link => "#{url}#{generate_confirmation_path()}"
                                 ),
       }
 
@@ -286,10 +286,10 @@ class Email < PRgov::Base
 
     # Generates an html link for confirmation.
     def get_link(url)
-      puts "value of variable is #{url}"
-      link_to('confirm email',
-      "#{url}/#{generate_confirmation_path()}")
-      # link_to('confirm email', '/confirm?123')
+      # puts "value of variable is #{url}"
+      # link_to('confirm email',
+      link_to("#{url}#{generate_confirmation_path()}",
+      "#{url}#{generate_confirmation_path()}")
     end
 
 end
