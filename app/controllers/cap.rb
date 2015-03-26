@@ -499,7 +499,7 @@ PRgovCAPWebApp::App.controllers :cap do
     if(session[:passport].to_s.length > 0)
       payload = {
       		:first_name => session[:name].to_s,
-          :middle_name => session[:name_initial].to_s,
+          #:middle_name => session[:name_initial].to_s,
       		:last_name  => session[:last_name].to_s,
       		:mother_last_name => session[:mother_last_name].to_s,
       		:passport	=> session[:passport].to_s,
@@ -517,7 +517,7 @@ PRgovCAPWebApp::App.controllers :cap do
    if(session[:ssn].to_s.length > 0)
       payload = {
       		:first_name => session[:name].to_s,
-          :middle_name => session[:name_initial].to_s,
+          #:middle_name => session[:name_initial].to_s,
       		:last_name  => session[:last_name].to_s,
       		:mother_last_name => session[:mother_last_name].to_s,
       		:ssn	=> session[:ssn].to_s,
