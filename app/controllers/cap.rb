@@ -258,13 +258,14 @@ PRgovCAPWebApp::App.controllers :cap do
 
     # if first email is not a valid email
     if(params[:email].to_s.length == 0 or
-       validate_email(params[:email])) # true if error, false if ok
+       !validate_email(params[:email]))
       errors += "email=false"
     end
 
     # if confirm email is empty or not the same as first email
     if((params[:confirm].to_s.length == 0) or
-       (params[:confirm].to_s.strip != params[:email].to_s.strip))
+       (params[:confirm].to_s.strip != params[:email].to_s.strip) or
+       !validate_email(params[:confirm]))
       errors += "&confirm=false"
     end
     # use our helper method, that validates and sets
@@ -386,7 +387,7 @@ PRgovCAPWebApp::App.controllers :cap do
           email = Email.decode(params["address"])
 
           # If the user sent us a base64 encoded proper email
-          if(!validate_email(email))
+          if(validate_email(email))
               # attempt to find the email
               email = Email.find(email)
               # if the email is found
