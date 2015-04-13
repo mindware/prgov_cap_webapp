@@ -394,67 +394,69 @@ module PRgov
 
       end
 
-      # validates parameters in a hash, returning proper errors
-      # removed any non-whitelisted params
-      def validate_transaction_creation_parameters(params, whitelist)
+        # validates parameters in a hash, returning proper errors
+        # removed any non-whitelisted params
+        def validate_transaction_creation_parameters(params, whitelist)
 
-        # delets all non-whitelisted params, and returns a safe list.
-        params = trim_whitelisted(params, whitelist)
+          # delets all non-whitelisted params, and returns a safe list.
+          params = trim_whitelisted(params, whitelist)
 
-        # Return proper errors if parameter is missing:
-        raise MissingEmail           if params["email"].to_s.length == 0
-        # raise MissingSSN             if params["ssn"].to_s.length == 0
-        raise MissingPassportOrSSN   if (params["ssn"].to_s.length == 0 and
-                                         params["passport"].to_s.length == 0)
-        raise MissingLicenseNumber   if params["license_number"].to_s.length == 0
-        raise MissingFirstName       if params["first_name"].to_s.length == 0
-        raise MissingLastName        if params["last_name"].to_s.length == 0
-        raise MissingResidency       if params["residency"].to_s.length == 0
-        raise MissingBirthDate       if params["birth_date"].to_s.length == 0
-        raise MissingClientIP        if params["IP"].to_s.length == 0
-        raise MissingReason          if params["reason"].to_s.length == 0
-        raise MissingLanguage        if params["language"].to_s.length == 0
+          # Return proper errors if parameter is missing:
+          raise MissingEmail           if params["email"].to_s.length == 0
+          # raise MissingSSN             if params["ssn"].to_s.length == 0
+          raise MissingPassportOrSSN   if (params["ssn"].to_s.length == 0 and
+                                           params["passport"].to_s.length == 0)
+          raise MissingLicenseNumber   if (params["license_number"].to_s.length == 0 and
+                                          params["passport"].to_s.length == 0)
+          raise MissingFirstName       if params["first_name"].to_s.length == 0
+          raise MissingLastName        if params["last_name"].to_s.length == 0
+          raise MissingResidency       if params["residency"].to_s.length == 0
+          raise MissingBirthDate       if params["birth_date"].to_s.length == 0
+          raise MissingClientIP        if params["IP"].to_s.length == 0
+          raise MissingReason          if params["reason"].to_s.length == 0
+          raise MissingLanguage        if params["language"].to_s.length == 0
 
-        # Validate the Email
-        raise InvalidEmail           if !validate_email(params["email"])
+          # Validate the Email
+          raise InvalidEmail           if !validate_email(params["email"])
 
-        # User must provide either passport or SSN. Let's check if
-        # one or the other is invalid.
+          # User must provide either passport or SSN. Let's check if
+          # one or the other is invalid.
 
-        # Validate the SSN
-        # we eliminate any potential dashes in ssn
-        params["ssn"] = params["ssn"].to_s.gsub("-", "").strip
-        # raise InvalidSSN             if !validate_ssn(params["ssn"])
-        raise InvalidSSN             if params["ssn"].to_s.length > 0 and
-                                        !validate_ssn(params["ssn"])
-        # Validate the Passport
-        # we eliminate any potential dashes in the passport before validation
-        params["passport"] = params["passport"].to_s.gsub("-", "").strip
-        raise InvalidPassport        if params["passport"].to_s.length > 0 and
-                                        !validate_passport(params["passport"])
+          # Validate the SSN
+          # we eliminate any potential dashes in ssn
+          params["ssn"] = params["ssn"].to_s.gsub("-", "").strip
+          # raise InvalidSSN             if !validate_ssn(params["ssn"])
+          raise InvalidSSN             if params["ssn"].to_s.length > 0 and
+                                          !validate_ssn(params["ssn"])
+          # Validate the Passport
+          # we eliminate any potential dashes in the passport before validation
+          params["passport"] = params["passport"].to_s.gsub("-", "").strip
+          raise InvalidPassport        if params["passport"].to_s.length > 0 and
+                                          !validate_passport(params["passport"])
 
-        # Validate the DTOP id:
-        raise InvalidLicenseNumber   if !validate_dtop_id(params["license_number"])
+          # Validate the DTOP id:
+          raise InvalidLicenseNumber   if !validate_dtop_id(params["license_number"]) and
+                                          params["passport"].to_s.length == 0
 
-        raise InvalidFirstName       if !validate_name(params["first_name"])
-        raise InvalidMiddleName      if !params["middle_name"].nil? and
-                                        !validate_name(params["middle_name"])
-        raise InvalidLastName        if !validate_name(params["last_name"])
-        raise InvalidMotherLastName  if !params["mother_last_name"].nil? and
-                                        !validate_name(params["mother_last_name"])
+          raise InvalidFirstName       if !validate_name(params["first_name"])
+          raise InvalidMiddleName      if !params["middle_name"].nil? and
+                                          !validate_name(params["middle_name"])
+          raise InvalidLastName        if !validate_name(params["last_name"])
+          raise InvalidMotherLastName  if !params["mother_last_name"].nil? and
+                                          !validate_name(params["mother_last_name"])
 
-        raise InvalidResidency       if !validate_residency(params["residency"])
+          raise InvalidResidency       if !validate_residency(params["residency"])
 
-        # This validates birthdate
-        raise InvalidBirthDate       if !validate_birthdate(params["birth_date"])
-        # This checks minimum age
-        raise InvalidBirthDate       if !validate_birthdate(params["birth_date"], true)
-        raise InvalidClientIP        if !validate_ip(params["IP"])
-        raise InvalidReason          if params["reason"].to_s.strip.length > 255
-        raise InvalidLanguage        if !validate_language(params["language"])
+          # This validates birthdate
+          raise InvalidBirthDate       if !validate_birthdate(params["birth_date"])
+          # This checks minimum age
+          raise InvalidBirthDate       if !validate_birthdate(params["birth_date"], true)
+          raise InvalidClientIP        if !validate_ip(params["IP"])
+          raise InvalidReason          if params["reason"].to_s.strip.length > 255
+          raise InvalidLanguage        if !validate_language(params["language"])
 
-        return params
-      end
+          return params
+        end
 
 
       # validates parameters for transaction validation requests
