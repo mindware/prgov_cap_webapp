@@ -394,16 +394,18 @@ module PRgov
 
       end
 
-
       # validates parameters in a hash, returning proper errors
       # removed any non-whitelisted params
       def validate_transaction_creation_parameters(params, whitelist)
-        # deletes all non-whitelisted params, and returns a safe list.
+
+        # delets all non-whitelisted params, and returns a safe list.
         params = trim_whitelisted(params, whitelist)
 
         # Return proper errors if parameter is missing:
         raise MissingEmail           if params["email"].to_s.length == 0
-        raise MissingSSN             if params["ssn"].to_s.length == 0
+        # raise MissingSSN             if params["ssn"].to_s.length == 0
+        raise MissingPassportOrSSN   if (params["ssn"].to_s.length == 0 and
+                                         params["passport"].to_s.length == 0)
         raise MissingLicenseNumber   if params["license_number"].to_s.length == 0
         raise MissingFirstName       if params["first_name"].to_s.length == 0
         raise MissingLastName        if params["last_name"].to_s.length == 0
@@ -416,7 +418,20 @@ module PRgov
         # Validate the Email
         raise InvalidEmail           if !validate_email(params["email"])
 
-        raise InvalidSSN             if !validate_ssn(params["ssn"])
+        # User must provide either passport or SSN. Let's check if
+        # one or the other is invalid.
+
+        # Validate the SSN
+        # we eliminate any potential dashes in ssn
+        params["ssn"] = params["ssn"].to_s.gsub("-", "").strip
+        # raise InvalidSSN             if !validate_ssn(params["ssn"])
+        raise InvalidSSN             if params["ssn"].to_s.length > 0 and
+                                        !validate_ssn(params["ssn"])
+        # Validate the Passport
+        # we eliminate any potential dashes in the passport before validation
+        params["passport"] = params["passport"].to_s.gsub("-", "").strip
+        raise InvalidPassport        if params["passport"].to_s.length > 0 and
+                                        !validate_passport(params["passport"])
 
         # Validate the DTOP id:
         raise InvalidLicenseNumber   if !validate_dtop_id(params["license_number"])
@@ -437,6 +452,36 @@ module PRgov
         raise InvalidClientIP        if !validate_ip(params["IP"])
         raise InvalidReason          if params["reason"].to_s.strip.length > 255
         raise InvalidLanguage        if !validate_language(params["language"])
+
+        return params
+      end
+
+
+      # validates parameters for transaction validation requests
+      # used when users have the transaction id and want us to
+      # check if the transaction is really valid to us.
+      def validate_transaction_validation_parameters(params, whitelist)
+        # delets all non-whitelisted params, and returns a safe list.
+        params = trim_whitelisted(params, whitelist)
+
+        # Return proper errors if parameter is missing:
+        raise MissingTransactionTxId if params["tx_id"].to_s.length == 0
+        raise InvalidTransactionId   if !validate_transaction_id(params["tx_id"])
+        raise MissingPassportOrSSN   if (params["ssn"].to_s.length == 0 and
+                                         params["passport"].to_s.length == 0)
+        raise MissingClientIP        if params["IP"].to_s.length == 0
+        # Validate the SSN
+        # we eliminate any potential dashes in ssn
+        params["ssn"]  = params["ssn"].to_s.gsub("-", "").strip
+        raise InvalidSSN             if params["ssn"].to_s.length > 0 and
+                                        !validate_ssn(params["ssn"])
+        # Validate the Passport
+        # we eliminate any potential dashes in the passport before validation
+        params["passport"] = params["passport"].to_s.gsub("-", "").strip
+        raise InvalidPassport        if params["passport"].to_s.length > 0 and
+                                        !validate_passport(params["passport"])
+        # everything else:
+        raise InvalidClientIP        if !validate_ip(params["IP"])
 
         return params
       end
