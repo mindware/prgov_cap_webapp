@@ -141,8 +141,8 @@ PRgovCAPWebApp::App.controllers :cap do
   # perform certain checks before the action is
   # evaluated. We can exclude specific actions from
   # the check.
-  before :except => [:index, :disclaimer, :confirm, :form, :form2, :form2_get,
-                     :validate_request, :done] do
+  before :except => [:index, :info, :disclaimer, :confirm, :form, :form2,
+                     :form2_get, :validate_request, :done] do
     # check if terms have been accepted
     validate_terms()
     # Captcha accepted. Check email.
@@ -220,7 +220,22 @@ PRgovCAPWebApp::App.controllers :cap do
   # This cannot be root, as root is used for when
   # the First Stage has started, and it contains
   # error and session handling mechanisms.
-  get :index, :map => '/info' do
+  get :index, :map => '/cap' do
+    # destroy any existing session.
+    session.clear
+    # once the main page is done,
+    # render this:
+    # render 'info', :layout => :prgov
+    # Until the page is done, render
+    # disclaimer:
+    render 'disclaimer', :layout => :prgov
+  end
+
+  # This link is left here only as a
+  # legacy link referenced to the designers.
+  # once the main page is up, we can remove
+  # this page.
+  get :info, :map => '/info' do
     # destroy any existing session.
     session.clear
     render 'info', :layout => :prgov
