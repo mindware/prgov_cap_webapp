@@ -141,7 +141,9 @@ PRgovCAPWebApp::App.controllers :cap do
   # perform certain checks before the action is
   # evaluated. We can exclude specific actions from
   # the check.
-  before :except => [:index, :info, :disclaimer, :confirm, :form, :form2,
+  before :except => [:index,
+                     :info, :validator, :validator_cap,
+                     :disclaimer, :confirm, :form, :form2,
                      :form2_get, :validate_request, :done] do
     # check if terms have been accepted
     validate_terms()
@@ -240,6 +242,19 @@ PRgovCAPWebApp::App.controllers :cap do
     session.clear
     render 'info', :layout => :prgov
   end
+
+  get :validator, :map => '/validadores' do
+    # destroy any existing session.
+    # session.clear
+    render 'validator_option', :layout => :prgov
+  end
+
+  get :validator_cap, :map => '/validar/cap' do
+    # destroy any existing session.
+    # session.clear
+    render 'validator_cap', :layout => :prgov
+  end
+
 
   # Begginging for First Stage:
   # This resource provides the terms and conditions

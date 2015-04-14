@@ -1,0 +1,8 @@
+---
+en:
+  validator:
+      options:
+        header: "Select the certificate type you wish to validate:"
+        button1: "New Goodstanding Certificate from the Police Department"
+        button2: "Other Certificates of Puerto Rico"
+...

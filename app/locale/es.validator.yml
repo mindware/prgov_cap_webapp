@@ -1,0 +1,8 @@
+---
+es:
+  validator:
+      options:
+        header: "Seleccione el tipo de certificado que interesa validar:"
+        button1: "Nuevo Certificado de Antecedentes Penales de la Policia"
+        button2: "Otros Certificados de Puerto Rico"
+...
