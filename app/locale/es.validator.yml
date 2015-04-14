@@ -2,7 +2,20 @@
 es:
   validator:
       options:
-        header: "Seleccione el tipo de certificado que interesa validar:"
+        header: "Pulse sobre el tipo de certificado que interesa validar:"
         button1: "Nuevo Certificado de Antecedentes Penales de la Policia"
         button2: "Otros Certificados de Puerto Rico"
+        desc:
+          title: "Información adicional:"
+          desc1: >
+            Para validar certificados de ASUME, ADSEF, ASG, ASR, CRIM,
+            Dept. Trabajo y Recursos Humanos, Dept. Agricultura, Fondo del Seguro
+            del Estado, Departamento de Hacienda, y un certificado de
+            Antecedentes Penal emitido antes de la fecha 19 de abril 2015,
+            puede seleccionar 'Otros Certificados de Puerto Rico'.
+          desc2: >
+            Si usted posee un Certificado de Antecedentes Penales con una
+            fecha de emisión posterior al 19 de abril 2015, puede seleccionar
+            'Nuevo Certificado de Antecedentes Penales de la Policia'.
+
 ...

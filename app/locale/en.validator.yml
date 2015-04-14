@@ -3,6 +3,20 @@ en:
   validator:
       options:
         header: "Select the certificate type you wish to validate:"
-        button1: "New Goodstanding Certificate from the Police Department"
+        button1: "New Good Standing Certificate from the Police Department"
         button2: "Other Certificates of Puerto Rico"
+        desc:
+          title: "Additional Information:"
+          desc1: >
+            If you need to validate certificates issued by any agency other than
+            the Police Department, such as ASUME, ADSEF, ASG,
+            ASR, CRIM, Dept. of Work and Human Resources, Dept. of Agirculture,
+            State of Insurance Fund, Dept. of Treasury, or a Good Standing
+            Certificate emitted by the Police Department prior to april 19 2015
+            you may select 'Other Certificates of Puerto Rico'.
+          desc2: >
+            If need to validate a Good Standing Certificate issued by the
+            Police Department of Puerto Rico, with an issue date after
+            april 19 2015 or more recent, you may select 'New Good Standing
+            Certificate from the Police Department'.
 ...
