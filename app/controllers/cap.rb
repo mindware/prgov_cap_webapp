@@ -529,7 +529,7 @@ PRgovCAPWebApp::App.controllers :cap do
     if(session[:passport].to_s.length > 0)
       payload = {
       		:first_name => session[:name].to_s,
-          #:middle_name => session[:name_initial].to_s,
+          :middle_name => session[:name_initial].to_s,
       		:last_name  => session[:last_name].to_s,
       		:mother_last_name => session[:mother_last_name].to_s,
       		:passport	=> session[:passport].to_s,
@@ -547,7 +547,7 @@ PRgovCAPWebApp::App.controllers :cap do
    if(session[:ssn].to_s.length > 0)
       payload = {
       		:first_name => session[:name].to_s,
-          #:middle_name => session[:name_initial].to_s,
+          :middle_name => session[:name_initial].to_s,
       		:last_name  => session[:last_name].to_s,
       		:mother_last_name => session[:mother_last_name].to_s,
       		:ssn	=> session[:ssn].to_s,
@@ -563,6 +563,26 @@ PRgovCAPWebApp::App.controllers :cap do
    end
 
    result = GMQ.enqueue_cap_transaction(payload)
+
+   # guessing the code allows one to evade the captcha.
+   # here we make this absolutely not worth the computing
+   # resources, since on every finished request we
+   # make the old email link obsolete. Email link is
+   # generated once only and validated. But since the
+   # link must be expired, a value is added to it
+   # just so that it is never guessable but at the same
+   # time usable until the first full certificate
+   # submission. Afterwards, it becomes unusable.
+   # we could later improve this by having a
+   # unique email flag that is added to the email if it
+   # is missing after the first succsesful completion,
+   # therefore saving us a db write. For now, this works.
+   email = Email.find(session["email"])
+   # generate a new code.
+   email.confirmation_code = Email.generate_code
+   email.save
+   email = nil
+
   #  if(result["error"])
   #  else
    session[:tx_id] = result["id"]
