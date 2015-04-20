@@ -10,12 +10,6 @@ class GMQ
   def self.enqueue_email(payload)
     # This method speaks with the CAP API to enqueue an email
     # If we enqueued successfully:
-      # return true
-    # else
-    # false
-    # puts request("")
-    # test
-    # get('/transaction')
     if post('/mail', payload)
       return true
     else
@@ -145,12 +139,12 @@ class GMQ
       		:mother_last_name => "Pérez",
       		:ssn	=> "123561234",
       		:license_number => "123456789",
-      		:birth_date => "23/01/19822",
+      		:birth_date => "01/01/1980",
       		:residency  => "San Juan",
       		:IP   	    => "192.168.1.1",
       		:reason	    => "good enough",
       		:birth_place=> "San Juan",
-      		:email	    => "andres@thoughtware.tv",
+      		:email	    => "andres@email.com",
       		:language   => "spanish"
   	 }
      self.enqueue_cap_transaction(payload)
