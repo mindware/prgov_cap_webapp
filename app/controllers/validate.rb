@@ -43,7 +43,8 @@ PRgovCAPWebApp::App.controllers :validate do
     # destroy any existing session.
     # session.clear
     # render 'validator_cap', :layout => :prgov
-    render 'index', :layout => :prgov
+    # render 'index', :layout => :prgov
+    render 'cap', :layout => :prgov
   end
 
   # provides specific validation information
