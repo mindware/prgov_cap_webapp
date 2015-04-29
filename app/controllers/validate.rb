@@ -42,8 +42,9 @@ PRgovCAPWebApp::App.controllers :validate do
   get :validator_cap, :map => '/validar/cap' do
     # destroy any existing session.
     # session.clear
-    render 'validator_cap', :layout => :prgov
-  end  
+    # render 'validator_cap', :layout => :prgov
+    render 'index', :layout => :prgov
+  end
 
   # provides specific validation information
   # for the cap certificates
