@@ -249,13 +249,6 @@ PRgovCAPWebApp::App.controllers :cap do
     render 'validator_option', :layout => :prgov
   end
 
-  get :validator_cap, :map => '/validar/cap' do
-    # destroy any existing session.
-    # session.clear
-    render 'validator_cap', :layout => :prgov
-  end
-
-
   # Begginging for First Stage:
   # This resource provides the terms and conditions
   # and initiates the session for the user.
