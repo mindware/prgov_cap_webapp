@@ -1,0 +1,155 @@
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h3><center><%= i18n_t("validator.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
+          <br>
+        </div>
+      </div>
+
+      <div class="row hidden">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="progress">
+            <di2v class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              0%
+            </div>
+          </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <% if params[:errors] %>
+      <div class="row">
+        <a name="error"></a>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <ul>
+              <% if params[:cert_id] == "false" %>
+                <li><strong><%= i18n_t('validator.error.id_num') %></strong></li>
+              <% end %>
+              <% if params[:person_id] == "false" %>
+                <li><strong><%= i18n_t('validator.error.person_id') %></strong></li>
+              <% end %>
+              <% if params[:captcha] == "false" %>
+                <li><strong><%= i18n_t('error.email.captcha') %></strong></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <% end %>
+
+      <form class="form-horizontal" role="form" id="validate" name="validate" action="/validate/cap/check" method="post">
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><center><%= i18n_t("validator.cap.title") %></center></h3>
+              </div>
+              <div class="panel-body">
+                <p>
+                  <%= i18n_t("validator.cap.message") %>
+                <p/>
+                <!-- Input Cert_id -->
+                <div class="form-group <% if(params[:cert_id] == "false")%> has-error <% end %>">
+                  <label for="cert_id" class="col-md-4 control-label">
+                    <%= i18n_t("validator.cap.form.label.cert_id") %>
+                    <!-- captcha modal activation -->
+                    <a href="#" data-toggle="modal" data-target="#aboutCertificateModal">
+                      <%= i18n_asciidoc("validator.cap.form.modal.certificate.title") %>
+                    </a>
+                    <!-- end captcha modal activation -->
+                  </label>
+                  <div class="col-md-6">
+                      <input type="text" class="form-control" id="cert_id" name="cert_id" placeholder="<%= i18n_t("validator.cap.form.placeholder.cert_id") %>" value="">
+                  </div>
+                </div>
+                <!-- End of email Input -->
+                <!-- Confirm email -->
+                <div class="form-group <% if(params[:person_id] == "false")%> has-error <% end %>">
+                  <label for="person_id" class="col-md-4 control-label">
+                    <%= i18n_t("validator.cap.form.label.person_id") %>
+                    <a href="#" data-toggle="modal" data-target="#aboutSSNModal">
+                      <%= i18n_asciidoc("validator.cap.form.modal.ssn.title") %>
+                    </a>
+                  </label>
+                  <div class="col-md-6">
+                      <input type="text" class="form-control" id="person_id" name="person_id" placeholder="<%= i18n_t("validator.cap.form.placeholder.person_id") %>" value="">
+                  </div>
+                </div>
+                <!-- End of Confirm -->
+
+                <!-- Captcha -->
+                <div class="form-group <% if(params[:captcha] == "false")%> has-error <% end %>">
+                  <label for="captcha" class="col-md-4 control-label"><%= i18n_t("email.form.captcha") %>
+                    <!-- captcha modal activation -->
+                    <a href="#" data-toggle="modal" data-target="#aboutCaptchaModal">
+                      <%= i18n_asciidoc("email.captcha.message") %>
+                    </a>
+                    <!-- end captcha modal activation -->
+                  </label>
+                  <div class="col-md-6">
+                      <%= recaptcha_tag(:challenge, :display => {:theme => 'white'}, :ssl => true).html_safe %>
+                  </div>
+                </div>
+                <!-- End of Captcha -->
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <a href="/cap" class="btn btn-default btn-lg btn-block"><%= i18n_t("email.button.cancel") %></a>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="submit" class="btn btn-warning btn-lg btn-block"><%= i18n_t("email.button.continue") %></button>
+                  </div>
+                </div>
+
+              </div> <!-- end of panel body -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="aboutCaptchaModal" tabindex="-1" role="dialog" aria-labelledby="aboutCaptchaModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="aboutCaptchaModal"><%= i18n_t("email.captcha.modal.title") %></h4>
+          </div>
+          <div class="modal-body">
+            <%= i18n_t("email.captcha.modal.text") %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><%= i18n_t("email.captcha.modal.close") %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="aboutSSNModal" tabindex="-1" role="dialog" aria-labelledby="aboutSSNModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="aboutSSNModal"><%= i18n_t("validator.cap.form.modal.ssn.title") %></h4>
+          </div>
+          <div class="modal-body">
+            <%= i18n_t("validator.cap.form.modal.ssn.text") %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><%= i18n_t("validator.cap.form.modal.ssn.close") %></button>
+          </div>
+        </div>
+      </div>
+    </div>

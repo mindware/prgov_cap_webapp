@@ -1,0 +1,22 @@
+    <% if(@refresh == true) %>
+      <meta http-equiv="refresh" content="5" >
+    <% end %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h3><center><%= i18n_t("validator.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
+          <br>
+        </div>
+      </div>
+
+      <div class="jumbotron">
+        <div class="container">
+
+          <p>
+            <%= @result %>
+          </p>
+
+          <p><a class="btn btn-primary btn-lg" href="/validate/cap/status?id=<%= "#{params["id"]}" %>" role="button"><%= i18n_t("validator.index.button") %></a>
+        </div>
+      </div>
+    </div>

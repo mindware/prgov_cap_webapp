@@ -1,6 +1,36 @@
 ---
 en:
   validator:
+      title: "New System for Certificate Validation"
+      index:
+        message: >
+          To validate a certificate, simply click get started.
+        button: "Get Started"
+      cap:
+        title: "Good Standing Certificate"
+        message: ""
+        form:
+          placeholder:
+            cert_id: "Certificate Number"
+            person_id: "Identification Number"
+          label:
+            cert_id: "Certificate Number"
+            person_id: "Identification Number"
+        modal:
+          certificate:
+            title: "How do I identify this?"
+          ssn:
+            title: "Why do I need all 8 digits of the SSN instead of just 4?"
+            text: >
+                  If the certificate you wish to validate contains as its
+                  identification number a social security number, know that
+                  you will be required to have the full
+                  8 digits of that number in order to proceed with the
+                  validation. If you do not have this number, we recommend
+                  you request the SSN identification with the information from the
+                  owner of the certificate. This is a security measure to protect
+                  you against counterfeit certificates.
+            close: "Close"
       options:
         header: "Select the certificate type you wish to validate:"
         button1: "New Good Standing Certificate from the Police Department"

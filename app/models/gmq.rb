@@ -37,16 +37,34 @@ class GMQ
   # Performs the actual HTTP Requests
   # against the GMQ
   def self.request(uri, method='get', payload=nil)
+    puts "Performing GMQ request."
     site = "#{gmq_url}#{uri}"
     content_type = nil
     begin
-      # If have a payload to deliver
+      # If we have a payload to deliver
       if(payload)
         # set the proper content type
         content_type = :json
-        response = RestClient.send method, site, payload.to_json,
-                                   :content_type => :json,
-                                   :accept => :json
+
+        # For all get payloads, we send the key/values of params
+        # content via the URL.
+        if(method == "get")
+          # we construct the url
+          site << "?"
+          payload.each do |key, value|
+            site << "&#{key}=#{value}"
+          end
+          response = RestClient.get site
+          # This wasn't workign so we decided to dump it and create our own
+          # url above.
+          # response = RestClient.get site, { :params => payload.to_json,
+          #                                  :accept => :json }
+        else
+          # all other methods, allow json payload.
+          response = RestClient.send method, site, payload.to_json,
+                                     :content_type => :json,
+                                     :accept => :json
+        end
       # This is a non-payload request
       else
         response = RestClient.send method, site
@@ -99,6 +117,7 @@ class GMQ
       # When unexpected errors ocurr:
       puts "Error class is #{e.class}"
       puts e.inspect.to_s
+      puts e.backtrace.join("\n")
       error = e.message.strip
       # if the error isn't empty
       if(error.to_s.length > 0)
@@ -123,13 +142,22 @@ class GMQ
     end
   end
 
+  # This method speaks with the CAP API of the GMQ to generate a transaction
   def self.enqueue_cap_transaction(payload)
-    # This method speaks with the CAP API of the GMQ to generate a transaction
-    # If we enqueued successfully:
-      # true
-    # else
-    # false
     request("/transaction", 'post', payload)
+  end
+
+  # This method speaks with the CAP API of the GMQ to request we start the
+  # process to validate a certificate. A request id is returned and the
+  # validation ocurrs asynchronously.
+  def self.validate_cap_request(payload)
+    request("/validate/request", 'get', payload)
+  end
+
+  # This method speaks with the CAP API of the GMQ to check the status
+  # of a certificate validation request.
+  def self.validate_cap_response(payload)
+    request("/validate/response", 'get', payload)
   end
 
   def self.test

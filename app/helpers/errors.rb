@@ -714,3 +714,7 @@ module PRgov
   end
 
 end
+
+
+class GMQ_ERROR < RuntimeError
+end

@@ -1,6 +1,46 @@
 ---
 es:
   validator:
+      title: "Nuevo Sistema de Validación de Certificados"
+      index:
+        message: >
+          Para validar su certificado, seleccione el botón de comenzar.
+        button: "Comenzar"
+      cap:
+        title: "Certificado de Antecedentes Penales"
+        message: ""
+        form:
+          placeholder:
+            cert_id: "Número del Certificado"
+            person_id: "Núm. de Seguro Social o Pasaporte"
+          label:
+            cert_id: "Número del Certificado"
+            person_id: "Número de Identificación"
+          modal:
+            certificate:
+              title: "¿Cómo lo identifico?"
+            ssn:
+              title: "¿Por qué 8 digitos?"
+              text: >
+                    Si el certificado que interesa validar contiene como
+                    su número de identificación los últimos cuatro digitos
+                    del número de seguro social, sepa que para proceder con
+                    la validación, necesitará los 8 digitos.
+
+                    Si usted al momento no cuenta con los números completos,
+                    es importante le solicité la identificación de seguro social
+                    al dueño del certificado, para usted asegurarse que los mismos
+                    son legitimos, y proceder a entrar estos digitos en el formulario
+                    de validación, y nosotros verificaremos si, en efecto, ese número
+                    completo se utilizó para la solicitud del certificado.
+
+                    ¿Por qué los 8 digitos del seguro social y no 4?
+
+                    La omisión de los 8 digitos en el certificado protege la privacidad
+                    del ciudadano, pero el requerimiento de los mismos para el
+                    momento de validación nos permite asistirle en la deteción de
+                    certificados fraudulentos. 
+              close: "Cerrar"
       options:
         header: "Pulse sobre el tipo de certificado que interesa validar:"
         button1: "Nuevo Certificado de Antecedentes Penales de la Policia"
@@ -17,5 +57,4 @@ es:
             Si usted posee un Certificado de Antecedentes Penales con una
             fecha de emisión posterior al 19 de abril 2015, puede seleccionar
             'Nuevo Certificado de Antecedentes Penales de la Policia'.
-
 ...
