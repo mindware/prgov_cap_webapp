@@ -292,8 +292,8 @@ module PRgov
       PASSPORT_MAX_LENGTH     = 20
       SSN_LENGTH              = 9       # In 2014 SSN length was 9 digits.
       MAX_EMAIL_LENGTH        = 254     # IETF maximum length RFC3696/Errata ID: 1690
-      DTOP_ID_MIN_LENGTH      = 7       # Selected based on license length.
-      DTOP_ID_MAX_LENGTH      = 9       # Arbitrarily selected length. To support
+      DTOP_ID_MIN_LENGTH      = 5       # Selected based on license length. (We've seen some as short as 6 instead of 7)
+      DTOP_ID_MAX_LENGTH      = 10      # Arbitrarily selected length. To support
                                         # any future changes.
       PRPD_USER_ID_MAX_LENGTH = 255     # Arbitrarily selected length.
       MAX_NAME_LENGTH         = 255     # Max length for individual components of
