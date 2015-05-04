@@ -142,8 +142,7 @@ PRgovCAPWebApp::App.controllers :cap do
   # evaluated. We can exclude specific actions from
   # the check.
   before :except => [:index,
-                     :info, :validator, :validator_cap,
-                     :disclaimer, :confirm, :form, :form2,
+                     :info, :disclaimer, :confirm, :form, :form2,
                      :form2_get, :validate_request, :done] do
     # check if terms have been accepted
     validate_terms()
@@ -241,12 +240,6 @@ PRgovCAPWebApp::App.controllers :cap do
     # destroy any existing session.
     session.clear
     render 'info', :layout => :prgov
-  end
-
-  get :validator, :map => '/validadores' do
-    # destroy any existing session.
-    # session.clear
-    render 'validator_option', :layout => :prgov
   end
 
   # Begginging for First Stage:

@@ -39,6 +39,8 @@ PRgovCAPWebApp::App.controllers :validate do
     render 'index', :layout => :prgov
   end
 
+  # the actual form to validate the
+  # certificate of antecedentes penales
   get :validator_cap, :map => '/validar/cap' do
     # destroy any existing session.
     # session.clear
@@ -47,10 +49,17 @@ PRgovCAPWebApp::App.controllers :validate do
     render 'cap', :layout => :prgov
   end
 
-  # provides specific validation information
-  # for the cap certificates
-  get :cap, :map => '/validate/cap' do
-    render 'cap', :layout => :prgov
+  # An internal alias
+  # get :cap, :map => '/validate/cap' do
+  #   render 'cap', :layout => :prgov
+  # end
+
+  # A page that provides optional certificate
+  # validators.
+  get :validator_option, :map => '/validadores' do
+    # destroy any existing session.
+    # session.clear
+    render 'validator_option', :layout => :prgov
   end
 
   post :check, :map => '/validate/cap/check' do
@@ -72,7 +81,7 @@ PRgovCAPWebApp::App.controllers :validate do
          result = GMQ.validate_cap_request(payload)
          redirect to ("/validate/cap/status?id=#{result['id']}")
        rescue GMQ_ERROR => e
-         redirect to ("/validate/cap?errors=true&gmq=error&type=#{e}")
+         redirect to ("/validate/cap?errors=true&gmq=error&type=#{e.class}")
        end
     end
   end
@@ -108,7 +117,7 @@ PRgovCAPWebApp::App.controllers :validate do
         # if the request expired or an error ocurred
         # GMQ_ERROR could alos mean other types of errors tho, like 500s
         # TODO catch special errors here too and handle them gracefully.
-        redirect to ("/validate/cap?errors=true&request=expired&type=#{e}")
+        redirect to ("/validate/cap?errors=true&request=expired&type=#{e.class}")
         # any other error, simply fail.
       end
     end
