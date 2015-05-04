@@ -1,0 +1,61 @@
+<%
+  require 'date'
+  whitelist = ["name", "ssn", "license", "generated_date", "birth_date"]
+%>
+
+<h4><%= i18n_t("validator.status.done") %></h4>
+<hr>
+
+<div style="font-size: 20px;">
+  <% result["result"].each do |key, value|
+     # treat ids in the results
+     # with care, by skipping the 'type' value
+     if(value.class.to_s == "Array")
+       value.each do |id|
+         id.each do |type, num|
+  %>
+        <% if type != "type"
+              # skip if this data has not been whitelisted
+             next unless whitelist.include? type
+        %>
+            <div class="row">
+              <%
+                if(type.downcase == "ssn" and num.length >= 4)
+                  num = num[-4..-1]
+                end
+              %>
+              <div class="col-md-5" style="font-weight: bold;"><%= type.gsub("_", " ").upcase %>:</div>
+              <div class="col-md-7" style="font-weight: bold; color: #0f3f06;"><%= num %></div>
+            </div>
+        <% end %>
+  <%
+        end
+      end
+     else
+       if(value.to_s.strip.length > 0)
+         # skip if this data has not been whitelisted
+         next unless whitelist.include? key
+  %>
+      <div class="row">
+        <div class="col-md-5" style="font-weight: bold;"><%= key.gsub("_", " ").upcase %>:</div>
+        <% if key.include? "date" %>
+          <%
+            #  begin
+            #   value = Date.strptime(value, "%m/d/%Y")
+            #  rescue Exception => e
+            #    # if we expected a date but did not get one
+            #    # (todo) log it just print the normal value
+            #    value = "GUAT"
+            #  end
+          %>
+          <div class="col-md-7" style="font-weight: bold; color: #0f3f06  ;"><%= value %></div>
+        <% else %>
+          <div class="col-md-7" style="font-weight: bold; color: #0f3f06  ;"><%= value %></div>
+        <% end %>
+      </div>
+  <%
+      end
+     end
+  %>
+  <% end %>
+</div>

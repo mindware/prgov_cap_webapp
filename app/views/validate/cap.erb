@@ -26,14 +26,20 @@
           <div class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <ul>
-              <% if params[:cert_id] == "false" %>
-                <li><strong><%= i18n_t('validator.error.id_num') %></strong></li>
+              <% if params[:cid] == "false" %>
+                <li><strong><%= i18n_t('validator.error.cert_id') %></strong></li>
               <% end %>
               <% if params[:person_id] == "false" %>
                 <li><strong><%= i18n_t('validator.error.person_id') %></strong></li>
               <% end %>
               <% if params[:captcha] == "false" %>
                 <li><strong><%= i18n_t('error.email.captcha') %></strong></li>
+              <% end %>
+              <% if params[:expired] == "true" %>
+                <li><strong><%= i18n_t('validator.status.failed') %></strong></li>
+              <% end %>
+              <% if params[:id] == "true" %>
+                <li><strong><%= i18n_t('validator.error.failed') %></strong></li>
               <% end %>
             </ul>
           </div>
@@ -42,7 +48,7 @@
       </div>
       <% end %>
 
-      <form class="form-horizontal" role="form" id="validate" name="validate" action="/validate/cap/check" method="post">
+      <form class="form-horizontal" role="form" id="validate" name="validate" action="/validar/cap/check" method="post">
         <div class="row">
           <div class="col-md-2">
           </div>
@@ -60,13 +66,13 @@
                   <label for="cert_id" class="col-md-4 control-label">
                     <%= i18n_t("validator.cap.form.label.cert_id") %>
                     <!-- captcha modal activation -->
-                    <a href="#" data-toggle="modal" data-target="#aboutCertificateModal">
+                    <a href="#" class="hidden" data-toggle="modal" data-target="#aboutCertificateModal">
                       <%= i18n_asciidoc("validator.cap.form.modal.certificate.title") %>
                     </a>
                     <!-- end captcha modal activation -->
                   </label>
                   <div class="col-md-6">
-                      <input type="text" class="form-control" id="cert_id" name="cert_id" placeholder="<%= i18n_t("validator.cap.form.placeholder.cert_id") %>" value="">
+                      <input type="text" class="form-control" id="cert_id" name="cert_id" placeholder="<%= i18n_t("validator.cap.form.placeholder.cert_id") %>" value="<%= cert_id %>">
                   </div>
                 </div>
                 <!-- End of email Input -->

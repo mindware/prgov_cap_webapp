@@ -6,6 +6,35 @@ es:
         message: >
           Para validar su certificado, seleccione el botón de comenzar.
         button: "Comenzar"
+      error:
+        cert_id: "Debe entrar un número de certificado valido."
+        person_id: >
+            Todos los digitos del metodo de identificación utilizado
+            para la emisión del certificado deben ser suplidos para
+            proceder con la validación. Si el certificado contiene
+            los 4 digitos del seguro social, deberá tener a la
+            mano la identificación de seguro social para
+            poder asegurarse de entrar los 8 digitos correctos y
+            de esta forma garantizar que el certificado no es
+            fraudulento.
+
+            Si el certificado no contiene los números de seguro social
+            pero si un número de pasaporte, deberá suplir todos los digitos
+            del mismo.
+      status:
+        loading: "Verificando con agencias gubernamentales . . ."
+        failed: >
+            Un certificado que corresponda a esa información no pudo
+            ser identificado. El mismo nunca existió o ya expiró,
+            por tanto el certificado ya no es valido y no debe
+            aceptarse.
+        done: >
+          Hemos encontrado información sobre el certificado
+          en cuestión. Por favor proceda a leer
+          cuidadosamente la siguiente información y asegurese que
+          la información en el documento que interesa
+          validar corresponda exactamente a la que le presentamos
+          a continuación. De ser así, el documento es válido.
       cap:
         title: "Certificado de Antecedentes Penales"
         message: ""
@@ -39,7 +68,7 @@ es:
                     La omisión de los 8 digitos en el certificado protege la privacidad
                     del ciudadano, pero el requerimiento de los mismos para el
                     momento de validación nos permite asistirle en la deteción de
-                    certificados fraudulentos. 
+                    certificados fraudulentos.
               close: "Cerrar"
       options:
         header: "Pulse sobre el tipo de certificado que interesa validar:"

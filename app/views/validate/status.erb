@@ -1,5 +1,5 @@
-    <% if(@refresh == true) %>
-      <meta http-equiv="refresh" content="5" >
+    <% if(refresh == true) %>
+      <meta http-equiv="refresh" content="3" >
     <% end %>
     <div class="container">
       <div class="row">
@@ -9,14 +9,28 @@
         </div>
       </div>
 
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <di2v class="progress-bar <% if completed %> progress-bar-success <% elsif failed %> progress-bar-danger <% else %> progress-bar-warning <% end %>" role="progressbar" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= percent %>%;">
+              <%= percent %>%
+            </div>
+          </div>
+      </div>
+
       <div class="jumbotron">
         <div class="container">
 
-          <p>
-            <%= @result %>
-          </p>
+          <% if completed %>
+            <%= partial 'validate/completed', :locals => { :result => result } %>
+          <% elsif failed %>
+            <%= partial 'validate/failed', :locals => { :result => result } %>
+          <% else %>
+            <%= partial 'validate/loading', :locals => { :result => result } %>
+          <% end %>
 
-          <p><a class="btn btn-primary btn-lg" href="/validate/cap/status?id=<%= "#{params["id"]}" %>" role="button"><%= i18n_t("validator.index.button") %></a>
+          <!-- <p><a class="btn btn-primary btn-lg" href="/validar/cap/status?id=<%= "#{params["id"]}" %>" role="button"><%= i18n_t("validator.index.button") %></a> -->
         </div>
       </div>
     </div>

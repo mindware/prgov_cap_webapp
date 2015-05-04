@@ -6,6 +6,24 @@ en:
         message: >
           To validate a certificate, simply click get started.
         button: "Get Started"
+      error:
+        cert_id: "A valid certificate ID must be provided."
+        person_id: >
+            All digits of the identification number used for the
+            certificate must be provided. If the certificate
+            contains a social security number, we will need all
+            8 digits. If a passport was provided, we will require
+            the passport number.
+      status:
+        loading: "Verifying with government agencies . . ."
+        failed: >
+            A certificate with that information could not be found.
+            It may have expired.
+        done: >
+          We've found information regarding the certificate you
+          wish to validate. Please compare the following information
+          carefully with said document. Should the information
+          match, the document is valid.
       cap:
         title: "Good Standing Certificate"
         message: ""

@@ -46,7 +46,13 @@ PRgovCAPWebApp::App.controllers :validate do
     # session.clear
     # render 'validator_cap', :layout => :prgov
     # render 'index', :layout => :prgov
-    render 'cap', :layout => :prgov
+    cert_id = ""
+    # TODO: update this to increase security
+    if(params["cert_id"] =~ /^[0-9a-zA-Z]*$/ and
+      (params["cert_id"].length > 6 and params["cert_id"].length < 36))
+      cert_id = params["cert_id"]
+    end
+    render 'cap', :layout => :prgov, :locals => { :cert_id => cert_id }
   end
 
   # An internal alias
@@ -62,11 +68,14 @@ PRgovCAPWebApp::App.controllers :validate do
     render 'validator_option', :layout => :prgov
   end
 
-  post :check, :map => '/validate/cap/check' do
-    if(params["cert_id"].to_s.length == 0 or
-       params["person_id"].to_s.length == 0 or
-       !recaptcha_valid?)
-       redirect to ("/validate/cap?errors=true&cert_id=error&person_id=error")
+  post :check, :map => '/validar/cap/check' do
+    error = ""
+    error << "&cid=false" if(params["cert_id"].to_s.length == 0)
+    error << "&person_id=false" if(params["person_id"].to_s.length == 0)
+    error << "&captcha=false" if(!recaptcha_valid?)
+
+    if(error.length > 0)
+       redirect to ("/validar/cap?errors=true#{error}")
     else
        # TODO: we should either receive passport or ssn, for now just hack
        # it to always be ssn.
@@ -79,14 +88,14 @@ PRgovCAPWebApp::App.controllers :validate do
        # TODO: should we catch errors here?
        begin
          result = GMQ.validate_cap_request(payload)
-         redirect to ("/validate/cap/status?id=#{result['id']}")
+         redirect to ("/validar/cap/status?id=#{result['id']}")
        rescue GMQ_ERROR => e
-         redirect to ("/validate/cap?errors=true&gmq=error&type=#{e.class}")
+         redirect to ("/validar/cap?errors=true&gmq=false&type=#{e.class}")
        end
     end
   end
 
-  get :status, :map => '/validate/cap/status' do
+  get :status, :map => '/validar/cap/status' do
     # TODO
     # ideally we should make sure we only get here through the
     # check post page. We should set some flag here, but
@@ -96,29 +105,82 @@ PRgovCAPWebApp::App.controllers :validate do
     # Check if the ID isn't empty and check that it isn't
     # absurdly long.
     if(params["id"].to_s.length == 0 or params["id"].length >= 256)
-      redirect to ("/validate/cap?errors=true&id=error")
+      redirect to ("/validar/cap?errors=true&id=false")
     else
       begin
         # set the autorefresh value to off by default
-        @refresh = false
+        refresh = false
+        completed = false
+        failed = false
+        percent = 50
         # perform the request to the gmq for certificate validation
-        @result = GMQ.validate_cap_response(params)
+        result = GMQ.validate_cap_response(params)
 
-        if @result.has_key? "status"
-          if @result["status"] == "completed"
-            @refresh = false
+        # if the result has a proper status
+        if result.has_key? "status"
+          # if it matches any of these, we've completed
+          if result["status"] == "completed" or
+             result["status"] == "done"
+             # stop refreshing
+             refresh = false
+             # mark us as done
+             completed = true
+             failed = false
+             percent = 100
+          elsif (result["status"] == "failed")
+              failed = true
+              completed = false
+              refresh = false
+              percent = 100
           else
-            @refresh = true
+            # if retrying or waiting
+            # check how many errors have ocurred
+            # if more than x error counts
+            if (result["error_count"].to_i > 5)
+              percent = 100
+              # do not continue refreshing if we've
+              # encountered too many errors.
+              refresh = false
+              completed = false
+              # mark us as failed
+              failed = true
+            else
+              if(session["percent"].nil?)
+                 session["percent"] = percent
+              elsif session["percent"] >= 98
+                 session["percent"] = 98
+              else
+                 # after 6 attempts should be 8
+                 session["percent"] = session["percent"] + rand(8)
+              end
+              percent = session["percent"]
+              # continue to refresh
+              completed = false
+              failed = false
+              refresh = true
+            end
           end
         end
-        render 'status', :layout => :prgov # no refresh.
+        render 'status', :layout => :prgov, :locals => { :refresh => refresh,
+                                                         :completed => completed,
+                                                         :percent => percent,
+                                                         :failed => failed,
+                                                         :result => result}
 
       rescue GMQ_ERROR => e
         # if the request expired or an error ocurred
-        # GMQ_ERROR could alos mean other types of errors tho, like 500s
+        # GMQ_ERROR could also mean other types of errors tho, like 500s
         # TODO catch special errors here too and handle them gracefully.
-        redirect to ("/validate/cap?errors=true&request=expired&type=#{e.class}")
+        # update: let's just let the app handle its own critical failures
+        # such as 500 errors or uncatched exceptions with its already
+        # built in defaulte rror pages. Unless it was a GMQ_ERROR, in which
+        # case we redirect here:
+        redirect to ("/validar/cap?errors=true&expired=true&type=#{e.class}")
         # any other error, simply fail.
+      # rescue Exception => e
+      #   # some system is experience failure
+      #   # Todo proper logging
+      #   redirect to ("/validar/cap?errors=true&downtime=true")
       end
     end
   end
