@@ -130,7 +130,7 @@ en:
               methods.
           dtop:
             id:
-              title: "DTOP Identification:"
+              title: "DTOP Identification"
               label: "DTOP Identification:"
               placeholder: "Enter the ID number"
             license:
