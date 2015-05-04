@@ -514,36 +514,36 @@ PRgovCAPWebApp::App.controllers :cap do
     # we will not require the license number nor ssn.
     if(session[:passport].to_s.length > 0)
       payload = {
-      		:first_name => session[:name].to_s,
-          :middle_name => session[:name_initial].to_s,
-      		:last_name  => session[:last_name].to_s,
-      		:mother_last_name => session[:mother_last_name].to_s,
-      		:passport	=> session[:passport].to_s,
-      		:birth_date => session[:birthdate].to_s,
+      		:first_name => session[:name].to_s.strip,
+          :middle_name => session[:name_initial].to_s.strip,
+      		:last_name  => session[:last_name].to_s.strip,
+      		:mother_last_name => session[:mother_last_name].to_s.strip,
+      		:passport	=> session[:passport].to_s.strip,
+      		:birth_date => session[:birthdate].to_s.strip,
       		:residency  => "#{session[:residency_city_state]}, "+
-                         "#{session[:residency_country]}",
-      		:IP   	    => request.ip.to_s,
-      		:reason	    => session[:purpose].to_s,
+                         "#{session[:residency_country]}".strip,
+      		:IP   	    => request.ip.to_s.strip,
+      		:reason	    => session[:purpose].to_s.strip,
       		:birth_place=> "not specified",
-      		:email	    => session[:email].to_s,
+      		:email	    => session[:email].to_s.strip,
       		:language   => (I18n.locale == :en ? "english" : "spanish")
   	 }
    end
    # always favor the ssn, if available
    if(session[:ssn].to_s.length > 0)
       payload = {
-      		:first_name => session[:name].to_s,
-          :middle_name => session[:name_initial].to_s,
-      		:last_name  => session[:last_name].to_s,
-      		:mother_last_name => session[:mother_last_name].to_s,
-      		:ssn	=> session[:ssn].to_s,
-      		:license_number => session[:dtop_id].to_s,
-      		:birth_date => session[:birthdate].to_s,
-      		:residency  => "#{session[:residence]}",
-      		:IP   	    => request.ip.to_s,
-      		:reason	    => session[:purpose].to_s,
+      		:first_name => session[:name].to_s.strip,
+          :middle_name => session[:name_initial].to_s.strip,
+      		:last_name  => session[:last_name].to_s.strip,
+      		:mother_last_name => session[:mother_last_name].to_s.strip,
+      		:ssn	=> session[:ssn].to_s.strip,
+      		:license_number => session[:dtop_id].to_s.strip,
+      		:birth_date => session[:birthdate].to_s.strip,
+      		:residency  => "#{session[:residence]}".strip,
+      		:IP   	    => request.ip.to_s.strip,
+      		:reason	    => session[:purpose].to_s.strip,
       		:birth_place=> "not specified",
-      		:email	    => session[:email].to_s,
+      		:email	    => session[:email].to_s.strip,
       		:language   => (I18n.locale == :en ? "english" : "spanish")
   	 }
    end
