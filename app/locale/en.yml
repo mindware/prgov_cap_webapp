@@ -1,7 +1,7 @@
 ---
 en:
   header:
-    title: "New Service for Requesting Goodstanding Certificate"
+    title: "New Service for Requesting Good Standing Certificate"
     status: "beta"
   disclaimer:
     header: "Bienvenido"
@@ -43,7 +43,7 @@ en:
     title: "Email Sent"
     message: >
       We're sending an email to %{email}, in order to validate the email address.
-      That email contains a link to the Goodstanding Certificate online form.
+      That email contains a link to the Good Standing Certificate online form.
       In order to continue, simply check the %{email} email account, identify our
       pr.gov mail, proceed to open it and follow the instructions.
 
@@ -69,7 +69,7 @@ en:
       body: >
         Good news. Now that you've confirmed %{email} receives emails from
         pr.gov, we won't ask you to validate it again, should you need to
-        request another Goodstanding Certificate in the coming months.
+        request another Good Standing Certificate in the coming months.
 
         Your form is ready, you may proceed by clicking the button below.
       button: "Proceed to the Form"
@@ -120,7 +120,7 @@ en:
               method will receive a thorough and manual validation,
               which includes searching federal government databases.
 
-              Goodstanding Certificates issued through
+              Good Standing Certificates issued through
               this online service for which the passport identification
               method is used are limited to specific use cases.
 
