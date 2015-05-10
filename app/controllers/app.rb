@@ -1,7 +1,6 @@
-# A controller to process anything related to the mobile
-# apps.
-# This app component was designed and developed by
-# Andés Colón.
+# Mobile App Information Controller
+#
+# Process information related to the PRGOV mobile app.
 PRgovCAPWebApp::App.controllers :app do
 
   include PRgov::Validations

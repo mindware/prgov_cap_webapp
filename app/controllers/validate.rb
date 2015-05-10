@@ -75,7 +75,7 @@ PRgovCAPWebApp::App.controllers :validate do
     error << "&captcha=false" if(!recaptcha_valid?)
 
     if(error.length > 0)
-       redirect to ("/validar/cap?errors=true#{error}")
+       redirect to ("/validar/cap?errors=true#{error}&cert_id=#{params['cert_id']}")
     else
        # TODO: we should either receive passport or ssn, for now just hack
        # it to always be ssn.

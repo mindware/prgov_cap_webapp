@@ -62,7 +62,7 @@
                   <%= i18n_t("validator.cap.message") %>
                 <p/>
                 <!-- Input Cert_id -->
-                <div class="form-group <% if(params[:cert_id] == "false")%> has-error <% end %>">
+                <div class="form-group <% if(params[:cid] == "false")%> has-error <% end %>">
                   <label for="cert_id" class="col-md-4 control-label">
                     <%= i18n_t("validator.cap.form.label.cert_id") %>
                     <!-- captcha modal activation -->
@@ -81,7 +81,7 @@
                   <label for="person_id" class="col-md-4 control-label">
                     <%= i18n_t("validator.cap.form.label.person_id") %>
                     <a href="#" data-toggle="modal" data-target="#aboutSSNModal">
-                      <%= i18n_asciidoc("validator.cap.form.modal.ssn.title") %>
+                      <%= i18n_t("validator.cap.form.modal.ssn.label") %>
                     </a>
                   </label>
                   <div class="col-md-6">
@@ -151,7 +151,7 @@
             <h4 class="modal-title" id="aboutSSNModal"><%= i18n_t("validator.cap.form.modal.ssn.title") %></h4>
           </div>
           <div class="modal-body">
-            <%= i18n_t("validator.cap.form.modal.ssn.text") %>
+            <%= i18n_asciidoc("validator.cap.form.modal.ssn.text") %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"><%= i18n_t("validator.cap.form.modal.ssn.close") %></button>
