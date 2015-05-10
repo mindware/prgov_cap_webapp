@@ -29,26 +29,30 @@ en:
         message: ""
         form:
           placeholder:
-            cert_id: "Certificate Number"
+            cert_id: "Certificate or Application Number"
             person_id: "Identification Number"
           label:
-            cert_id: "Certificate Number"
+            cert_id: "Application Number"
             person_id: "Identification Number"
-        modal:
-          certificate:
-            title: "How do I identify this?"
-          ssn:
-            title: "Why do I need all 8 digits of the SSN instead of just 4?"
-            text: >
-                  If the certificate you wish to validate contains as its
-                  identification number a social security number, know that
-                  you will be required to have the full
-                  8 digits of that number in order to proceed with the
-                  validation. If you do not have this number, we recommend
-                  you request the SSN identification with the information from the
-                  owner of the certificate. This is a security measure to protect
-                  you against counterfeit certificates.
-            close: "Close"
+          modal:
+            certificate:
+              title: "How do I identify this?"
+            ssn:
+              label: "What's this?"
+              title: "Citizen Identification Number"
+              text: |
+                  ==== Certificate with Social Security Number:
+
+                  If the certificate that you're interested in validating
+                  contains the *last four digits of a social security*
+                  number, you may enter it in the required form field.
+
+
+                  ==== Certificate with a Passport ID:
+                  If the certificate you're interested in validating
+                  contains a *passport identification number*, proceed to
+                  enter it in the required form field.
+              close: "Close"
       options:
         header: "Select the certificate type you wish to validate:"
         button1: "New Good Standing Certificate from the Police Department"

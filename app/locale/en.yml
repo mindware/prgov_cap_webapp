@@ -28,7 +28,7 @@ en:
     message: >
       Please enter the email where you'd like us to send the certificate.
     captcha:
-      message: "(Why do I need to solve a Captcha?)"
+      message: "Why do I need to solve a Captcha?"
       modal:
         title: "Why do we need a Captcha?"
         text: >
@@ -153,7 +153,7 @@ en:
           placeholder: "--"
           options:
             "1": "Executive Clemency"
-            "2": "Employement"
+            "2": "Employment"
             "3": "Education"
             "4": "Arms License"
             "5": "Passport or Visa"
@@ -164,7 +164,7 @@ en:
             "10": "Other..."
           options_allowed_for_ncic_passport_checks:
             "1": "Executive Clemency"
-            "2": "Employement"
+            "2": "Employment"
             "3": "Education"
             "4": "Arms License"
             "5": "Passport or Visa"

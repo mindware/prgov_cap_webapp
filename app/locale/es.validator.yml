@@ -40,35 +40,29 @@ es:
         message: ""
         form:
           placeholder:
-            cert_id: "Número del Certificado"
+            cert_id: "Número de Certificado o Solicitud"
             person_id: "Núm. de Seguro Social o Pasaporte"
           label:
-            cert_id: "Número del Certificado"
+            cert_id: "Número de Solicitud"
             person_id: "Número de Identificación"
           modal:
             certificate:
               title: "¿Cómo lo identifico?"
             ssn:
-              title: "¿Por qué 8 digitos?"
-              text: >
-                    Si el certificado que interesa validar contiene como
-                    su número de identificación los últimos cuatro digitos
-                    del número de seguro social, sepa que para proceder con
-                    la validación, necesitará los 8 digitos.
+              label: "¿Cómo lo identifico?"
+              title: "Número de Identificación del Ciudadano"
+              text: |
+                  ==== Certificado con Seguro Social:
 
-                    Si usted al momento no cuenta con los números completos,
-                    es importante le solicité la identificación de seguro social
-                    al dueño del certificado, para usted asegurarse que los mismos
-                    son legitimos, y proceder a entrar estos digitos en el formulario
-                    de validación, y nosotros verificaremos si, en efecto, ese número
-                    completo se utilizó para la solicitud del certificado.
+                  Si el certificado que interesa validar contiene
+                  los últimos cuatro digitos del número de seguro social
+                  proceda a entrar los mismos en el recuadro provisto
+                  como el número de identificación.
 
-                    ¿Por qué los 8 digitos del seguro social y no 4?
-
-                    La omisión de los 8 digitos en el certificado protege la privacidad
-                    del ciudadano, pero el requerimiento de los mismos para el
-                    momento de validación nos permite asistirle en la deteción de
-                    certificados fraudulentos.
+                  ==== Certificado con Número de Pasaporte:
+                  Si el certificado que interesa validar contiene un
+                  número de pasaporte, proceda a entrar los mismos como
+                  el número de identificación en el recuadro provisto.
               close: "Cerrar"
       options:
         header: "Pulse sobre el tipo de certificado que interesa validar:"

@@ -33,7 +33,7 @@ es:
       validada recientemente, le permitiremos acceder directamente
       al formulario.
     captcha:
-      message: "(¿Por qué un captcha?)"
+      message: "¿Por qué un captcha?"
       modal:
         title: "¿Qué es el Captcha?"
         text: >
