@@ -3,8 +3,13 @@ en:
   header:
     title: "New Service for Requesting Good Standing Certificate"
     status: "beta"
+  navbar:
+    service: "Request a Certificate"
+    about: "Information"
+    app: "Download the App"
+    validate: "Validate a Certificate"
   disclaimer:
-    header: "Bienvenido"
+    header: "Welcome"
     terms:
       message: >
         By clicking the Continue button, you confirm to have read the

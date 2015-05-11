@@ -9,25 +9,50 @@ es:
       error:
         cert_id: "Debe entrar un número de certificado valido."
         person_id: >
-            Todos los digitos del metodo de identificación utilizado
-            para la emisión del certificado deben ser suplidos para
-            proceder con la validación. Si el certificado contiene
-            los 4 digitos del seguro social, deberá tener a la
-            mano la identificación de seguro social para
-            poder asegurarse de entrar los 8 digitos correctos y
-            de esta forma garantizar que el certificado no es
-            fraudulento.
-
-            Si el certificado no contiene los números de seguro social
-            pero si un número de pasaporte, deberá suplir todos los digitos
-            del mismo.
+            Debe entrar el número de identificación según aparece
+            en el certificado: pasaporte (9) o los cuatro digitos
+            de seguro social (4).
+        gmq_failed: >
+            Hubo un error inesperado comunicandonos con el sistema de
+            interconexión gubernamental (GMQ). Disculpe la inconveniencia.
+            Por favor reporte el problema a webmaster@pr.gov con la
+            información que intentaba validar, e intente nuevamente
+            más tarde.
       status:
         loading: "Verificando con agencias gubernamentales . . ."
-        failed: >
-            Un certificado que corresponda a esa información no pudo
-            ser identificado. El mismo nunca existió o ya expiró,
-            por tanto el certificado ya no es valido y no debe
+        expired: >
+            Esa página de validación ya expiró. Por favor proceda a
+            entrar la información relacionada al certificado que interesa
+            validar para ver información actualizada del mismo.
+        failed: |
+            Un certificado que corresponda a ese número de solicitud, %{id},
+            no pudo ser identificado. El mismo nunca existió o ya expiró,
+            por tanto un certificado con esta numeración no es valido y no debe
             aceptarse.
+        error: |
+            Un certificado con ese *número fue encontrado*, *pero*
+            la información de *identificación* que usted nos suplió
+            *no coincidió* con la información que debe estar en el
+            certificado. Por favor reintente
+            una vez más, y asegurese entrar propiamente el número
+            de identificación. Este error normalmente sugiere que
+            cometió un error al momento de entrar
+            la información en el formulario, tal cual aparece en el certificado.
+
+            Si luego de varios intentos confirma que usted ha entrado la
+            información exactamente tal cual aparece en el certificado y aún
+            así recibe este error, recomendamos no acepte el certificado,
+            debido a que el mismo podria ser invalido, contener errores en
+            los sistemas o podria ser el resultado de un intento a fraude.
+
+            Este intento de validación ha sido guardado en nuestros
+            sistemas. Si luego de confirmar que está entrando la información
+            correcta, entiende que este certificado contiene errores
+            le solicitamos humildemente reporte el mismo a la ventanilla
+            del cuartel general de la Policia de Puerto Rico.
+        button:
+            retry: "Reintentar"
+            again: "Terminar"
         done: >
           Hemos encontrado información sobre el certificado
           en cuestión. Por favor proceda a leer
@@ -35,6 +60,13 @@ es:
           la información en el documento que interesa
           validar corresponda exactamente a la que le presentamos
           a continuación. De ser así, el documento es válido.
+      result:
+      result:
+        id: "Número de Solicitud"
+        name: "Nombre"
+        ssn: "Seguro Social"
+        passport: "Número de Pasaporte"
+        birth_date: "Fecha de Nacimiento"
       cap:
         title: "Certificado de Antecedentes Penales"
         message: ""

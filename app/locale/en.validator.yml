@@ -7,23 +7,56 @@ en:
           To validate a certificate, simply click get started.
         button: "Get Started"
       error:
-        cert_id: "A valid certificate ID must be provided."
+        cert_id: "A valid application number (certificate ID) must be provided."
         person_id: >
-            All digits of the identification number used for the
-            certificate must be provided. If the certificate
-            contains a social security number, we will need all
-            8 digits. If a passport was provided, we will require
-            the passport number.
+            The passport identification number (length of 9) or the four digits of
+            the social security number as displayed on the
+            certificate must be provided.
+        gmq_failed: |
+            There was an unexpected error while communicating with the
+            government inter-agency messaging system (GMQ).
+            We apologize for the inconvenience. Please report this
+            problem to webmaster@pr.gov with the information you're
+            trying to validate, and try again later.
       status:
         loading: "Verifying with government agencies . . ."
-        failed: >
-            A certificate with that information could not be found.
-            It may have expired.
+        expired: >
+            That validation page has already expired. Please proceed to
+            enter the proper information if you'd like to see updated
+            information regarding a specific certificate application number.
+        failed: |
+            A certificate with that application number, %{id}, could not be
+            found. It may have expired or never existed. A certificate
+            with that application number should not be accepted.
+        error: |
+            A certificate with that number *was found*, *but* the
+            information supplied *did not match*. Please try again and
+            make sure you've properly entered the identification numbers.
+
+            If after confirming you've the entered the information exactly
+            as it apperas in the certificate, the information still does
+            not match, you should not accept the certificate as it may
+            be invalid, contain errors in our systems or may even be an
+            attempt at fraud.
+
+            This attempt has been logged. If you believe this certicate
+            may be a fraud or contain errors, we kindly request you report
+            it to the Puerto Rico Police Department.
+        button:
+            retry: "Try again"
+            again: "Done"
         done: >
           We've found information regarding the certificate you
           wish to validate. Please compare the following information
           carefully with said document. Should the information
           match, the document is valid.
+      result:
+        id: "Application Number"
+        name: "Name"
+        ssn: "Social Security Number"
+        passport: "Passport Number"
+        birth_date: "Date of Birth"
+        generated_date: "Certificate Request Date"
       cap:
         title: "Good Standing Certificate"
         message: ""

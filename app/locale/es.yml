@@ -3,6 +3,11 @@ es:
   header:
     title: "Nuevo Servicio para el Certificado de Antecedentes Penales"
     status: "beta"
+  navbar:
+    service: "Solicitar un Certificado"
+    about: "Información del Servicio"
+    validate: "Validar un Certificado"
+    app: "App Móvil"
   disclaimer:
     header: "Certificado de Antecedentes Penales"
     terms:
