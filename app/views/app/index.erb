@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h3><center><%= i18n_t("header.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
+          <h3><center><%= i18n_t("app.title") %><small class="app_status"><%= i18n_t("header.status") %></small></center></h3>
           <br>
         </div>
       </div>
@@ -10,12 +10,28 @@
       <div class="jumbotron">
         <div class="container">
 
-          <h1>Here we will elaborate on mobile app features.</h1>
-          <p>
-              Here we will add Link to Iphone and Android Stores.
+          <h3>PRGOV App</h3>
+
+          <div class="row">
+            <div class="col-md-3 hidden">
+              <%= image_tag( image_path("prgov-app-icon.png"), :border => "0", :width => 75, :height => 75, :alt=> "App icon") %>
+            </div>
+            <div class="col-md-10" style="font-size: 20px;">
+              <p><%= i18n_asciidoc("app.desc") %></p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6" style="padding-top: 5px;">
+              <%= image_tag( image_path("get-appstore.png"), :border => "0", :alt=> "Apple Appstore icon") %>
+            </div>
+            <div class="col-md-6" style="padding-top: 5px;">
+              <%= image_tag( image_path("get-googleplay.png"), :border => "0", :alt=> "Google Play Store icon") %>
+            </div>
+          </div>
+
           </p>
 
-          <p><a class="btn btn-primary btn-lg" href="/" role="button">Comenzar</a>
         </div>
       </div>
     </div>
