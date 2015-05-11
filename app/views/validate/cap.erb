@@ -36,10 +36,13 @@
                 <li><strong><%= i18n_t('error.email.captcha') %></strong></li>
               <% end %>
               <% if params[:expired] == "true" %>
-                <li><strong><%= i18n_t('validator.status.failed') %></strong></li>
+                <li><strong><%= i18n_t('validator.status.expired') %></strong></li>
               <% end %>
               <% if params[:id] == "true" %>
                 <li><strong><%= i18n_t('validator.error.failed') %></strong></li>
+              <% end %>
+              <% if params[:gmq] == "true" %>
+                <strong><%= i18n_asciidoc('validator.error.gmq_failed') %></strong>
               <% end %>
             </ul>
           </div>

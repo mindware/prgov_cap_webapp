@@ -1,6 +1,9 @@
 <%
   require 'date'
-  whitelist = ["name", "ssn", "license", "generated_date", "birth_date"]
+
+  # Our whitelisted values to show
+  # Remove the "license", "generated_date", show the rest.
+  whitelist = ["name", "ssn", "passport", "birth_date"]
 %>
 
 <h4><%= i18n_t("validator.status.done") %></h4>
@@ -22,10 +25,11 @@
               <%
                 if(type.downcase == "ssn" and num.length >= 4)
                   num = num[-4..-1]
+                  num = "***-**-#{num}"
                 end
               %>
-              <div class="col-md-5" style="font-weight: bold;"><%= type.gsub("_", " ").upcase %>:</div>
-              <div class="col-md-7" style="font-weight: bold; color: #0f3f06;"><%= num %></div>
+              <div class="col-md-5" style="font-weight: bold;"><%= i18n_t("validator.result.#{type.downcase}") %>:</div>
+              <div class="col-md-7" style="font-weight: bold; color: #b20000;"><%= num %></div>
             </div>
         <% end %>
   <%
@@ -37,7 +41,7 @@
          next unless whitelist.include? key
   %>
       <div class="row">
-        <div class="col-md-5" style="font-weight: bold;"><%= key.gsub("_", " ").upcase %>:</div>
+        <div class="col-md-5" style="font-weight: bold;"><%= i18n_t("validator.result.#{key.downcase}") %>:</div>
         <% if key.include? "date" %>
           <%
             #  begin
@@ -48,9 +52,9 @@
             #    value = "GUAT"
             #  end
           %>
-          <div class="col-md-7" style="font-weight: bold; color: #0f3f06  ;"><%= value %></div>
+          <div class="col-md-7" style="font-weight: bold; color: #b20000;"><%= value %></div>
         <% else %>
-          <div class="col-md-7" style="font-weight: bold; color: #0f3f06  ;"><%= value %></div>
+          <div class="col-md-7" style="font-weight: bold; color: #b20000;"><%= value %></div>
         <% end %>
       </div>
   <%
@@ -58,4 +62,22 @@
      end
   %>
   <% end %>
+  <div class="row">
+    <div class="col-md-5">
+      <strong><%= i18n_t("validator.result.id")  %>:</strong>
+    </div>
+    <div class="col-md-7" style="font-weight: bold; color: #b20000;">
+      <%= result["tx_id"] %>
+    </div>
+  </div>
 </div>
+
+<br/>
+
+  <div class="row" style="text-align:center">
+    <div class="col-xs-12">
+      <a href="/validar/cap?cert_id=<%= "#{result['tx_id']}" %>" class="btn btn-default btn-lg btn-block">
+        <%= i18n_t("validator.status.button.again") %>
+      </a>
+    </div>
+  </div>

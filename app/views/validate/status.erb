@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="progress">
-            <di2v class="progress-bar <% if completed %> progress-bar-success <% elsif failed %> progress-bar-danger <% else %> progress-bar-warning <% end %>" role="progressbar" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= percent %>%;">
+            <di2v class="progress-bar <% if completed and !failed %> progress-bar-success <% elsif failed %> progress-bar-danger <% else %> progress-bar-warning <% end %>" role="progressbar" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= percent %>%;">
               <%= percent %>%
             </div>
           </div>
@@ -22,10 +22,12 @@
       <div class="jumbotron">
         <div class="container">
 
-          <% if completed %>
+          <% if completed and !failed %>
             <%= partial 'validate/completed', :locals => { :result => result } %>
-          <% elsif failed %>
+          <% elsif failed and !completed %>
             <%= partial 'validate/failed', :locals => { :result => result } %>
+          <% elsif failed and completed %>
+            <%= partial 'validate/error', :locals => { :result => result } %>
           <% else %>
             <%= partial 'validate/loading', :locals => { :result => result } %>
           <% end %>
