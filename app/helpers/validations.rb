@@ -472,11 +472,11 @@ module PRgov
         raise MissingPassportOrSSN   if (params["ssn"].to_s.length == 0 and
                                          params["passport"].to_s.length == 0)
         raise MissingClientIP        if params["IP"].to_s.length == 0
-        # Validate the SSN
+        # Validate the SSN and make sure its 4 digits
         # we eliminate any potential dashes in ssn
         params["ssn"]  = params["ssn"].to_s.gsub("-", "").strip
         raise InvalidSSN             if params["ssn"].to_s.length > 0 and
-                                        !validate_ssn(params["ssn"])
+                                        !validate_ssn(params["ssn"], 4)
         # Validate the Passport
         # we eliminate any potential dashes in the passport before validation
         params["passport"] = params["passport"].to_s.gsub("-", "").strip
@@ -567,14 +567,14 @@ module PRgov
         return false
       end
 
-      # Validate Social Security Number
-      def validate_ssn(value)
+      # Validate Social Security Number based on variable length
+      def validate_ssn(value, the_length=SSN_LENGTH)
         false if value.to_s.length == 0
         # Validate the SSN
         # we eliminate any potential dashes in ssn
         value = value.to_s.gsub("-", "").strip
         # validates if its an integer
-        if(validate_str_is_integer(value) and value.length == SSN_LENGTH)
+        if(validate_str_is_integer(value) and value.length == the_length)
           return true
         else
           return false
