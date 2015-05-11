@@ -243,7 +243,8 @@ es:
 
       _Este nuevo servicio se encuentra en un periodo de mejoramiento continuo
       conocido como beta. Durante este periodo, el servicio será
-      completamente gratuito, sin embargo, no se descarta la posibilidad
+      completamente gratuito y todos los certificados emitidos mediante el
+      mismo son oficiales. Le informamos que no se descarta la posibilidad
       de cobrar por el mismo en un futuro cercano._
     button:
       start: "Comenzar"

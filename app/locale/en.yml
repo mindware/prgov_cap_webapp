@@ -223,8 +223,9 @@ en:
 
       _This new service is currently in beta and under continous improvement.
       During this period, the service is completely free to use for requesting
-      certificates and all certificates are valid. Please be advised that
-      we may charge for this service in the near future._
+      certificates and all certificates received through it are official.
+      Please be advised that don't disregard the possibility that we may
+      charge for this service in the near future._
     button:
       start: "Begin"
 ...
