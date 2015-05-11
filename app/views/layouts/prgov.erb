@@ -20,11 +20,11 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
 <head>
-  <title>PR.gov - Solicitud de Certificado de Antecedentes Penales</title>
+  <title><%= i18n_t("webpage.title") %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta charset="UTF-8">
 
-  <meta name="keywords" content="certificado, antecedentes, penales, policia, buena conducta, good conduct, good standing, police, validar, validate, qr, qrcode, prgov, pr.gov, gobierno, puerto rico, servicios, en línea, app, iphone, android">
+  <meta name="keywords" content="<%= i18n_t("webpage.keywords").gsub("\n", "") %>">
 
   <% # Repel some of the guys, let's add cross-site-request-forgery protection %>
   <% # csrf_meta_tags() %>

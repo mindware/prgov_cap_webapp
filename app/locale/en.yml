@@ -1,5 +1,11 @@
 ---
 en:
+  webpage:
+    title: "PR.gov - New Online Service for Requesting a Good Standing Certificate of Puerto Rico"
+    keywords: >
+      good standing, certificate, police, penal, antecedents, puerto rico,
+      good conduct, validate, qr, qrcode, prgov, pr.gov, government, online
+      services, prgov app, iphone, android
   header:
     title: "New Service for Requesting Good Standing Certificate"
     status: "beta"
@@ -196,9 +202,29 @@ en:
       Thank you for completing the forms. Your request
       is now being sent to the government messaging
       system, in order to validate the information provided
-      with Criminal Justice Information System.
+      with Integrated Criminal Registry of the Puerto Rico
+      Police Department and the Criminal Justice Information System.
       You will receive an email at %{email} with additional
       information.
     transaction: "Your transaction number is:"
+    button:
+      finish: "Finish"
+  info:
+    header: "New: Faster, Easier and more Secure!"
+    body: |
+      In order to request an online Certificate of Good Standing from
+      PR.gov, you'll need an identification that was once emitted by the
+      Department of Transportation and Public Works of Puerto Rico, such as
+      a driving license of Puerto Rico.
 
+      For information on how to acquire a driver's license or a DTOP
+      identification, you can call the link:tel:311[3-1-1] service of
+      Puerto Rico or visit http://dtop.pr.gov[DTOP]'s website.
+
+      _This new service is currently in beta and under continous improvement.
+      During this period, the service is completely free to use for requesting
+      certificates and all certificates are valid. Please be advised that
+      we may charge for this service in the near future._
+    button:
+      start: "Begin"
 ...

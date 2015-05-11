@@ -1,5 +1,11 @@
 ---
 es:
+  webpage:
+    title: "PR.gov - Nuevo Servicio para Solicitar un Certificado de Antecedentes Penales de Puerto Rico"
+    keywords: >
+      certificado, antecedentes, penales, policia, buena conducta, good conduct,
+      good standing, police, validar, validate, qr, qrcode, prgov, pr.gov,
+      gobierno, puerto rico, servicios, en línea, app, iphone, android
   header:
     title: "Nuevo Servicio para el Certificado de Antecedentes Penales"
     status: "beta"
@@ -214,9 +220,31 @@ es:
     body: >
       Gracias por completar la solicitud. Ahora la misma
       será enviada al sistema interconexión gubernamental
-      para validar su información en el Sistema Integrado
-      de Justicia Criminal. Recibirá un correo en
+      para validar su información en el Registro Criminal
+      Integrado de la Policía de Puerto Rico, y el Sistema
+      de Información de Justicia Criminal. Recibirá un correo en
       %{email} con más información de nuestra parte.
     transaction: "Su número de transacción es:"
+    button:
+      finish: "Terminar"
+  info:
+    header: "Nuevo: Más Rápido, Seguro y Fácil!"
+    body: |
+      Para solicitar el Nuevo Certificado de Antecedentes Penales en PR.gov,
+      necesitará una identificación que haya sido emitida alguna vez por el
+      Departamento de Transportación y Obras Públicas (DTOP) tal como una licencia
+      de conducir de Puerto Rico.
 
+      Para información sobre los requisitos para
+      conseguir una identificación de DTOP puede comunicarse llamando por
+      telefono al número link:tel:311[3-1-1] o visitar la página de internet de
+      http://dtop.pr.gov[DTOP]. Para preguntas sobre este servicio en línea,
+      puede comunicarse a webmaster@pr.gov.
+
+      _Este nuevo servicio se encuentra en un periodo de mejoramiento continuo
+      conocido como beta. Durante este periodo, el servicio será
+      completamente gratuito, sin embargo, no se descarta la posibilidad
+      de cobrar por el mismo en un futuro cercano._
+    button:
+      start: "Comenzar"
 ...
