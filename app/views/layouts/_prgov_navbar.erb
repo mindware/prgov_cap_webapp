@@ -10,33 +10,17 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand prgov-navbar-brand" href="http://www.pr.gov">
-          <%= image_tag( image_path("logo_icon_brand.png"), :width => "76", :height => "25", :border => "0", :alt=> "PR.gov") %> 
+          <%= image_tag( image_path("logo_icon_brand.png"), :width => "76", :height => "25", :border => "0", :alt=> "PR.gov") %>
           </a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-navbar-collapse-prgov">
+      <div class="collapse navbar-collapse navbar-left" id="bs-navbar-collapse-prgov">
         <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sobre Puerto Rico<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="http://www2.pr.gov/SobrePuertoRico/Pages/default.aspx">Informaci&oacute;n General</a></li>
-              <li><a href="http://www2.pr.gov/SobrePuertoRico/Pages/DatosGenerales.aspx">Datos Generales</a></li>
-              <li><a href="http://www2.pr.gov/SobrePuertoRico/Pages/CulturaeHistoria.aspx">Cultura y Museos</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Directorios<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="http://www2.pr.gov/Directorios/Pages/DirectoriodeAgencias.aspx">Directorio de Agencias</a></li>
-              <li><a href="http://www2.pr.gov/Directorios/Pages/DirectoriodeMunicipios.aspx">Directorio de Municipios</a></li>
-              <li><a href="http://www2.pr.gov/Directorios/Pages/L%C3%ADneasdeAyudaparaEmergencias.aspx">L&iacute;neas de Ayuda para Emergencias</a></li>
-              <li><a href="http://www.fortaleza.pr.gov/">La Fortaleza</a></li>
-            </ul>
-          </li>
-          <li><a href="http://www2.pr.gov/GobiernoAGobierno/Pages/default.aspx">Gobierno a Gobierno</a></li>
-          <li><a href="http://www2.pr.gov/Pages/empleos.aspx">Empleos</a></li>
-
+          <li><a href="https://servicios.pr.gov/cap/"><%= i18n_t("navbar.service") %></a></li>
+          <li><a href="https://servicios.pr.gov/info"><%= i18n_t("navbar.about") %></a></li>
+          <li><a href="https://servicios.pr.gov/app"><%= i18n_t("navbar.app") %></a></li>          
+          <li><a href="https://servicios.pr.gov/validar/cap/"><%= i18n_t("navbar.validate") %></a></li>
       <!-- Language -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle navbar-right" data-toggle="dropdown" style="color: #e0dfba">
@@ -66,39 +50,6 @@
               </a></li>
             </ul>
           </li>
-            <!-- <div class="dropdown dropdown-menu-right">
-              <button class="btn btn-default dropdown-toggle" type="button" id="language" data-toggle="dropdown">
-                <% if request.cookies['locale'] == "es" %>
-                    <strong><%= i18n_t("language.spanish") %></strong>
-                <% else %>
-                    <%= i18n_t("language.spanish") %>
-                <% end %>
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="language">
-                  <!-- Spanish
-                  <a role="menuitem" tabindex="-1" href="#" onClick='switchLanguage("es")'>
-                    <% # put language name in bold if it is selected %>
-                    <% if request.cookies['locale'] == "es" %>
-                      <strong><%= i18n_t("language.spanish") %></strong>
-                    <% else %>
-                      <%= i18n_t("language.spanish") %>
-                    <% end %>
-                  </a>
-                </li>
-                <!-- English
-                <li role="language">
-                  <a role="menuitem" tabindex="-1" href="#" onClick='switchLanguage("en")'>
-                    <% # put language name in bold if it is selected %>
-                    <% if request.cookies['locale'] == "en" %>
-                      <strong><%= i18n_t("language.english") %></strong>
-                    <% else %>
-                      <%= i18n_t("language.english") %>
-                    <% end %>
-                  </a>
-                </li>
-              </ul> -->
             </div>
       </li>
 
