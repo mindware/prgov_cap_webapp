@@ -48,9 +48,9 @@ PRgovCAPWebApp::App.controllers :validate do
     # render 'index', :layout => :prgov
     cert_id = ""
     # TODO: update this to increase security
-    if(params["cert_id"] =~ /^[0-9a-zA-Z]*$/ and
-      (params["cert_id"].length > 6 and params["cert_id"].length < 36))
-      cert_id = params["cert_id"]
+    if(params["certid"] =~ /^[0-9a-zA-Z]*$/ and
+      (params["certid"].length > 6 and params["certid"].length < 36))
+      cert_id = params["certid"]
     end
     render 'cap', :layout => :prgov, :locals => { :cert_id => cert_id }
   end
