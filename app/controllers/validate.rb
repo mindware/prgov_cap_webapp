@@ -69,38 +69,80 @@ PRgovCAPWebApp::App.controllers :validate do
   end
 
   post :check, :map => '/validar/cap/check' do
+    # clean up any spaces
+    params["cert_id"]   = params["cert_id"].strip
+    params["person_id"] = params["person_id"].strip
+
+    # default value for flags to detect if we found a passport
+    # or ssn.
+    ssn = false
+    passport = false
+
+    # Add errors if required values are empty
     error = ""
     error << "&cid=false" if(params["cert_id"].to_s.length == 0)
     error << "&person_id=false" if(params["person_id"].to_s.length == 0)
     error << "&captcha=false" if(!recaptcha_valid?)
 
+    # Now lets validate the cert_id structure. Improve this later
+    # so that we also find empty cid here.
+    if(!(params["cert_id"] =~ /^[0-9a-zA-Z]*$/ and
+      (params["cert_id"].length > 6 and params["cert_id"].length < 36)))
+        error << "&cid=false"
+    end
+
+    # now check the person_id to see if it's a valid ssn or passport
+    # if numeric only and SSN(4) and max passport length (9)
+    if(params["person_id"] =~ /^[0-9]*$/ and params["person_id"].length == 4)
+        ssn = true
+    # if it is a passport (length 9)
+    # should we have flexibility for passports?
+    # Online standards suggest a length of 9 at this time.
+    elsif(params["person_id"] =~ /^[0-9a-zA-Z]*$/ and
+          params["person_id"].length == 9)
+          # params["person_id"].length >= 6 and
+          # params["person_id"].length <= 20)
+          passport = true
+    else
+      error << "&person_id=false"
+    end
+
     if(error.length > 0)
        redirect to ("/validar/cap?errors=true#{error}&cert_id=#{params['cert_id']}")
     else
-       # TODO: we should either receive passport or ssn, for now just hack
-       # it to always be ssn.
+       # Set up the payload. Append
+       # the data that we'll send to GMQ.
        payload = {
                     "tx_id" => params["cert_id"],
-                    "ssn"   => params["person_id"],
-                    "passport" => params["passport"],
                     "IP" => request.ip
                  }
-       # TODO: should we catch errors here?
+      # if
+      if(ssn)
+        payload["ssn"] = params["person_id"]
+      end
+      if(passport)
+        payload["passport"] = params["person_id"]
+      end
+
        begin
          result = GMQ.validate_cap_request(payload)
          redirect to ("/validar/cap/status?id=#{result['id']}")
        rescue GMQ_ERROR => e
-         redirect to ("/validar/cap?errors=true&gmq=false&type=#{e.class}")
+         # this shouldn't happen unless something is wrong at the
+         # GMQ. Usually it would mean that there's a difference between
+         # our validation, and the GMQ's.
+         redirect to ("/validar/cap?errors=true&gmq=true&type=#{e.class}&cert_id=#{params['cert_id']}")
        end
     end
   end
 
   get :status, :map => '/validar/cap/status' do
-    # TODO
     # ideally we should make sure we only get here through the
     # check post page. We should set some flag here, but
     # have to take into consideration session flushing
-    # from cap controller.
+    # from cap controller. update: since we incorporate
+    # now captcha, if the captcha isnt valid, we won't make it
+    # to this point.
 
     # Check if the ID isn't empty and check that it isn't
     # absurdly long.
@@ -121,12 +163,56 @@ PRgovCAPWebApp::App.controllers :validate do
           # if it matches any of these, we've completed
           if result["status"] == "completed" or
              result["status"] == "done"
-             # stop refreshing
-             refresh = false
-             # mark us as done
-             completed = true
-             failed = false
-             percent = 100
+
+             # Now do our internal comparison of the data the user submitted
+             # vs that returned by RCI.
+             if result.has_key? "result"
+               if(result["result"].has_key? "ids")
+                 # loop through each of the ids
+                  result["result"]["ids"].each do |id|
+                    puts "Looping through #{id}"
+                    if(id.has_key? "ssn" or id.has_key? "passport")
+                       puts "NOW COMPARING SSN AND PASSPORT vs RESULT"
+                       puts "#{id["ssn"][0..3].to_s} == #{result["ssn"][0..3].to_s}"
+                        # if the requested ssn and the result ssn match, then we
+                        # have a proper match
+                        if(result["ssn"].to_s.length > 0)
+                          if(id["ssn"][0..3].to_s == result["ssn"][0..3].to_s)
+                               # stop refreshing
+                               refresh = false
+                               # mark us as done
+                               completed = true
+                               failed = false
+                               percent = 100
+                          end
+                        end
+                        # else if the user supplied a passport and it
+                        # matches
+                        if(result["passport"].to_s.length > 0)
+                          if(id["passport"].to_s == result["passport"].to_s)
+                               # stop refreshing
+                               refresh = false
+                               # mark us as done
+                               completed = true
+                               failed = false
+                               percent = 100
+                          end
+                        end
+                    end # end of checking ssn or passport keys
+                  end # end of ids loop
+               end # end of checking of ids
+             end # end of checking for results
+              # The certificate was found, but
+              # we will mark this attempt as failed,
+              # since we found an information mismatch between
+              # user's input and cert input.
+              if(!completed)
+                puts "Cert found but information mismatch in certificate validation. Failing."
+                failed = true
+                completed = true
+                refresh = false
+                percent = 100
+              end
           elsif (result["status"] == "failed")
               failed = true
               completed = false
@@ -146,12 +232,12 @@ PRgovCAPWebApp::App.controllers :validate do
               failed = true
             else
               if(session["percent"].nil?)
+                  # if empty set to default value
                  session["percent"] = percent
-              elsif session["percent"] >= 98
-                 session["percent"] = 98
               else
-                 # after 6 attempts should be 8
                  session["percent"] = session["percent"] + rand(8)
+                 # stick it to 99 if it went above 99.
+                 session["percent"] = 99 if session["percent"] > 99
               end
               percent = session["percent"]
               # continue to refresh
@@ -170,17 +256,20 @@ PRgovCAPWebApp::App.controllers :validate do
       rescue GMQ_ERROR => e
         # if the request expired or an error ocurred
         # GMQ_ERROR could also mean other types of errors tho, like 500s
-        # TODO catch special errors here too and handle them gracefully.
+        # we could consider identifying if its a 400 or 500 error.
         # update: let's just let the app handle its own critical failures
         # such as 500 errors or uncatched exceptions with its already
-        # built in defaulte rror pages. Unless it was a GMQ_ERROR, in which
+        # built in defaulte error pages. Unless it was a GMQ_ERROR, in which
         # case we redirect here:
-        redirect to ("/validar/cap?errors=true&expired=true&type=#{e.class}")
+
+        # if there was a serious error in the GMQ backend, report it.
+        if(e.message.to_s[0..2] == "500" or e.message.to_s[0..2] == "403")
+          redirect to ("/validar/cap?errors=true&gmq=true&type=#{e.class}")
+        else
+        # just let the user know that request expired.
+          redirect to ("/validar/cap?errors=true&expired=true&type=#{e.class}")
+        end
         # any other error, simply fail.
-      # rescue Exception => e
-      #   # some system is experience failure
-      #   # Todo proper logging
-      #   redirect to ("/validar/cap?errors=true&downtime=true")
       end
     end
   end
