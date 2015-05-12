@@ -26,8 +26,8 @@ es:
             No nos fue posible lgorar comunicación con el
             Registro Criminal Integrado de la Policia de Puerto Rico y
             el Sistema de Información de Justicia Criminal. Luego de
-            múltiples errores, entendemos que el sistema está fuera
-            de servicio. Por favor espere unos minutos y vuelva
+            múltiples intentos, entendemos que el mismo podria estar
+            bajo mantenimiento. Por favor espere unos minutos y vuelva
             a intentarlo.
         expired: >
             Esa página de validación ya expiró. Por favor proceda a

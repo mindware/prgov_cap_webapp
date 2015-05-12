@@ -78,6 +78,8 @@ PRgovCAPWebApp::App.controllers :validate do
   end
 
   post :check, :map => '/validar/cap/check' do
+    # reset the percentage
+    session["percent"] = nil
     # clean up any spaces
     params["cert_id"]   = params["cert_id"].strip
     params["person_id"] = params["person_id"].strip
@@ -239,7 +241,8 @@ PRgovCAPWebApp::App.controllers :validate do
             # this number is based on the amount of retries
             # of the capvalidationworker of the GMQ's
             # exponential backoff strategy.
-            if (result["error_count"].to_i >= 19)
+            # if (result["error_count"].to_i >= 19)
+            if (result["error_count"].to_i >= 1)
               percent = 100
               # do not continue refreshing if we've
               # encountered too many errors.

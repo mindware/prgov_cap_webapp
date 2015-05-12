@@ -20,20 +20,18 @@ en:
             trying to validate, and try again later.
       status:
         waiting: "Sending validation request to PR.gov's Government Messaging Queue . . ."
-        retrying: "Re-attempting validation with government agencies . . ."
+        retrying: "Verifying with government agencies . . ."
         loading: "Verifying with government agencies . . ."
         expired: >
             That validation page has already expired. Please proceed to
             enter the proper information if you'd like to see updated
             information regarding a specific certificate application number.
         downtime: |
-            We were unable to comunicate with the Integrated Criminal Registry
+            We were unable to get a proper reponse from the Integrated Criminal Registry
             of the Police Department of Puerto Rico and the Criminal Justice
-            Information System. After multiple retries and errors, we
-            believe the system may be experiencing maintainance.
-            We advise you wait a few minutes before trying once again. Should
-            you continue to encounter this problem, please report it to
-            webmaster@pr.gov.
+            Information System. After multiple retries, we
+            believe the system may be under maintainance.
+            We advise you wait a few minutes before trying once again.
         failed: |
             A certificate with that application number, %{id}, could not be
             found. It may have expired or never existed. A certificate
