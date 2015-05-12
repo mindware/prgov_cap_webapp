@@ -8,7 +8,7 @@ en:
       services, prgov app, iphone, android
   header:
     title: "New Service for Requesting Good Standing Certificate"
-    status: "beta"
+    status: "alpha"
   navbar:
     service: "Request a Certificate"
     about: "Information"
@@ -210,7 +210,7 @@ en:
     button:
       finish: "Finish"
   info:
-    header: "New: Faster, Easier and more Secure!"
+    header: "Faster, Easier and more Secure!"
     body: |
       In order to request an online Certificate of Good Standing from
       PR.gov, you'll need an identification that was once emitted by the
@@ -221,11 +221,20 @@ en:
       identification, you can call the link:tel:311[3-1-1] service of
       Puerto Rico or visit http://dtop.pr.gov[DTOP]'s website.
 
-      _This new service is currently in beta and under continous improvement.
+      This new service is currently in beta and under continous improvement.
       During this period, the service is completely free to use for requesting
       certificates and all certificates received through it are official.
-      Please be advised that don't disregard the possibility that we may
-      charge for this service in the near future._
+      Please be advised that we do not disregard the possibility that there
+      may be charges involved for this service in the future.
+
+      === Please note before May 13 2015:
+      _This beta-test will launch, officially, on May 13 2015. Prior to this
+      date we will allow an open alpha testing, during which some 'void'
+      certificates will be generated that go through the new validation
+      process. If you need to request a certificate before this date, please visit
+      your closest regional police department. During May 12 2015 we will
+      transition to emit non-void documents as we ready the system to go
+      live into beta-testing. Thanks for participating._
     button:
       start: "Begin"
 ...

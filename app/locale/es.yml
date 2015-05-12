@@ -228,7 +228,7 @@ es:
     button:
       finish: "Terminar"
   info:
-    header: "Nuevo: Más Rápido, Seguro y Fácil!"
+    header: "Más Rápido, Seguro y Fácil!"
     body: |
       Para solicitar el Nuevo Certificado de Antecedentes Penales en PR.gov,
       necesitará una identificación que haya sido emitida alguna vez por el
@@ -238,14 +238,20 @@ es:
       Para información sobre los requisitos para
       conseguir una identificación de DTOP puede comunicarse llamando por
       telefono al número link:tel:311[3-1-1] o visitar la página de internet de
-      http://dtop.pr.gov[DTOP]. Para preguntas sobre este servicio en línea,
-      puede comunicarse a webmaster@pr.gov.
+      http://dtop.pr.gov[DTOP].
 
-      _Este nuevo servicio se encuentra en un periodo de mejoramiento continuo
+      Este nuevo servicio se encuentra en un periodo de mejoramiento continuo
       conocido como beta. Durante este periodo, el servicio será
       completamente gratuito y todos los certificados emitidos mediante el
       mismo son oficiales. Le informamos que no se descarta la posibilidad
-      de cobrar por el mismo en un futuro cercano._
+      de cobrar por el mismo en un futuro cercano.
+
+      === Nota previo a Mayo 13 2015:
+      _Este servicio se lanza oficialmente en producción en Mayo 13 del 2015.
+      Previo a esta fecha estaremos realizando un periodo de beta-testing,
+      en el cual se emitirán certificados 'void' de prueba. Si necesita un
+      certificado previo a esta fecha, favor de visitar su cuartel regional
+      más cercano. Disculpe los inconvenientes._
     button:
       start: "Comenzar"
 ...
