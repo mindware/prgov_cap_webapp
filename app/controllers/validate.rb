@@ -47,16 +47,19 @@ PRgovCAPWebApp::App.controllers :validate do
     # render 'validator_cap', :layout => :prgov
     # render 'index', :layout => :prgov
     cert_id = ""
-    # this arrives as certid from the QR code scan.
-    if(params["certid"] =~ /^[0-9a-zA-Z]*$/ and
-      (params["certid"].length > 6 and params["certid"].length < 36))
+
+    # certid is how the value arrives from the QR code scan.
+    if(params["certid"].to_s =~ /^[0-9a-zA-Z]*$/ and
+      (params["certid"].to_s.length > 6 and params["certid"].to_s.length < 36))
       cert_id = params["certid"]
     end
 
-    if(params["cert_id"] =~ /^[0-9a-zA-Z]*$/ and
-      (params["cert_id"].length > 6 and params["certid"].length < 36))
+    # cert_id is how we use it on the rest of the app
+    if(params["cert_id"].to_s =~ /^[0-9a-zA-Z]*$/ and
+      (params["cert_id"].to_s.length > 6 and params["cert_id"].to_s.length < 36))
       cert_id = params["cert_id"]
     end
+
 
     render 'cap', :layout => :prgov, :locals => { :cert_id => cert_id }
   end
