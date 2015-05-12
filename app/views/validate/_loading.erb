@@ -1,4 +1,11 @@
 
 <p>
-  <%= i18n_t("validator.status.loading") %> <%= image_tag( image_path("loading.gif"), :border => 0, :alt => "loading" )%>
+  <% if(result["status"] == "waiting") %>
+      <%= i18n_t("validator.status.waiting") %>
+  <% elsif(result["status"] == "retrying") %>
+      <%= i18n_t("validator.status.retrying") %>
+  <% else %>
+      <%= i18n_t("validator.status.loading") %>  
+  <% end %>
+  <%= image_tag( image_path("loading.gif"), :border => 0, :alt => "loading" )%>
 </p>

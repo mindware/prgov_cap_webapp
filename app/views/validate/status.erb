@@ -23,12 +23,19 @@
         <div class="container">
 
           <% if completed and !failed %>
+            <!-- Everything completed successfully no failures -->
             <%= partial 'validate/completed', :locals => { :result => result } %>
           <% elsif failed and !completed %>
+            <!-- No transaction found in remote system-->
             <%= partial 'validate/failed', :locals => { :result => result } %>
           <% elsif failed and completed %>
+            <!--  Transaction found but information did not match user input -->
             <%= partial 'validate/error', :locals => { :result => result } %>
+          <% elsif downtime %>
+            <!--  The remote system is experiencing downtime, too many errors -->
+            <%= partial 'validate/downtime', :locals => { :result => result } %>
           <% else %>
+            <!-- Waiting for a response...  -->
             <%= partial 'validate/loading', :locals => { :result => result } %>
           <% end %>
 

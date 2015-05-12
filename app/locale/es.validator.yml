@@ -19,7 +19,16 @@ es:
             información que intentaba validar, e intente nuevamente
             más tarde.
       status:
+        waiting: "Enviando solicitud al Sistema de Mensajeria Gubernamental de PR.gov . . ."
+        retrying: "Reintentando validar con agencias gubernamentales . . ."
         loading: "Verificando con agencias gubernamentales . . ."
+        downtime: |
+            No nos fue posible lgorar comunicación con el
+            Registro Criminal Integrado de la Policia de Puerto Rico y
+            el Sistema de Información de Justicia Criminal. Luego de
+            múltiples errores, entendemos que el sistema está fuera
+            de servicio. Por favor espere unos minutos y vuelva
+            a intentarlo.
         expired: >
             Esa página de validación ya expiró. Por favor proceda a
             entrar la información relacionada al certificado que interesa

@@ -161,9 +161,14 @@ PRgovCAPWebApp::App.controllers :validate do
       begin
         # set the autorefresh value to off by default
         refresh = false
+        # marks as completed
         completed = false
+        # marks as a validation failure
         failed = false
-        percent = 50
+        # the default percentage
+        percent = 33
+        # marks the remote system as experincing downtime
+        downtime = false
         # perform the request to the gmq for certificate validation
         result = GMQ.validate_cap_response(params)
 
@@ -231,22 +236,29 @@ PRgovCAPWebApp::App.controllers :validate do
             # if retrying or waiting
             # check how many errors have ocurred
             # if more than x error counts
-            if (result["error_count"].to_i > 5)
+            # this number is based on the amount of retries
+            # of the capvalidationworker of the GMQ's
+            # exponential backoff strategy.
+            if (result["error_count"].to_i >= 19)
               percent = 100
               # do not continue refreshing if we've
               # encountered too many errors.
               refresh = false
               completed = false
-              # mark us as failed
-              failed = true
+              failed = false
+              # mark this as a critical error
+              downtime = true
             else
               if(session["percent"].nil?)
                   # if empty set to default value
                  session["percent"] = percent
               else
-                 session["percent"] = session["percent"] + rand(8)
-                 # stick it to 99 if it went above 99.
-                 session["percent"] = 99 if session["percent"] > 99
+                 # only raise percantage if we're not 'waiting'
+                 if(result["status"].to_s != "waiting")
+                   session["percent"] = session["percent"] + rand(8)
+                   # stick it to 99 if it went above 99.
+                   session["percent"] = 99 if session["percent"] > 99
+                end
               end
               percent = session["percent"]
               # continue to refresh
@@ -256,10 +268,12 @@ PRgovCAPWebApp::App.controllers :validate do
             end
           end
         end
+
         render 'status', :layout => :prgov, :locals => { :refresh => refresh,
                                                          :completed => completed,
                                                          :percent => percent,
                                                          :failed => failed,
+                                                         :downtime => downtime,
                                                          :result => result}
 
       rescue GMQ_ERROR => e

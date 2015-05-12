@@ -1,0 +1,12 @@
+
+  <p>
+    <%= i18n_asciidoc("validator.status.downtime") %>
+  </p>
+
+  <div class="row" style="text-align:center">
+    <div class="col-xs-12">
+      <a href="/validar/cap?cert_id=<%= "#{result['tx_id']}" %>" class="btn btn-warning btn-lg btn-block">
+        <%= i18n_t("validator.status.button.retry") %>
+      </a>
+    </div>
+  </div>
