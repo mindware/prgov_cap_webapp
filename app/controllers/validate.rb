@@ -52,6 +52,12 @@ PRgovCAPWebApp::App.controllers :validate do
       (params["certid"].length > 6 and params["certid"].length < 36))
       cert_id = params["certid"]
     end
+
+    if(params["cert_id"] =~ /^[0-9a-zA-Z]*$/ and
+      (params["cert_id"].length > 6 and params["certid"].length < 36))
+      cert_id = params["cert_id"]
+    end
+
     render 'cap', :layout => :prgov, :locals => { :cert_id => cert_id }
   end
 
