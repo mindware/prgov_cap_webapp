@@ -23,7 +23,7 @@ es:
         retrying: "Reintentando validar con agencias gubernamentales . . ."
         loading: "Verificando con agencias gubernamentales . . ."
         downtime: |
-            No nos fue posible lgorar comunicación con el
+            No nos fue posible lograr comunicación con el
             Registro Criminal Integrado de la Policia de Puerto Rico y
             el Sistema de Información de Justicia Criminal. Luego de
             múltiples intentos, entendemos que el mismo podria estar
