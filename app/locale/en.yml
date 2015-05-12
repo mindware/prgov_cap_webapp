@@ -8,7 +8,7 @@ en:
       services, prgov app, iphone, android
   header:
     title: "New Service for Requesting Good Standing Certificate"
-    status: "alpha"
+    status: "beta"
   navbar:
     service: "Request a Certificate"
     about: "Information"
