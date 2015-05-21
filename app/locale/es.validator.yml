@@ -19,7 +19,7 @@ es:
             información que intentaba validar, e intente nuevamente
             más tarde.
       status:
-        waiting: "Enviando solicitud al Sistema de Mensajeria Gubernamental de PR.gov . . ."
+        waiting: "Verificando con agencias gubernamentales . . ."
         retrying: "Reintentando validar con agencias gubernamentales . . ."
         loading: "Verificando con agencias gubernamentales . . ."
         downtime: |
@@ -82,7 +82,7 @@ es:
         form:
           placeholder:
             cert_id: "Número de Certificado o Solicitud"
-            person_id: "Núm. de Seguro Social o Pasaporte"
+            person_id: "4 digitos de Seguro Social o Pasaporte"
           label:
             cert_id: "Número de Solicitud"
             person_id: "Número de Identificación"
@@ -96,13 +96,13 @@ es:
                   ==== Certificado con Seguro Social:
 
                   Si el certificado que interesa validar contiene
-                  los últimos cuatro digitos del número de seguro social
+                  los *últimos cuatro digitos del número de seguro social*
                   proceda a entrar los mismos en el recuadro provisto
                   como el número de identificación.
 
                   ==== Certificado con Número de Pasaporte:
                   Si el certificado que interesa validar contiene un
-                  número de pasaporte, proceda a entrar los mismos como
+                  número de pasaporte, proceda a entrar el mismo como
                   el número de identificación en el recuadro provisto.
               close: "Cerrar"
       options:

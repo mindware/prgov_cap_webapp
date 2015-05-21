@@ -19,7 +19,7 @@ en:
             problem to webmaster@pr.gov with the information you're
             trying to validate, and try again later.
       status:
-        waiting: "Sending validation request to PR.gov's Government Messaging Queue . . ."
+        waiting: "Verifying with government agencies . . ."
         retrying: "Verifying with government agencies . . ."
         loading: "Verifying with government agencies . . ."
         expired: >
@@ -71,7 +71,7 @@ en:
         form:
           placeholder:
             cert_id: "Certificate or Application Number"
-            person_id: "Identification Number"
+            person_id: "4 digits of the SSN or Passport Num."
           label:
             cert_id: "Application Number"
             person_id: "Identification Number"
