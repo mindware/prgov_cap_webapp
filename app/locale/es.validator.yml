@@ -37,7 +37,8 @@ es:
             Un certificado que corresponda a ese número de solicitud, %{id},
             no pudo ser identificado. El mismo nunca existió o ya expiró,
             por tanto un certificado con esta numeración no es valido y no debe
-            aceptarse.
+            aceptarse. Recomendamos verifique que ha entrado el número
+            de solicitud correctamente.
         error: |
             Un certificado con ese *número fue encontrado*, *pero*
             la información de *identificación* que usted nos suplió
@@ -76,6 +77,15 @@ es:
         ssn: "Seguro Social"
         passport: "Número de Pasaporte"
         birth_date: "Fecha de Nacimiento"
+        generated_date: "Fecha de Solicitud"
+        type:
+            label: "Antecedentes Penales"
+            positive: >
+              La persona tiene antecedentes penales, y se identificaron al
+              momento de la emisión del certificado. El certificado tiene que
+              detallar los mismos para ser válido.
+            negative: >
+              No se identificaron antecedentes penales al momento de la emisión.
       cap:
         title: "Certificado de Antecedentes Penales"
         message: ""

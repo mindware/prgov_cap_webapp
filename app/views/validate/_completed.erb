@@ -1,47 +1,88 @@
 <%
   require 'date'
 
-  # Our whitelisted values to show
-  # Remove the "license", "generated_date", show the rest.
-  whitelist = ["name", "ssn", "passport", "birth_date"]
+  # GMQ API validation data has the following format:
+  # -------------------------------------------------
+  # {
+  #     "id"=>"0b4b69a285fd4f549769a34725828837",  # generted request id
+  #     "tx_id"=>"PRCAP1111111111111111111",       # transaction/cert id
+  #     "ssn"=>"1111",                             # submitted ssn by user
+  #     "passport"=>"",                            # submitted passport by user
+  #     "IP"=>"127.0.0.1",                         # ip
+  #     "certificate_base64"=>nil,                 # base64 if available
+  #     # From here on comes the RCI DATA SET under 'result'
+  #     # --
+  #     "result" => { "name"=>"ANDRES  COLON PEREZ",
+  #                   "ids"=> [ {"type"=>"DriverLicenseIdentification",
+  #                              "license"=>"1111111"},
+  #                            {"type"=>"SsnIdentification",
+  #                              "ssn"=>"xxx-xx-1111"}],
+  #                    "tx_id"=>"PRCAP1111111111111111111",
+  #                    "generated_date"=>"2015-05-21T12:54:19-04:00",
+  #                    "birth_date"=>"1982-01-01",
+  #                    "type"=>"NEGATIVE"},
+  #     # END OF RCI DATASET
+  #     # ---
+  #     "state"=>"done_validating_certificate_with_rci",
+  #     "status"=>"completed",
+  #     "created_at"=>"2015-06-03T09:52:13.081-04:00",
+  #     "updated_at"=>"2015-06-03 09:52:14 -0400",
+  #     "created_by"=>nil,
+  #     "location"=>"PR.Gov GMQ",
+  #     "ttl"=>900,
+  #     "expires"=>"in 15 minutes",
+  #     "error_count"=>nil,
+  #     "last_error_type"=>nil,
+  #     "last_error_date"=>nil}
+
+  # We create an array of whitelisted values that we will allow to be shown,
+  # and extracted from the GMQ API resultset, which includes RCI's data.
+  # In this example, if we skip the "license", "generated_date",
+  # by not including them in the whitelist, they will not be seen.
+  # Since the driver's license is not included in the certificate,
+  # we do not show it at this time.
+  whitelist = ["name", "ssn", "passport", "birth_date", "type",
+               "generated_date"]
 %>
 
 <h4><%= i18n_t("validator.status.done") %></h4>
-<hr>
-
+<br/>
 <div style="font-size: 20px;">
-  <% result["result"].each do |key, value|
+<%
+     result["result"].each do |key, value|
      # treat ids in the results
      # with care, by skipping the 'type' value
      if(value.class.to_s == "Array")
        value.each do |id|
          id.each do |type, num|
-  %>
-        <% if type != "type"
+          if type != "type"
               # skip if this data has not been whitelisted
              next unless whitelist.include? type
-        %>
+%>
             <div class="row">
-              <%
+<%
                 if(type.downcase == "ssn" and num.length >= 4)
                   num = num[-4..-1]
                   num = "***-**-#{num}"
                 end
-              %>
-              <div class="col-md-5" style="font-weight: bold;"><%= i18n_t("validator.result.#{type.downcase}") %>:</div>
-              <div class="col-md-7" style="font-weight: bold; color: #b20000;"><%= num %></div>
+%>
+              <div class="col-md-5" style="font-weight: bold;">
+                <%= i18n_t("validator.result.#{type.downcase}") %>:
+              </div>
+              <div class="col-md-7" style="font-weight: bold; color: #b20000;">
+                <%= num %>
+              </div>
             </div>
         <% end %>
-  <%
+<%
         end
       end
      else
        if(value.to_s.strip.length > 0)
          # skip if this data has not been whitelisted
          next unless whitelist.include? key
-  %>
+%>
       <div class="row">
-        <div class="col-md-5" style="font-weight: bold;"><%= i18n_t("validator.result.#{key.downcase}") %>:</div>
         <% if key.include? "date" %>
           <%
             #  begin
@@ -52,9 +93,34 @@
             #    value = "GUAT"
             #  end
           %>
+          <div class="col-md-5" style="font-weight: bold;"><%= i18n_t("validator.result.#{key.downcase}") %>:</div>
           <div class="col-md-7" style="font-weight: bold; color: #b20000;"><%= value %></div>
+        <%
+        # The key named 'type' on the root of the result map denotes
+        # the type of certificate that was created, either positive or negative.
+        # on very few exceptions relating to very old certificates,
+        # RCI might return an 'inconclusive' result.
+        # This key named 'type' should not be confused with RCI's values
+        # relating to the type of ids used to identify the individual. Yup,
+        # it's a bit confusing that RCI repeated the same word to signify
+        # different things, just know that it's unrelated.
+        elsif (key.to_s.strip.downcase == "type" and
+              (value.to_s.strip.downcase == "negative" or
+               value.to_s.strip.downcase == "positive"))
+        %>
+          <div class="col-md-5" style="font-weight: bold;">
+            <%= i18n_t("validator.result.type.label") %>:
+          </div>
+          <div class="col-md-7" style="font-weight: bold; color: #b20000;">
+            <%= i18n_t("validator.result.type.#{value.downcase}") %>
+          </div>
         <% else %>
-          <div class="col-md-7" style="font-weight: bold; color: #b20000;"><%= value %></div>
+          <div class="col-md-5" style="font-weight: bold;">
+            <%= i18n_t("validator.result.#{key.downcase}") %>:
+          </div>
+          <div class="col-md-7" style="font-weight: bold; color: #b20000;">
+            <%= value %>
+          </div>
         <% end %>
       </div>
   <%
