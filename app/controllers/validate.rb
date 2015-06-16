@@ -199,11 +199,11 @@ PRgovCAPWebApp::App.controllers :validate do
                     puts "Looping through #{id}"
                     if(id.has_key? "ssn" or id.has_key? "passport")
                        puts "NOW COMPARING SSN AND PASSPORT vs RESULT"
-                       puts "#{id["ssn"][-4..-1].to_s} == #{result["ssn"][-4..-1].to_s}"
+                       puts "#{id["ssn"].to_s[-4..-1]} == #{result["ssn"].to_s[-4..-1]}"
                         # if the requested ssn and the result ssn match, then we
                         # have a proper match
                         if(result["ssn"].to_s.length > 0)
-                          if(id["ssn"][-4..-1].to_s == result["ssn"][-4..-1].to_s)
+                          if(id["ssn"].to_s[-4..-1] == result["ssn"].to_s[-4..-1])
                                # stop refreshing
                                refresh = false
                                # mark us as done

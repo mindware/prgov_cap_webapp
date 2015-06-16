@@ -19,7 +19,7 @@ es:
             información que intentaba validar, e intente nuevamente
             más tarde.
       status:
-        waiting: "Enviando solicitud al Sistema de Mensajeria Gubernamental de PR.gov . . ."
+        waiting: "Verificando con agencias gubernamentales . . ."
         retrying: "Reintentando validar con agencias gubernamentales . . ."
         loading: "Verificando con agencias gubernamentales . . ."
         downtime: |
@@ -37,7 +37,8 @@ es:
             Un certificado que corresponda a ese número de solicitud, %{id},
             no pudo ser identificado. El mismo nunca existió o ya expiró,
             por tanto un certificado con esta numeración no es valido y no debe
-            aceptarse.
+            aceptarse. Recomendamos verifique que ha entrado el número
+            de solicitud correctamente.
         error: |
             Un certificado con ese *número fue encontrado*, *pero*
             la información de *identificación* que usted nos suplió
@@ -76,13 +77,22 @@ es:
         ssn: "Seguro Social"
         passport: "Número de Pasaporte"
         birth_date: "Fecha de Nacimiento"
+        generated_date: "Fecha de Solicitud"
+        type:
+            label: "Antecedentes Penales"
+            positive: >
+              La persona tiene antecedentes penales, y se identificaron al
+              momento de la emisión del certificado. El certificado tiene que
+              detallar los mismos para ser válido.
+            negative: >
+              No se identificaron antecedentes penales al momento de la emisión.
       cap:
         title: "Certificado de Antecedentes Penales"
         message: ""
         form:
           placeholder:
             cert_id: "Número de Certificado o Solicitud"
-            person_id: "Núm. de Seguro Social o Pasaporte"
+            person_id: "4 digitos de Seguro Social o Pasaporte"
           label:
             cert_id: "Número de Solicitud"
             person_id: "Número de Identificación"
@@ -96,13 +106,13 @@ es:
                   ==== Certificado con Seguro Social:
 
                   Si el certificado que interesa validar contiene
-                  los últimos cuatro digitos del número de seguro social
+                  los *últimos cuatro digitos del número de seguro social*
                   proceda a entrar los mismos en el recuadro provisto
                   como el número de identificación.
 
                   ==== Certificado con Número de Pasaporte:
                   Si el certificado que interesa validar contiene un
-                  número de pasaporte, proceda a entrar los mismos como
+                  número de pasaporte, proceda a entrar el mismo como
                   el número de identificación en el recuadro provisto.
               close: "Cerrar"
       options:

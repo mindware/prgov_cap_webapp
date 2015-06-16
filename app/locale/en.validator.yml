@@ -19,7 +19,7 @@ en:
             problem to webmaster@pr.gov with the information you're
             trying to validate, and try again later.
       status:
-        waiting: "Sending validation request to PR.gov's Government Messaging Queue . . ."
+        waiting: "Verifying with government agencies . . ."
         retrying: "Verifying with government agencies . . ."
         loading: "Verifying with government agencies . . ."
         expired: >
@@ -35,7 +35,9 @@ en:
         failed: |
             A certificate with that application number, %{id}, could not be
             found. It may have expired or never existed. A certificate
-            with that application number should not be accepted.
+            with that application number should not be accepted. We recommend
+            you make sure you've entered the correct certificate application
+            number.
         error: |
             A certificate with that number *was found*, *but* the
             information supplied *did not match*. Please try again and
@@ -65,13 +67,22 @@ en:
         passport: "Passport Number"
         birth_date: "Date of Birth"
         generated_date: "Certificate Request Date"
+        type:
+            label: "Penal Antecedents"
+            positive: >
+              Yes, penal antecedents were found at the time of issuance for
+              this individual and the document must include them in order
+              to be valid.
+            negative: >
+              The individual did not have a criminal record at
+              the time of issuance.
       cap:
         title: "Good Standing Certificate"
         message: ""
         form:
           placeholder:
             cert_id: "Certificate or Application Number"
-            person_id: "Identification Number"
+            person_id: "4 digits of the SSN or Passport Num."
           label:
             cert_id: "Application Number"
             person_id: "Identification Number"
