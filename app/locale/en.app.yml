@@ -3,10 +3,22 @@ en:
   app:
       title: "PRGOV's Mobile App"
       desc: |
-        Soon we will announce the availability of download of the free and
-        official PRGOV App. With it, you can request and validate new
-        Good Standing Certificates from Puerto Rico's Police Department.
+        Download the first official PR.Gov native app for https://appsto.re/us/KyA_6.i[iPhones],
+        https://appsto.re/us/KyA_6.i[iPads] and
+        https://play.google.com/store/apps/developer?id=PR.Gov[Androids].
+        With it you may request and validate the New Good
+        Standing Certificates from the Police Department of Puerto Rico.
 
-        It will also enable you to securely scan QR-codes from the
-        government of Puerto Rico.
+        With this app you may also safely scan QR-codes from PR.Gov to access
+        a variety of new services as they become available, as the app makes
+        sure to scan and only open https secure services of the official
+        government domain (pr.gov) of the government of Puerto Rico.
+
+        In this way, this app can help you detect fraud when validating
+        documents and protect you by only accessing official government
+        validation addresses securely, and refusing non-government ones.
+
+        This app is not necessary to request a certificate or validate it as
+        all of these things may be done via the web, however, it makes it much
+        more easier so we are offering for both iOS and Android platforms.
 ...

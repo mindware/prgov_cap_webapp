@@ -81,8 +81,8 @@ PRgovCAPWebApp::App.controllers :validate do
     # reset the percentage
     session["percent"] = nil
     # clean up any spaces
-    params["cert_id"]   = params["cert_id"].strip
-    params["person_id"] = params["person_id"].strip
+    params["cert_id"]   = params["cert_id"].to_s.strip
+    params["person_id"] = params["person_id"].to_s.strip
 
     # default value for flags to detect if we found a passport
     # or ssn.
@@ -91,8 +91,8 @@ PRgovCAPWebApp::App.controllers :validate do
 
     # Add errors if required values are empty
     error = ""
-    error << "&cid=false" if(params["cert_id"].to_s.length == 0)
-    error << "&person_id=false" if(params["person_id"].to_s.length == 0)
+    error << "&cid=false" if(params["cert_id"].length == 0)
+    error << "&person_id=false" if(params["person_id"].length == 0)
     error << "&captcha=false" if(!recaptcha_valid?)
 
     # Now lets validate the cert_id structure. Improve this later
@@ -101,6 +101,13 @@ PRgovCAPWebApp::App.controllers :validate do
       (params["cert_id"].length > 6 and params["cert_id"].length < 36)))
         error << "&cid=false"
     end
+
+    # make sure people aren't entering any combination of 0s as their license/
+    # person id (ie, 000, 000000, etc.) - which has been a common attempt.
+    if(params["person_id"].gsub("0", "").length == 0)
+        error << "&person_id=false"
+    end
+
 
     # now check the person_id to see if it's a valid ssn or passport
     # if numeric only and SSN(4) and max passport length (9)
@@ -123,11 +130,14 @@ PRgovCAPWebApp::App.controllers :validate do
     else
        # Set up the payload. Append
        # the data that we'll send to GMQ.
+
+       # here we make sure to make the tx_id capitalized (upcase),
+       # as all our CAP tx_ids require a capitalized tx_id, ie: PRCAP not prcap.
+       # So let's fix it for the user for this specific transaction.
        payload = {
-                    "tx_id" => params["cert_id"],
+                    "tx_id" => params["cert_id"].upcase,
                     "IP" => request.ip
                  }
-      # if
       if(ssn)
         payload["ssn"] = params["person_id"]
       end

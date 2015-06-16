@@ -3,11 +3,23 @@ es:
   app:
       title: "App Móvil de PR.gov"
       desc: |
-        Pronto podrá descargar gratis la aplicación oficial de PRGOV.
-        Mediante la misma podrá gestionar la solicitud y al igual
-        que validar los Nuevos Certificados de Antecedentes Penales
-        de la Policía de Puerto Rico.
 
-        También podrá escanear de forma segura y confiada códigos de
-        Respuesta Rápida (QR-codes) del gobierno de Puerto Rico.
+        Ya está disponible la primera aplicación oficial nativa de PR.Gov para
+        https://appsto.re/us/KyA_6.i[iPhones],
+        https://appsto.re/us/KyA_6.i[iPads] y
+        https://play.google.com/store/apps/developer?id=PR.Gov[Androids],
+        completamente gratis.
+
+        Mediante la misma podrá https://servicios.pr.gov/cap/[solicitar] y
+        https://servicios.pr.gov/validar/cap/[validar] los
+        https://servicios.pr.gov/info[Nuevos Certificados de
+        Antecedentes Penales] de la Policía de Puerto Rico. También podrá escanear de forma
+        segura y confiada códigos de Respuesta Rápida (QR-codes) de PR.Gov
+        para acceder a nuevos servicios.
+
+        Este app se asegura que los QR-codes de los certificados son oficiales,
+        verificando que pertenecen exclusivamente a servicios seguros (https)
+        de pr.gov. El app ayuda a proteger contra intentos de fraude, validando
+        los QR-codes y accediendo solamente a páginas de internet del dominio
+        oficial del gobierno de Puerto Rico.
 ...

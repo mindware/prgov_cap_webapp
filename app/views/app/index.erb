@@ -10,23 +10,31 @@
       <div class="jumbotron">
         <div class="container">
 
-          <h3>PRGOV App</h3>
 
           <div class="row">
-            <div class="col-md-3 hidden">
-              <%= image_tag( image_path("prgov-app-icon.png"), :border => "0", :width => 75, :height => 75, :alt=> "App icon") %>
-            </div>
-            <div class="col-md-10" style="font-size: 20px;">
-              <p><%= i18n_asciidoc("app.desc") %></p>
-            </div>
+
           </div>
 
           <div class="row">
-            <div class="col-md-6" style="padding-top: 5px;">
-              <%= image_tag( image_path("get-appstore.png"), :border => "0", :alt=> "Apple Appstore icon") %>
+
+            <div class="col-xs-6 text-left" style="padding-top: 5px; z-index: 30;">
+              <%= link_to image_tag( image_path("get-appstore.png"), :border => "0", :alt=> "Apple Appstore icon"), "https://appsto.re/us/KyA_6.i" %>
             </div>
-            <div class="col-md-6" style="padding-top: 5px;">
-              <%= image_tag( image_path("get-googleplay.png"), :border => "0", :alt=> "Google Play Store icon") %>
+            <!--
+            <div class="col-xs-4 text-center hidden" style="padding-top: 5px;">
+              <%= image_tag( image_path("prgov-app-icon.png"), :border => "0", :width => 75, :height => 75, :alt=> "App icon") %>
+            </div> -->
+
+            <div class="col-xs-6 text-right" style="padding-top: 5px;">
+              <%= link_to image_tag( image_path("get-googleplay.png"), :border => "0", :alt=> "Google Play Store icon"), "https://play.google.com/store/apps/developer?id=PR.Gov" %>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12 text-justify" style="font-size: 20px;">
+              <p><%= i18n_asciidoc("app.desc") %></p>
             </div>
           </div>
 
