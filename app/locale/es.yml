@@ -13,7 +13,7 @@ es:
     service: "Solicitar un Certificado"
     about: "Información del Servicio"
     validate: "Validar un Certificado"
-    app: "App Móvil"
+    app: "Descarga el App"
   disclaimer:
     header: "Certificado de Antecedentes Penales"
     terms:
