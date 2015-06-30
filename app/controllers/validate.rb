@@ -95,10 +95,20 @@ PRgovCAPWebApp::App.controllers :validate do
     error << "&person_id=false" if(params["person_id"].length == 0)
     error << "&captcha=false" if(!recaptcha_valid?)
 
-    # Now lets validate the cert_id structure. Improve this later
-    # so that we also find empty cid here.
-    if(!(params["cert_id"] =~ /^[0-9a-zA-Z]*$/ and
-      (params["cert_id"].length > 6 and params["cert_id"].length < 36)))
+    # Now lets validate the cert_id structure.
+    # We can expect:
+    # PR.gov: PRCAP<numbers>
+    # RCI ventanilla: <numbers>  (starts with numeric id 1)
+    # RCI PRPD supervisor: <UUID> (type-4 UUID)
+    #
+    # So, in order to allow for the new type of UUID, we are including
+    # a case for removal of dashes in order to validate alphanumeric
+    # characters of the UUID properly in the first regex check of this next if.
+    # We  make sure only allowed valid characters are
+    # included, and the lengths are respected at the full cert_id (WITH dashes)
+    # and we move on.
+    if(!(params["cert_id"].gsub("-", "") =~ /^[0-9a-zA-Z]*$/ and
+      (params["cert_id"].length > 6 and params["cert_id"].length <= 36)))
         error << "&cid=false"
     end
 
