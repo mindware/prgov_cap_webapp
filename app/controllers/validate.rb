@@ -102,14 +102,19 @@ PRgovCAPWebApp::App.controllers :validate do
     # RCI PRPD supervisor: <UUID> (type-4 UUID)
     #
     # So, in order to allow for the new type of UUID, we are including
-    # a case for removal of dashes in order to validate alphanumeric
-    # characters of the UUID properly in the first regex check of this next if.
-    # We  make sure only allowed valid characters are
-    # included, and the lengths are respected at the full cert_id (WITH dashes)
-    # and we move on.
-    if(!(params["cert_id"].gsub("-", "") =~ /^[0-9a-zA-Z]*$/ and
-      (params["cert_id"].length > 6 and params["cert_id"].length <= 36)))
+    # a secondary validation for the UUID type-4.
+    # catch:
+    # if it exceeds our expected length
+    # if it doesn't conform to our expected standards
+    if(params["cert_id"].length < 7 or params["cert_id"].length > 36)
+        # puts "invalid length"
         error << "&cid=false"
+    elsif ( (params["cert_id"] =~ /^[0-9a-zA-Z]*$/).nil? and
+            (params["cert_id"] =~ /^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/).nil?)
+        # puts "improper format"
+        error << "&cid=false"
+    else
+        # puts "passed"
     end
 
     # make sure people aren't entering any combination of 0s as their license/
