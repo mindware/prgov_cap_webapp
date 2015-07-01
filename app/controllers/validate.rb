@@ -48,18 +48,37 @@ PRgovCAPWebApp::App.controllers :validate do
     # render 'index', :layout => :prgov
     cert_id = ""
 
+    ##################################
+    # Incoming payload from QR code: #
+    ##################################
     # certid is how the value arrives from the QR code scan.
     if(params["certid"].to_s =~ /^[0-9a-zA-Z]*$/ and
       (params["certid"].to_s.length > 6 and params["certid"].to_s.length < 36))
       cert_id = params["certid"]
     end
+    # add a case for our secondary type of UUID type-4 added by LoS for
+    # request manually created by supervisors at PRPD. This was added later,
+    # and was not according to spec. But we need to be able to validate
+    # everything, so it was added.
+    if(params["certid"] =~ /^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/)
+      cert_id = params["certid"]
+    end
 
+    #################################
+    # Incoming payload from app     #
+    #################################
     # cert_id is how we use it on the rest of the app
     if(params["cert_id"].to_s =~ /^[0-9a-zA-Z]*$/ and
       (params["cert_id"].to_s.length > 6 and params["cert_id"].to_s.length < 36))
       cert_id = params["cert_id"]
     end
-
+    # add a case for our secondary type of UUID type-4 added by LoS for
+    # request manually created by supervisors at PRPD. This was added later,
+    # and was not according to spec. But we need to be able to validate
+    # everything, so it was added.
+    if(params["cert_id"] =~ /^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/)
+      cert_id = params["cert_id"]
+    end
 
     render 'cap', :layout => :prgov, :locals => { :cert_id => cert_id }
   end
