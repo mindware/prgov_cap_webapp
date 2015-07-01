@@ -53,7 +53,7 @@ PRgovCAPWebApp::App.controllers :validate do
     ##################################
     # certid is how the value arrives from the QR code scan.
     if(params["certid"].to_s =~ /^[0-9a-zA-Z]*$/ and
-      (params["certid"].to_s.length > 6 and params["certid"].to_s.length < 36))
+      (params["certid"].to_s.length > 6 and params["certid"].to_s.length <= 36))
       cert_id = params["certid"]
     end
     # add a case for our secondary type of UUID type-4 added by LoS for
@@ -69,7 +69,7 @@ PRgovCAPWebApp::App.controllers :validate do
     #################################
     # cert_id is how we use it on the rest of the app
     if(params["cert_id"].to_s =~ /^[0-9a-zA-Z]*$/ and
-      (params["cert_id"].to_s.length > 6 and params["cert_id"].to_s.length < 36))
+      (params["cert_id"].to_s.length > 6 and params["cert_id"].to_s.length <= 36))
       cert_id = params["cert_id"]
     end
     # add a case for our secondary type of UUID type-4 added by LoS for
@@ -128,13 +128,56 @@ PRgovCAPWebApp::App.controllers :validate do
     if(params["cert_id"].length < 7 or params["cert_id"].length > 36)
         # puts "invalid length"
         error << "&cid=false"
-    elsif ( (params["cert_id"] =~ /^[0-9a-zA-Z]*$/).nil? and
-            (params["cert_id"] =~ /^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/).nil?)
-        # puts "improper format"
-        error << "&cid=false"
-    else
-        # puts "passed"
     end
+
+
+    # flag to determine if a cap id has error has ocurred, in which
+    # the current cert_id has been found to not be a proper id.
+    cert_id_error = false
+
+    # If this cert id matches a proper CAP tx_id
+    # that consists of: PRCAP<numbers> (prgov) or 1<numbers> (rci)
+    # then we should enforce upper casing, since RCI API is not currently
+    # able to perform case insensitive searches, which makes it difficult
+    # for our users. Here we make sure we treat these matching IDs as
+    # uppercase
+    if ((params["cert_id"] =~ /^[0-9a-zA-Z]*$/).nil?)
+      cert_id_error = true
+    else
+      # capitalize these matching IDs as they're expected in uppercase.
+      params["cert_id"] = params["cert_id"].upcase
+
+      # just in case, check if its a PRCAP tx_id, and detect
+      # any errors in length
+      if(params["cert_id"].include? "PRCAP" and params["cert_id"].length != 24)
+        cert_id_error = true
+      else
+        # otherwise, this is either a PRCAP or RCI transaction that is properly
+        # entered, mark the flag properly as there are no errors.
+        cert_id_error = false
+      end
+    end
+
+
+    # If this cert id matches a proper CAP tx_id
+    # that consists of: UUID type-4
+    # then we should enforce LOWER case, since RCI API is not currently
+    # able to perform case insensitive searches, which makes it difficult
+    # for our users. Here we make sure we treat these matching IDs as
+    # lowercase, per the UUID type-4 standard.
+    if ((params["cert_id"] =~ /^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$/).nil?)
+      # improper format, did not match the regexp
+      # so mark this as an error, only if a previous cert_id has not been
+      # found.
+      cert_id_error = true if cert_id_error
+    else
+      # proper format, search matched the regexp
+      cert_id_error = false
+      params["cert_id"] = params["cert_id"].downcase
+    end
+
+    # Now add the proper error if cert_id_error is still true
+    error << "&cid=false" if(cert_id_error)
 
     # make sure people aren't entering any combination of 0s as their license/
     # person id (ie, 000, 000000, etc.) - which has been a common attempt.
@@ -169,7 +212,7 @@ PRgovCAPWebApp::App.controllers :validate do
        # as all our CAP tx_ids require a capitalized tx_id, ie: PRCAP not prcap.
        # So let's fix it for the user for this specific transaction.
        payload = {
-                    "tx_id" => params["cert_id"].upcase,
+                    "tx_id" => params["cert_id"],
                     "IP" => request.ip
                  }
       if(ssn)
