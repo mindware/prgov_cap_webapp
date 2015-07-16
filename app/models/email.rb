@@ -232,7 +232,7 @@ class Email < PRgov::Base
                                ),
                   "html"    => i18n_asciidoc("email.confirmation.body",
                                   :link => "#{url}#{generate_confirmation_path()}"
-                                ),
+                                ).gsub("\n", "<br>"),
       }
 
       if(GMQ.enqueue_email(payload))
