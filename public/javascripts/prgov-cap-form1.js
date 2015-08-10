@@ -24,7 +24,7 @@ function early_checks() {
 function activate_form(active, previous) {
   // Find the current active class:
   // make it invisible
-  console.log("Requesting to activate "+ active +" form. Replacing "+ previous +" form.");
+  // console.log("Requesting to activate "+ active +" form. Replacing "+ previous +" form.");
   $("#"+ active +"").removeClass("hidden");
   // Find the specified form and make it visible
   // by removing the hidden class. We check to see
