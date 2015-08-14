@@ -1,5 +1,16 @@
-Certificado de Atencedentes Penales
-------------------------------------
+Police Department Good Standing Certificate Request
+---------------------------------------------------
+
+About: 
+------
+
+This application is part of a project designed using the United States Digital Services playbook. This is the web component of a inter-agency initiative to properly validate criminal records and emit proper good standing certificates.  
+
+The application benefits include:
+- responsive web application (adapts to different screen sizes, including mobile phones) 
+- user email validation and confirmation 
+- simplified multi-page form
+- integration with the Government Messaging Queue (GMQ) API
 
 Install:
 -------
