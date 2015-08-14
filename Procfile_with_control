@@ -1,1 +1,0 @@
-web: puma -t 0:8 -w 4 -p 3000 -e development --preload --control tcp://127.0.0.1:4000 --control-token "token" config.ru
