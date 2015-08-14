@@ -24,10 +24,16 @@ Assuming you've installed ruby 2 and gems and customized your dotenv file, here'
 - bundle install
 - foreman start
 
+Use it:
+-------
+You can use this code for anything you'd like. We encourage you to build new services, improve existing ones and even welcome security analysis of the source. We're interested in your feedback. If you'd like to do improvements, feel free to fork the code, do your updates and do a pull request.  
+
 License:
+-------
 MIT License
 
 Copyright 2015 - Government of Puerto Rico 
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
