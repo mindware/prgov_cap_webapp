@@ -11,6 +11,7 @@ The application benefits include:
 - user email validation and confirmation 
 - simplified multi-page form
 - integration with the Government Messaging Queue (GMQ) API
+- multi language support
 
 Install:
 -------
